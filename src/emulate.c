@@ -19,6 +19,7 @@ struct ARM11 {
 };
 
 /**
+ * !!Tested!!
  * initializes the memory and the registers of the given arm11 to 0
  * @param arm11
  */
@@ -56,9 +57,9 @@ void print(struct ARM11 *arm11) {
 }
 
 /**
- * //TODO: Add stuff
- * Used for testing
- * @param byte
+ * !!Tested!!
+ * Prints the binary value of a byte
+ * @param The byte we wish to print
  */
 void printByte_inBinary(uint8_t byte) {
   uint8_t mask = 0;
@@ -74,18 +75,19 @@ void printByte_inBinary(uint8_t byte) {
 }
 
 /**
+ * !!Tested!!
  * Reads that contents of a file and transfers them to memory
  * @param fileName The path of the file we wish to read
  */
 void readFile(char *fileName, struct ARM11 *arm11) {
   FILE *file = fopen(fileName, "r");
-  uint8_t byte;
+  char byte;
   int memoryLocation = 0;
 
-  while ((byte = (uint8_t) fgetc(file)) != EOF) {
+  while ((byte = (char) fgetc(file)) != EOF) {
     //printf("%d - ",c);
     //printByte_inBinary(charToByte(c));
-    arm11->memory[memoryLocation++] = byte;
+    arm11->memory[memoryLocation++] = (uint8_t) byte;
   }
 
   fclose(file);
@@ -95,6 +97,7 @@ void readFile(char *fileName, struct ARM11 *arm11) {
 int main(int argc, char **argv) {
   struct ARM11 arm11;
   initialize(&arm11);
+  readFile(argv[1], &arm11);
 
   /*do {
      stop = execute(decoded, *arm11);
@@ -106,3 +109,4 @@ int main(int argc, char **argv) {
   print(& arm11);
   return EXIT_SUCCESS;
 }
+
