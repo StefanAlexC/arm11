@@ -35,6 +35,7 @@ void initialize(struct ARM11 *arm11) {
 }
 
 /**
+ * X Not Tested X
  * Takes a memory address i and converts the next 4 bytes following the address from little endian to big endian
  * and returns the resulting 32-bit int
  * @param i
@@ -51,6 +52,7 @@ uint32_t littleToBig(int i, struct ARM11 *arm11) {
 }
 
 /**
+ * !!Tested!!
  * Takes a memory address and returns the value of the next 4 bytes following the address, representing an instruction
  * @param i
  * @param arm11
@@ -67,6 +69,7 @@ uint32_t getMemoryValue(int i, struct ARM11 *arm11) {
 }
 
 /**
+ * !!Tested!!
  * Prints the registers and the non-zero memory locations of the given arm11
  * @param arm11
  */
@@ -89,7 +92,12 @@ void print(struct ARM11 *arm11) {
   }
 }
 
-
+/**
+ * X Not Tested X
+ * Fetched the next instruction from memory
+ * @param arm11
+ * @return The fetched 32bit instruction in Big Endian format
+ */
 uint32_t fetch(struct ARM11 *arm11) {
   return littleToBig(arm11->registers[13], arm11);
 }
