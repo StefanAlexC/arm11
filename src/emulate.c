@@ -35,6 +35,38 @@ void initialize(struct ARM11 *arm11) {
 }
 
 /**
+ * Takes a memory address i and converts the next 4 bytes following the address from little endian to big endian
+ * and returns the resulting 32-bit int
+ * @param i
+ * @param arm11
+ */
+uint32_t littleToBig(int i, struct ARM11 *arm11) {
+  uint32_t value = 0;
+  int j;
+  for(j = 0; j < 4; j++) {
+    value <<= 8;
+    value += arm11->memory[i - j];
+  }
+  return value;
+}
+
+/**
+ * Takes a memory address and returns the value of the next 4 bytes following the address, representing an instruction
+ * @param i
+ * @param arm11
+ * @return value of 32 bit instruction
+ */
+uint32_t getMemoryValue(int i, struct ARM11 *arm11) {
+  uint32_t value = 0;
+  int j;
+  for(j = 0; j < 4; j++) {
+    value <<= 8;
+    value += arm11->memory[i + j];
+  }
+  return value;
+}
+
+/**
  * Prints the registers and the non-zero memory locations of the given arm11
  * @param arm11
  */
@@ -49,11 +81,17 @@ void print(struct ARM11 *arm11) {
   printf("CSPR:%8i (0x%08x) \n", arm11->registers[14], arm11->registers[14]);
 
   printf("%s\n", "Non-zero memory:");
-  for (i = 0; i < 65536; i++) {
-    if (arm11->memory[i] != 0) {
-      printf("%08x:  0x%08x \n", i, arm11->memory[i]);
+  for (i = 0; i < 65536; i+=4) {
+    uint32_t value = getMemoryValue(i, arm11);
+    if (value != 0) {
+      printf("%08x:  0x%08x \n", i, value);
     }
   }
+}
+
+
+uint32_t fetch(struct ARM11 *arm11) {
+  return littleToBig(arm11->registers[13], arm11);
 }
 
 /**
