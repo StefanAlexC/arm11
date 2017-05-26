@@ -51,23 +51,7 @@ uint32_t littleToBig(int i, struct ARM11 *arm11) {
 
 
 /**
- * Takes a memory address and returns the value of the next 4 bytes following the address, representing an instruction
- * @param i
- * @param arm11
- * @return value of 32 bit instruction
- */
-uint32_t getInstructionValue(int i, struct ARM11 *arm11) {
-  uint32_t value = 0;
-  int j;
-  for(j = 0; j < 4; j++) {
-    value <<= 8;
-    value += arm11->memory[i + j];
-  }
-  return value;
-}
-
-/**
- * prints the registers and the non-zero memory locations of the given arm11
+ * Prints the registers and the non-zero memory locations of the given arm11
  * @param arm11
  */
 void print(struct ARM11 *arm11) {
@@ -87,6 +71,42 @@ void print(struct ARM11 *arm11) {
       printf("%08x:  0x%08x \n", i, value);
     }
   }
+}
+
+/**
+ * //TODO: Add stuff
+ * Used for testing
+ * @param byte
+ */
+void printByte_inBinary(uint8_t byte) {
+  uint8_t mask = 0;
+
+  for (int i = 7 ; i >= 0 ; i--) {
+    mask = (uint8_t) (1 << i);
+    if ((mask & byte) > 0)
+      printf("1");
+    else
+      printf("0");
+  }
+  printf("\n");
+}
+
+/**
+ * Reads that contents of a file and transfers them to memory
+ * @param fileName The path of the file we wish to read
+ */
+void readFile(char *fileName, struct ARM11 *arm11) {
+  FILE *file = fopen(fileName, "r");
+  uint8_t byte;
+  int memoryLocation = 0;
+
+  while ((byte = (uint8_t) fgetc(file)) != EOF) {
+    //printf("%d - ",c);
+    //printByte_inBinary(charToByte(c));
+    arm11->memory[memoryLocation++] = byte;
+  }
+
+  fclose(file);
 }
 
 
