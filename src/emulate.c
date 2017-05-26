@@ -34,6 +34,23 @@ void initialize(struct ARM11 *arm11) {
 }
 
 /**
+ * Takes a memory address i and converts the next 4 bytes following the address from little endian to big endian
+ * and returns the resulting 32-bit int
+ * @param i
+ * @param arm11
+ */
+uint32_t littleToBig(int i, struct ARM11 *arm11) {
+  uint32_t value = 0;
+  int j;
+  for(j = 0; j < 4; j++) {
+    value <<= 8;
+    value += arm11->memory[i - j];
+  }
+  return value;
+}
+
+
+/**
  * Takes a memory address and returns the value of the next 4 bytes following the address, representing an instruction
  * @param i
  * @param arm11
@@ -84,6 +101,6 @@ int main(int argc, char **argv) {
   } while(!stop);
    */
 
-  print(& arm11);
+  print(&arm11);
   return EXIT_SUCCESS;
 }
