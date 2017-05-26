@@ -18,6 +18,20 @@ struct ARM11 {
     uint32_t registers[15];
 };
 
+//TODO: Use for testing
+void printByte_inBinary(uint8_t byte) {
+    uint8_t mask = 0;
+
+    for (int i = 7 ; i >= 0 ; i--) {
+        mask = (uint8_t) (1 << i);
+        if ((mask & byte) > 0)
+            printf("1");
+        else
+            printf("0");
+    }
+    printf("\n");
+}
+
 /**
  * initializes the memory and the registers of the given arm11 to 0
  * @param arm11
@@ -53,6 +67,27 @@ void print(struct ARM11 *arm11) {
       printf("%08x:  0x%08x \n", i, arm11->memory[i]);
     }
   }
+}
+
+/**
+ * Reads all characters in a file
+ * @param fileName
+ */
+void readFile(char *fileName, struct ARM11 *arm11) {
+    FILE *file = fopen(fileName, "r");
+    uint8_t c;
+    int memoryLocation = 0;
+
+    while ((c = (uint8_t) fgetc(file)) != EOF) {
+        //printf("%d - ",c);
+        //printByte_inBinary((uint8_t) c);
+        arm11->memory[memoryLocation++] = c;
+    }
+
+    fclose(file);
+}
+
+
 }
 
 int main(int argc, char **argv) {
