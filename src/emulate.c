@@ -49,6 +49,21 @@ uint32_t littleToBig(int i, struct ARM11 *arm11) {
   return value;
 }
 
+/**
+ * Takes a memory address and returns the value of the next 4 bytes following the address, representing an instruction
+ * @param i
+ * @param arm11
+ * @return value of 32 bit instruction
+ */
+uint32_t getMemoryValue(int i, struct ARM11 *arm11) {
+  uint32_t value = 0;
+  int j;
+  for(j = 0; j < 4; j++) {
+    value <<= 8;
+    value += arm11->memory[i + j];
+  }
+  return value;
+}
 
 /**
  * Prints the registers and the non-zero memory locations of the given arm11
@@ -66,7 +81,7 @@ void print(struct ARM11 *arm11) {
 
   printf("%s\n", "Non-zero memory:");
   for (i = 0; i < 65536; i+=4) {
-    uint32_t value = getInstructionValue(i, arm11);
+    uint32_t value = getMemoryValue(i, arm11);
     if (value != 0) {
       printf("%08x:  0x%08x \n", i, value);
     }
@@ -121,6 +136,6 @@ int main(int argc, char **argv) {
   } while(!stop);
    */
 
-  print(&arm11);
+  print(& arm11);
   return EXIT_SUCCESS;
 }
