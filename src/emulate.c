@@ -88,6 +88,11 @@ void print(struct ARM11 *arm11) {
   }
 }
 
+
+uint32_t fetch(struct ARM11 *arm11) {
+  return littleToBig(arm11->registers[13], arm11);
+}
+
 /**
  * //TODO: Add stuff
  * Used for testing
