@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
+#include "execute/execute.h"
 
 #define MEMORY_SIZE 65536
 #define REGISTER_SIZE 15

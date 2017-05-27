@@ -89,6 +89,10 @@ void fillPipeline(char *decoded, uint32_t *fetched, struct ARM11 *arm11) {
     *fetched = fetch(arm11);
 }
 
+//TODO: Place holder for real decode
+char decode(uint32_t fetched) {
+    return (char) fetched;
+}
 
 int main(int argc, char **argv) {
     struct ARM11 arm11;
