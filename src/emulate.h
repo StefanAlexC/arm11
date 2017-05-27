@@ -18,7 +18,6 @@ typedef struct ARM11 {
      * Memory locations are only byte addressable
      * All the instruction addresses are multiples of 4
      */
-    //TODO: need to add macro for 65536, once we learn what a macro is
     uint8_t memory[MEMORY_SIZE];
 
     /**

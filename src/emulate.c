@@ -1,4 +1,4 @@
-#include "emulate.h"
+#include "emulate.h";
 
 void initialize(struct ARM11 *arm11) {
     int i;
@@ -73,12 +73,16 @@ void readFile(char *fileName, struct ARM11 *arm11) {
     int memoryLocation = 0;
 
     while ((byte = (char) fgetc(file)) != EOF) {
-        //printf("%d - ",c);
-        //printByte_inBinary(charToByte(c));
+        printByte_inBinary((uint8_t) byte);
         arm11->memory[memoryLocation++] = (uint8_t) byte;
     }
 
     fclose(file);
+}
+
+//TODO: Place holder for real decode
+char decode(uint32_t fetched) {
+    return 'b';
 }
 
 //TODO: check if it goes out of memory
@@ -87,11 +91,6 @@ void fillPipeline(char *decoded, uint32_t *fetched, struct ARM11 *arm11) {
     *fetched = fetch(arm11);
     *decoded = decode(*fetched);
     *fetched = fetch(arm11);
-}
-
-//TODO: Place holder for real decode
-char decode(uint32_t fetched) {
-    return (char) fetched;
 }
 
 int main(int argc, char **argv) {
