@@ -13,8 +13,8 @@ void initialize(struct ARM11 *arm11) {
 uint32_t littleToBig(int i, struct ARM11 *arm11) {
     uint32_t value = 0;
     int j;
-    for (j = 3; j >= 0; j--) {
-        value <<= 8;
+    for (j = BYTE_NUMBER; j > 0; j--) {
+        value <<= BYTE_VALUE;
         value += arm11->memory[i + j];
     }
     return value;
@@ -23,25 +23,24 @@ uint32_t littleToBig(int i, struct ARM11 *arm11) {
 uint32_t getMemoryValue(int i, struct ARM11 *arm11) {
     uint32_t value = 0;
     int j;
-    for (j = 0; j < 4; j++) {
-        value <<= 8;
+    for (j = 0; j < BYTE_NUMBER; j++) {
+        value <<= BYTE_VALUE;
         value += arm11->memory[i + j];
     }
     return value;
 }
 
 void print(struct ARM11 *arm11) {
-    //TODO: replace 65536 and 15 with macros
     int i;
     printf("%s\n", "Registers:");
-    for (i = 0; i < 12; i++) {
+    for (i = 0; i < GP_REGISTERS; i++) {
         printf("$%-2i :%8i (0x%08x) \n", i, arm11->registers[i], arm11->registers[i]);
     }
     printf("PC  :%8i (0x%08x) \n", arm11->PC, arm11->PC);
     printf("CSPR:%8i (0x%08x) \n", arm11->CSPR, arm11->CSPR);
 
     printf("%s\n", "Non-zero memory:");
-    for (i = 0; i < 65536; i += 4) {
+    for (i = 0; i < MEMORY_SIZE; i += 4) {
         uint32_t value = getMemoryValue(i, arm11);
         if (value != 0) {
             printf("%08x:  0x%08x \n", i, value);
@@ -57,7 +56,7 @@ uint32_t fetch(struct ARM11 *arm11) {
 void printByte_inBinary(uint8_t byte) {
     uint8_t mask = 0;
 
-    for (int i = 7; i >= 0; i--) {
+    for (int i = BYTE_VALUE; i > 0; i--) {
         mask = (uint8_t) (1 << i);
         if ((mask & byte) > 0)
             printf("1");
