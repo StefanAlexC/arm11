@@ -12,6 +12,9 @@ char* opcodeString[] = {"AND", "EOR", "SUB", "RSB", "ADD", "TST", "TEQ", "CMP", 
 Cond condition[] = {EQ, NE, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, GE, LT, GT, LE, AL};
 char* conditionString[] = {"EQ", "NE", "GE", "LT", "GT", "LE", "AL"};
 
+ShiftType shift[] = {LSL, LSR, ASR, ROR};
+char* shiftString[] = {"LSL", "LSR", "ASR", "ROR"};
+
 void printBits(uint32_t bits) {
     uint32_t mask = (uint32_t) (1 << (INSTR_BITS - 1));
 
@@ -149,4 +152,12 @@ Opcode getOpcode(uint32_t bits) {
 
 char* getOpcodeString(Opcode opcode) {
     return opcodeString[opcode];
+}
+
+ShiftType getShiftType(uint32_t bits) {
+    return shift[bits];
+}
+
+char* getShiftTypeString(ShiftType shiftType) {
+    return shiftString[shiftType];
 }
