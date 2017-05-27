@@ -5,21 +5,112 @@
 #include "execute.h"
 #include "emulate.c"
 #include <stdlib.h>
-#include <stdint.h>
 #include <stdio.h>
 
 /**
  * We are working in little Endian
  */
 
+
+uint32_t genMask(int start, int end) {
+  uint32_t mask = 0;
+  for(int i = 31; i >= start; --i) {
+    if(i == end) {
+      for(int j = end; j >= start; --j) {
+        mask = mask|(1 << j);
+      }
+    }
+  }
+  return mask;
+}
+
+uint32_t extractBit(uint32_t n, int start, int end) {
+  uint32_t mask = genMask(start, end);
+  n = n&mask;
+  n = n >> start;
+  return n;
+}
+
+bool isConditionSatisfied(uint32_t condition) {
+
+  uint32_t register_CMP = ARM11.registers[14];
+  bool Z_clear = extractBit(register_CMP, 30, 30) == 0;
+  bool Z_set = extractBit(register_CMP, 30, 30) != 0;
+  bool N_equals_V = extractBit(register_CMP, 31, 31) ==
+                    extractBit(register_CMP, 28, 28);
+  bool N_not_equal_V = extractBit(register_CMP, 31, 31) !=
+                       extractBit(register_CMP, 28, 28);
+
+  switch(condition) {
+    case EQ:
+      return (Z_set);
+    case NE:
+      return (Z_clear);
+    case GE:
+      return (N_equals_V);
+    case LT:
+      return (N_not_equal_V);
+    case GT:
+      return (Z_clear&&N_equals_V);
+    case LE:
+      return (Z_set||N_not_equal_V);
+    case AL:
+      return (true);
+  }
+
+  //return (!(register_CMP >> 27)&condition != 0);
+
+}
+
+void dataProcess(uint32_t parameters[]) {
+
+}
+
+void multiply(uint32_t parameters[]) {
+  uint32_t rd = parameters[2];
+  uint32_t rn = parameters[3];
+  uint32_t rs = parameters[4];
+  uint32_t rm = parameters[5];
+
+  uint32_t condition = parameters[0];
+
+  if(isConditionSatisfied(condition)) {
+
+  }
+
+}
+
+void dataTransfer(uint32_t parameters[]) {
+
+}
+
+void branch(uint32_t parameters[]) {
+
+}
+
+void printBits(uint32_t x) {
+  int i;
+  uint32_t mask = 1 << 31;
+  for(i=0; i<32; ++i) {
+    if((x & mask) == 0){
+      printf("0");
+    }
+    else {
+      printf("1");
+    }
+    x = x << 1;
+  }
+  printf("\n");
+}
+
 /**
- * @param instruction
+ * Executes instruction based on instruction type
+ * @param instruction : instruction to be executed
  * @param type : an int describing the type of instruction
  * (either DP, MUL, DT or BRANCH);
- * @return
  */
 
-int execute(uint32_t instruction, uint32_t type) {
+void execute(uint32_t instruction, uint32_t type) {
 
   /**
    * parameters: an array of ints describing parameters of instruction type
@@ -75,30 +166,8 @@ int execute(uint32_t instruction, uint32_t type) {
       break;
     }
   }
-  return 0;
 }
 
-
-/**
- * Prints the binary representation of a number
- * Used for testing purposes
- * @param x : number to be printed
- */
-
-  void printBits(uint32_t x) {
-    int i;
-    uint32_t mask = 1 << 31;
-    for(i=0; i<32; ++i) {
-      if((x & mask) == 0){
-        printf("0");
-      }
-      else {
-        printf("1");
-      }
-      x = x << 1;
-    }
-    printf("\n");
-  }
 
 int main(void) {
   printBits(genMask(4, 11));

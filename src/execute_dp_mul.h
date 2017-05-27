@@ -5,7 +5,8 @@
 #ifndef ARM11_37_EXECUTE_H
 #define ARM11_37_EXECUTE_H
 
-#include <stdint.h>
+#include <stdlib.h>
+#include <stdbool.h>
 #include "emulate.c"
 
 #endif //ARM11_37_EXECUTE_H
@@ -27,18 +28,7 @@ enum opcode {AND, EOR, SUB, RSB, ADD, TST, TEQ, CMP, ORR, MOV};
  * @return : returns a 32 bit mask
  */
 
-uint32_t genMask(int start, int end) {
-  uint32_t mask = 0;
-  for(int i = 31; i >= start; --i) {
-    if(i == end) {
-      for(int j = end; j >= start; --j) {
-        mask = mask|(1 << j);
-      }
-    }
-  }
-  return mask;
-}
-
+uint32_t genMask(int start, int end);
 
 /**
  * Extracts all bits between two specified positions
@@ -48,30 +38,48 @@ uint32_t genMask(int start, int end) {
  * @return
  */
 
-uint32_t extractBit(uint32_t n, int start, int end) {
-  uint32_t mask = genMask(start, end);
-  n = n&mask;
-  n = n >> start;
-  return n;
-}
+uint32_t extractBit(uint32_t n, int start, int end);
 
-void dataProcess(uint32_t parameters[]) {
+/**
+ * Checks if condition bits satisfy the contents of CPSR register
+ * @param condition : condition bits to check
+ * @return : returns boolean if condition was satisfied
+ */
 
-}
+bool isConditionSatisfied(uint32_t condition);
 
-void multiply(uint32_t parameters[]) {
-  uint32_t rd = parameters[2];
-  uint32_t rn = parameters[3];
-  uint32_t rs = parameters[4];
-  uint32_t rm = parameters[5];
+/**
+ * Executes a specific data processing instruction with given parameters
+ * @param parameters : provided parameters
+ */
 
+void dataProcess(uint32_t parameters[]);
 
-}
+/**
+ * Executes a multiplication instruction with given parameters
+ * @param parameters : provided parameters
+ */
 
-void dataTransfer(uint32_t parameters[]) {
+void multiply(uint32_t parameters[]);
 
-}
+/**
+ * Executes a data transfer instruction with given parameters
+ * @param parameters : provided parameters
+ */
 
-void branch(uint32_t parameters[]) {
+void dataTransfer(uint32_t parameters[]);
 
-}
+/**
+ * Executes a branching instruction with given parameters
+ * @param parameters : provided parameters
+ */
+
+void branch(uint32_t parameters[]);
+
+/**
+ * Prints the binary representation of a number
+ * Used for testing purposes
+ * @param x : number to be printed
+ */
+
+void printBits(uint32_t x);
