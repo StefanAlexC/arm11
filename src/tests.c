@@ -68,5 +68,17 @@
 //    printBits(i);
 //    printf("\n%i\n\n", carry);
 //
+
+////  10100010100111100111 0010 10001010 / Data Processing, immediate value 138, rotate 2 * 2
+//    instr instr8 = 0xA29E728A;
 //
+////  101000 0 0100111100111 10100 10 0 1010 / Data Processing, op2 is register, constant amount 20, shift type asr, Rm = 10
+//    instr instr9 = 0xA09E7A4A;
+//
+////  101000 0 0100111100111 1101 0 01 1 1010 / Data Processing, op2 is register, Rs = 13, shift type lsr, Rm = 10
+//    instr instr10 = 0xA09E7D3A;
+//
+//    testStructs(decode(instr8));
+//    testStructs(decode(instr9));
+//    testStructs(decode(instr10));
 //}

@@ -55,8 +55,16 @@ InstrType getType(instr instruction);
  * @param operand
  * @param immediateBit
  * @return a struct containing all the useful information required to execute a Data Processing Instruction
+ * If operand2 is an immediate value, the rotate right amount is ALREADY multiplied by 2
  */
 Operand processOperand2(uint32_t operand, uint32_t immediateBit);
+
+/**
+ *
+ * @param operand
+ * Prints the data contained in the operand
+ */
+void printOperand(Operand operand);
 
 /**
  *

@@ -12,6 +12,7 @@ typedef uint32_t instr;
 
 typedef enum {EQ, NE, GE, LT, GT, LE, AL, NOTUSED} Cond;
 typedef enum {AND, EOR, SUB, RSB, ADD, TST, TEQ, CMP, ORR, MOV, UNUSED} Opcode;
+typedef enum {LSL, LSR, ASR, ROR} ShiftType;
 typedef enum {DP, M, SDT, B} InstrType;
 
 typedef struct {
@@ -28,7 +29,7 @@ typedef struct {
     uint32_t Rs;
     uint32_t bit4;
     uint32_t shiftAmount;
-    uint32_t shiftType;
+    ShiftType shiftType;
 } Operand;
 
 typedef struct {
@@ -199,5 +200,19 @@ Opcode getOpcode(uint32_t bits);
  * @return a string with the name of the opcode
  */
 char* getOpcodeString(Opcode opcode);
+
+/**
+ *
+ * @param bits
+ * @return corresponding ShiftType enum from bits
+ */
+ShiftType getShiftType(uint32_t bits);
+
+/**
+ *
+ * @param shiftType
+ * @return a string with the name of the ShiftType
+ */
+char* getShiftTypeString(ShiftType shiftType);
 
 #endif //ARM11_37_UTILS_H

@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include "decode.h"
+#include "decode_utils.h"
 
 static const uint32_t BRANCH_BITS = 0b10;
 static const uint32_t SDT_BITS = 0b01;
@@ -71,7 +72,7 @@ void initOperand(Operand* op) {
     op->I = 0;
     op->immediateValue = 0;
     op->shiftAmount = 0;
-    op->shiftType = 0;
+    op->shiftType = getShiftType(0);
 }
 
 Operand processOperand2(uint32_t operand, uint32_t immediateBit) {
@@ -92,11 +93,24 @@ Operand processOperand2(uint32_t operand, uint32_t immediateBit) {
     result.Rm = mask(operand, RM_MASK);
     uint32_t shift = mask(operand, BITS_11_4_MASK);
     result.bit4 = getBit(shift, 4);
-    result.shiftType = mask(operand, BITS_7_6_MASK);
+    result.shiftType = getShiftType(mask(operand, BITS_7_6_MASK));
     result.shiftAmount = mask(operand, BITS_11_7_MASK);
     result.Rs = mask(operand, RS_MASK);
 
     return result;
+}
+
+void printOperand(Operand operand) {
+    if (operand.I) {
+        printf("  Operand2 is an immediate value\n  Immediate value: %i\n  Rotate right amount: %i", operand.immediateValue, operand.shiftAmount);
+    } else {
+        printf("  Operand2 is a register\n  Rm: %i\n", operand.Rm);
+        if (!operand.bit4) {
+            printf("  Shift by constant amount: %i\n  Shift type: %s\n", operand.shiftAmount, getShiftTypeString(operand.shiftType));
+        } else {
+            printf("  Shift by register\n  Rs: %i\n  Shift type: %s\n", operand.Rs, getShiftTypeString(operand.shiftType));
+        }
+    }
 }
 
 DataProcessingInstruction* decodeDP(DecodedInstruction* base, instr instruction) {
@@ -176,6 +190,9 @@ void* decode(instr instruction) {
 void printDPI(DataProcessingInstruction *dp) {
     printf("Data contained in Data Processing instr: \n Cond: %s\n I: %i\n Opcode: %s\n S: %i\n Rn: %i\n Rd: %i\n",
            getCondString(dp->baseInstr.condition), dp->immediate, getOpcodeString((dp->opcode)), dp->set, dp->baseInstr.Rn, dp->baseInstr.Rd);
+    printf(" Operand data:\n");
+    printOperand(dp->operand2);
+    printf("\n");
 }
 
 void printMI(MultiplyInstruction *mi) {
@@ -208,4 +225,5 @@ void testStructs(void* instrPtr) {
         BranchInstruction *bi = (BranchInstruction *) instrPtr;
         printBI(bi);
     }
+    printf("\n");
 }
