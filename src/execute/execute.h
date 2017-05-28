@@ -5,6 +5,7 @@
 #include "../ARM11.h"
 #include <stdbool.h>
 #include <stdint.h>
+#include "execute_mul.h"
 
 #define CSPR (arm11->registers[14] >> 28)
 
