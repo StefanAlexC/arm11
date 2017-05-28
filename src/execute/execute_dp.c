@@ -3,8 +3,6 @@
 //
 
 #include "../emulate.h"
-#include "../decode/decode_utils.h"
-#include "barrel_shifter.h"
 #include "execute_dp.h"
 
 uint32_t offsetRegister(uint32_t registerIndex) {
@@ -60,43 +58,23 @@ bool addOverflows(uint32_t number1, uint32_t number2) {
 }
 
 bool subOverflows(uint32_t number1, uint32_t number2) {
-    return !((int)(number1 - number2) < 0);
+    return (int)(number1 - number2) >= 0;
 }
 
 bool rsbOverflows(uint32_t number1, uint32_t number2) {
-    return !((int)(number2 - number1) < 0);
+    return (int)(number2 - number1) >= 0;
 }
 
 void writeDestinationRegister(ARM11* arm, uint32_t destinationIndex, uint32_t newValue) {
     arm->registers[offsetRegister(destinationIndex)] = newValue;
 }
 
-bool writesResult(Opcode mnemonic) {
-    switch (mnemonic) {
-        case TST:
-            return false;
-        case TEQ:
-            return false;
-        case CMP:
-            return false;
-        default:
-            return true;
-    }
+bool writesResult(Opcode opcode) {
+    return !(opcode == TST || opcode == TEQ || opcode == CMP);
 }
 
 bool isArithmeticFunction(Opcode opcode) {
-    switch (opcode) {
-        case ADD:
-            return true;
-        case SUB:
-            return true;
-        case RSB:
-            return true;
-        case CMP:
-            return true;
-        default:
-            return false;
-    }
+    return opcode == ADD || opcode == SUB || opcode == RSB || opcode == CMP;
 }
 
 bool isLogicalFunction(Opcode opcode) {
@@ -153,7 +131,7 @@ void setCPSR(IntermediateResult finalResult, ARM11* arm) {
     setN(cpsrPtr, getBit(finalResult.result, N_BIT));
 }
 
-void executeDP(DataProcessingInstruction *dpi, ARM11* arm) {
+void dataProcessing(DataProcessingInstruction *dpi, ARM11 *arm) {
     IntermediateResult secondOperand = computeSecondOperand(arm, dpi);
     IntermediateResult finalResult = applyFunction(arm, dpi, secondOperand);
 

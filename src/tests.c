@@ -42,7 +42,7 @@ void testAndImm(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
     //EXPECTED: 4;
@@ -70,7 +70,7 @@ void testAndRegShiftByConstant(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
     //EXPECTED: 80;
@@ -97,7 +97,7 @@ void testAndRegShiftByRegister(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
 //    EXPECTED: 36;
@@ -124,7 +124,7 @@ void testEorImm(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
     //EXPECTED: 4026531938;
@@ -151,7 +151,7 @@ void testEorRegShiftByConstant(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
     //EXPECTED: 36;
@@ -178,10 +178,10 @@ void testEorRegShiftByRegister(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
-    EXPECTED: 91;
+//    EXPECTED: 91;
     assert(arm.registers[rd] == 91);
 
     printf("\n");
@@ -205,7 +205,7 @@ void testOrrImm(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
 //    //EXPECTED: 4026531942;
@@ -232,7 +232,7 @@ void testOrrRegShiftByConstant(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
     //EXPECTED: 116;
@@ -259,7 +259,7 @@ void testOrrRegShiftByRegister(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
 //    EXPECTED: 127;
@@ -286,7 +286,7 @@ void testTstImm(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
     //EXPECTED: 0;
@@ -313,7 +313,7 @@ void testTstImm2(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
     //EXPECTED: 0;
@@ -340,7 +340,7 @@ void testTstRegShiftByConstant(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
     //EXPECTED: 0;
@@ -367,7 +367,7 @@ void testTstRegShiftByRegister(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
 //    EXPECTED: 0;
@@ -394,7 +394,7 @@ void testTeqImm(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
     //EXPECTED: 0;
@@ -421,7 +421,7 @@ void testTeqRegShiftByConstant(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
     //EXPECTED: 0;
@@ -448,10 +448,10 @@ void testTeqRegShiftByRegister(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
-    EXPECTED: 0;
+//    EXPECTED: 0;
     assert(arm.registers[rd] == 0);
 
     printf("\n");
@@ -472,7 +472,7 @@ void testMovImm(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
     //EXPECTED: 4026531846;
@@ -496,7 +496,7 @@ void testMovRegShiftByConstant(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
     //EXPECTED: 80;
@@ -520,7 +520,7 @@ void testMovRegShiftByRegister(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
 //    EXPECTED: 47;
@@ -547,7 +547,7 @@ void testAddImm(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 //
     //EXPECTED: 4026531946;
@@ -574,7 +574,7 @@ void testAddImm2(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 //
     //EXPECTED: 4026531845;
@@ -601,7 +601,7 @@ void testAddRegShiftByConstant(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
     //EXPECTED: 196;
@@ -628,7 +628,7 @@ void testAddRegShiftByRegister(void) {
 
     void *instrPtr = decode(instruction);
     DataProcessingInstruction *dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
 //    EXPECTED: 163;
@@ -655,7 +655,7 @@ void testSubImm(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
     //EXPECTED: 3;
@@ -682,7 +682,7 @@ void testSubRegShiftByConstant(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
     //EXPECTED: 36;
@@ -709,7 +709,7 @@ void testSubRegShiftByRegister(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
 //    EXPECTED: 69;
@@ -736,7 +736,7 @@ void testRsbImm(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
     //EXPECTED: 5;
@@ -763,7 +763,7 @@ void testRsbRegShiftByConstant(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
     //EXPECTED: 1572;
@@ -790,7 +790,7 @@ void testRsbRegShiftByRegister(void) {
 //
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
 //    EXPECTED: 84;
@@ -817,7 +817,7 @@ void testCmpImm(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
     //EXPECTED: 0;
@@ -844,7 +844,7 @@ void testCmpRegShiftByConstant(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
     //EXPECTED: 0;
@@ -871,7 +871,7 @@ void testCmpRegShiftByRegister(void) {
 
     void* instrPtr = decode(instruction);
     DataProcessingInstruction* dpi = (DataProcessingInstruction *) instrPtr;
-    executeDP(dpi, &arm);
+    dataProcessing(dpi, &arm);
     print(&arm);
 
 //    EXPECTED: 0;
@@ -957,6 +957,7 @@ void testCmpRegShiftByRegister(void) {
 //    testStructs(decode(instr10));
 
 
+
 //    testAndImm();
 //    testAndRegShiftByConstant();
 //    testAndRegShiftByRegister();
@@ -964,37 +965,37 @@ void testCmpRegShiftByRegister(void) {
 //    testEorImm();
 //    testEorRegShiftByConstant();
 //    testEorRegShiftByRegister();
-
+//
 //    testOrrImm();
 //    testOrrRegShiftByConstant();
 //    testOrrRegShiftByRegister();
-
+//
 //    testTstImm();
 //    testTstImm2();
 //    testTstRegShiftByConstant();
 //    testTstRegShiftByRegister();
-
+//
 //    testTeqImm();
 //    testTeqRegShiftByConstant();
 //    testTeqRegShiftByRegister();
-
+//
 //    testMovImm();
 //    testMovRegShiftByConstant();
 //    testMovRegShiftByRegister();
-
+//
 //    testAddImm();
 //    testAddImm2();
 //    testAddRegShiftByConstant();
 //    testAddRegShiftByRegister();
-
+//
 //    testSubImm();
 //    testSubRegShiftByConstant();
 //    testSubRegShiftByRegister();
-
+//
 //    testRsbImm();
 //    testRsbRegShiftByConstant();
 //    testRsbRegShiftByRegister();
-
+//
 //    testCmpImm();
 //    testCmpRegShiftByConstant();
 //    testCmpRegShiftByRegister();

@@ -120,6 +120,6 @@ void setCPSR(IntermediateResult finalResult, ARM11* arm);
  * @param arm
  * Executes the instruction
  */
-void executeDP(DataProcessingInstruction *dpi , ARM11* arm);
+void dataProcessing(DataProcessingInstruction *dpi, ARM11 *arm);
 
 #endif //ARM11_37_EXECUTE_DP_H

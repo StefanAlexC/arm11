@@ -10,13 +10,12 @@ FLAG execute(void *decoded, ARM11 *arm11) {
                 //TODO: Add function call
                 return BRANCH;
             case DP:
-                //TODO: Add function call
+                dataProcessing((DataProcessingInstruction *) decodedInstruction, arm11);
                 return NORMAL;
             case M:
                 multiply((MultiplyInstruction *) decodedInstruction, arm11);
                 return NORMAL;
             case SDT:
-                //TODO: Add function call
                 dataTransfer(*((SingleDataTransferInstruction *) decodedInstruction), arm11);
                 return NORMAL;
             default:

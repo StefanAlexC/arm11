@@ -7,6 +7,7 @@
 #include <stdint.h>
 #include "execute_mul.h"
 #include "execute_SDT.h"
+#include "execute_dp.h"
 
 #define CSPR_SIGNIFICANT_BITS (arm11->registers[14] >> 28)
 
