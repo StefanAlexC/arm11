@@ -27,6 +27,6 @@ uint32_t* registerFind(uint32_t r);
  * @param multiplyInstruction : given MultiplyInstruction structure
  */
 
-void multiply(MultiplyInstruction* multiplyInstruction);
+void multiply(MultiplyInstruction* multiplyInstruction, ARM11* arm11);
 
 #endif //ARM11_37_EXECUTE_H
