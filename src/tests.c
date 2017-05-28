@@ -4,7 +4,7 @@
 
 #include "decode_utils.h"
 #include "decode.h"
-#include "barrel_shifter.h"
+#include "execute/barrel_shifter.h"
 #include "stdio.h";
 
 //int main(void) {

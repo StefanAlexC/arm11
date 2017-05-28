@@ -7,7 +7,7 @@
 
 #include <stdlib.h>
 #include <stdbool.h>
-#include "emulate.c"
+#include "../emulate.c"
 
 #endif //ARM11_37_EXECUTE_H
 
@@ -17,9 +17,9 @@
 
 
 
-enum instruction {DP, MUL, DT, BRANCH};
-enum condition {EQ, LE, GE, NE, LT, GT, AL};
-enum opcode {AND, EOR, SUB, RSB, ADD, TST, TEQ, CMP, ORR, MOV};
+typedef enum {DP, MUL, DT, BRANCH} instruction ;
+typedef enum {EQ, LE, GE, NE, LT, GT, AL} condition;
+typedef enum opcode {AND, EOR, SUB, RSB, ADD, TST, TEQ, CMP, ORR, MOV};
 
 /**
  * Generates a mask in order to select specific bits

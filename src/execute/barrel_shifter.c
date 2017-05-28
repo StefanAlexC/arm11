@@ -4,8 +4,8 @@
 
 #include <assert.h>
 #include "barrel_shifter.h"
-#include "masks.h"
-#include "decode_utils.h"
+#include "../masks.h"
+#include "../decode_utils.h"
 
 uint32_t rightOperationCarry(uint32_t bits, uint32_t n) {
     return getBit(bits, n - 1);
