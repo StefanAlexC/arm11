@@ -1,11 +1,11 @@
 #ifndef ARM11_37_EXECUTE_H
 #define ARM11_37_EXECUTE_H
 
-#include "../emulate.h";
+#include "../emulate.h"
 
-enum flag {STOP, NORMAL, BRANCH};
+typedef enum FLAG {STOP, NORMAL, BRANCH} FLAG;
 
 //TODO: Add definition
-enum flag execute(char decoded, struct ARM11* arm11);
+FLAG execute(char decoded, struct ARM11* arm11);
 
 #endif //ARM11_37_EXECUTE_H

@@ -1,9 +1,12 @@
-#include <stdio.h>
+#include "execute.h"
 
-enum flag {STOP, NORMAL, BRANCH};
-
-enum flag execute(char decoded, struct ARM11* arm11) {
-    enum flag temp = STOP;
+FLAG execute(char decoded, struct ARM11* arm11) {
+    enum FLAG temp = NORMAL;
+    if (decoded == 'a') {
+        temp = STOP;
+        return temp;
+    }
+    arm11->registers[10] += 1;
     return temp;
 }
 
