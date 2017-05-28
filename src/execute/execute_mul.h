@@ -29,13 +29,4 @@ uint32_t* registerFind(uint32_t r);
 
 void multiply(MultiplyInstruction* multiplyInstruction);
 
-
-/**
- * Prints the binary representation of a number
- * Used for testing purposes
- * @param x : number to be printed
- */
-
-void printBits(uint32_t x);
-
 #endif //ARM11_37_EXECUTE_H

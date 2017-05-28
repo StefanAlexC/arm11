@@ -6,8 +6,9 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include "execute_mul.h"
+#include "execute_SDT.h"
 
-#define CSPR (arm11->registers[14] >> 28)
+#define CSPR_SIGNIFICANT_BITS (arm11->registers[14] >> 28)
 
 /**
  * Handle the execution of an instruction

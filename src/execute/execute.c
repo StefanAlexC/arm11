@@ -17,6 +17,7 @@ FLAG execute(void *decoded, ARM11 *arm11) {
                 return NORMAL;
             case SDT:
                 //TODO: Add function call
+                dataTransfer(*((SingleDataTransferInstruction *) decodedInstruction), arm11);
                 return NORMAL;
             default:
                 //TODO: Add error once learned
@@ -45,6 +46,6 @@ uint32_t extractBit(uint32_t n, int start, int end) {
 }
 
 bool isConditionSatisfied(Cond condition, ARM11 *arm11) {
-    return condition == getCond(CSPR);
+    return condition == getCond(CSPR_SIGNIFICANT_BITS);
 }
 
