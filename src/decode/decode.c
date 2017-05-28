@@ -47,12 +47,17 @@ bool isMultiplyInstruction(instr instruction) {
            && !isBranchInstruction(instruction);
 }
 
+bool isHaltInstruction(instr instruction) {
+    return instruction == 0;
+}
+
 void testInstr(instr instruction) {
-    printf("Data Processing Instr: %i ; Multiply: %i ; SDT: %i ; Branch: %i\n",
+    printf("Data Processing Instr: %i ; Multiply: %i ; SDT: %i ; Branch: %i; Halt: %i",
            isDataProcessingInstruction(instruction),
            isMultiplyInstruction(instruction),
            isSingleDataTransferInstruction(instruction),
-           isBranchInstruction(instruction));
+           isBranchInstruction(instruction),
+           isHaltInstruction(instruction));
 }
 
 InstrType getType(instr instruction) {
@@ -62,8 +67,10 @@ InstrType getType(instr instruction) {
         return M;
     } else if (isSingleDataTransferInstruction(instruction)) {
         return SDT;
-    } else {
+    } else if (isBranchInstruction(instruction)) {
         return B;
+    } else {
+        return H;
     }
 }
 
@@ -172,6 +179,15 @@ BranchInstruction* decodeB(DecodedInstruction* base, instr instruction) {
     return bi;
 }
 
+DecodedInstruction* decodeH(DecodedInstruction* base) {
+    DecodedInstruction* hi;
+    hi = malloc(sizeof(DecodedInstruction));
+
+    hi->type = H;
+
+    return hi;
+}
+
 void* decode(instr instruction) {
     DecodedInstruction base;
     base.type = getType(instruction);
@@ -182,8 +198,10 @@ void* decode(instr instruction) {
         return decodeM(&base, instruction);
     } else if (base.type == SDT) {
         return decodeSDT(&base, instruction);
-    } else {
+    } else if (base.type == B) {
         return decodeB(&base, instruction);
+    } else {
+        return decodeH(&base);
     }
 }
 
@@ -221,9 +239,11 @@ void testStructs(void* instrPtr) {
     } else if (dec->type == SDT) {
         SingleDataTransferInstruction *sdti = (SingleDataTransferInstruction *) instrPtr;
         printSDTI(sdti);
-    } else {
+    } else if (dec->type == B){
         BranchInstruction *bi = (BranchInstruction *) instrPtr;
         printBI(bi);
+    } else {
+        printf("Halt instruction!");
     }
     printf("\n");
 }

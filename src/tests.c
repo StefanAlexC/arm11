@@ -2,10 +2,10 @@
 // Created by DAVID BUTEREZ on 26/05/17.
 //
 
-#include "decode_utils.h"
-#include "decode.h"
+#include "decode/decode_utils.h"
+#include "decode/decode.h"
 #include "execute/barrel_shifter.h"
-#include "stdio.h";
+#include "stdio.h"
 
 //int main(void) {
 ////  10100000100111100111000001111000  / Data Processing
@@ -68,7 +68,7 @@
 //    printBits(i);
 //    printf("\n%i\n\n", carry);
 //
-
+//
 ////  10100010100111100111 0010 10001010 / Data Processing, immediate value 138, rotate 2 * 2
 //    instr instr8 = 0xA29E728A;
 //

@@ -6,14 +6,14 @@
 #define ARM11_37_UTILS_H
 
 #include <stdint.h>
-#include "masks.h"
+#include "../masks.h"
 
 typedef uint32_t instr;
 
 typedef enum {EQ, NE, GE, LT, GT, LE, AL, NOTUSED} Cond;
 typedef enum {AND, EOR, SUB, RSB, ADD, TST, TEQ, CMP, ORR, MOV, UNUSED} Opcode;
 typedef enum {LSL, LSR, ASR, ROR} ShiftType;
-typedef enum {DP, M, SDT, B} InstrType;
+typedef enum {DP, M, SDT, B, H} InstrType;
 
 typedef struct {
     InstrType type;
