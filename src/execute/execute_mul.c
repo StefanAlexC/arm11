@@ -3,31 +3,29 @@
 //
 
 #include "../emulate.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include "execute.h"
-#include "execute_mul.h"
-#include "../decode/decode_utils.h"
 
 
-uint32_t registerFind(uint32_t r) {
-  struct ARM11 arm11;
+uint32_t* registerFind(uint32_t r) {
+  ARM11 arm11;
   uint32_t Register = arm11.registers[r];
   uint32_t *registerAddress = &Register;
+  return registerAddress;
 }
 
 void multiply(MultiplyInstruction* multiplyInstruction) {
 
-  struct ARM11 arm11;
-  DecodedInstruction *decodedInstruction =  multiplyInstruction->baseInstr;
+  DecodedInstruction* decodedInstruction = &(multiplyInstruction->baseInstr);
+
+  ARM11 arm11;
+  ARM11* Arm11 = &arm11;
 
   /**
    * Find address of each corresponding register from ARM11 structure
    */
 
-  uint32_t* rn = registerFind(*(decodedInstruction->Rn));
-  uint32_t* rs = registerFind(*(multiplyInstruction->Rs));
-  uint32_t* rm = registerFind(*(multiplyInstruction->Rm));
+  uint32_t* rn = registerFind(decodedInstruction->Rn);
+  uint32_t* rs = registerFind(multiplyInstruction->Rs);
+  uint32_t* rm = registerFind(multiplyInstruction->Rm);
 
   /**
    * Extract contents of each register
@@ -37,11 +35,11 @@ void multiply(MultiplyInstruction* multiplyInstruction) {
   uint32_t rnContents = *rn;
   uint32_t rsContents = *rs;
   uint32_t rmContents = *rm;
-  uint32_t CPSRContents = &(arm11.registers[14]);
+  uint32_t CPSRContents = arm11.registers[14];
 
-  uint32_t condition = *(decodedInstruction->condition);
-  uint32_t A = *(multiplyInstruction->accumulate);
-  uint32_t S = *(multiplyInstruction->set);
+  Cond condition = (decodedInstruction->condition);
+  uint32_t A = (multiplyInstruction->accumulate);
+  uint32_t S = (multiplyInstruction->set);
 
   uint32_t result = 0;
 
@@ -50,7 +48,7 @@ void multiply(MultiplyInstruction* multiplyInstruction) {
    * Do nothing if condition fails;
    */
 
-  if(isConditionSatisfied(condition)) {
+  if(isConditionSatisfied(condition, Arm11)) {
     //Result depends on state of accumulator parameter
     if(A != 0) {
       result = extractBit(rnContents*rsContents+rmContents, 0, 31);
@@ -75,8 +73,8 @@ void multiply(MultiplyInstruction* multiplyInstruction) {
      * Update contents of CPSR register
      */
 
-    arm11.registers[*(decodedInstruction->Rd)] = result;
-    arm11->registers[14] = CPSRContents;
+    arm11.registers[decodedInstruction->Rd] = result;
+    arm11.registers[14] = CPSRContents;
   }
 
 
@@ -97,6 +95,7 @@ void printBits(uint32_t x) {
   printf("\n");
 }
 
+/**
 int main(void) {
   printBits(genMask(4, 11));
   printBits(0xff0);
@@ -105,7 +104,7 @@ int main(void) {
 
   return 0;
 }
-
+*/
 
 
 
