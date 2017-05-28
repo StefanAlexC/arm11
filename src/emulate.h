@@ -14,6 +14,7 @@
 #define BYTE_NUMBER 4
 #define PC registers[13]
 #define CSPR registers[14]
+#define FILE_NAME argv[1]
 
 typedef struct ARM11 {
     /**
@@ -29,7 +30,7 @@ typedef struct ARM11 {
     * registers[14] represents the Flags Register(CPSR)
     */
     uint32_t registers[REGISTER_SIZE];
-};
+} ARM11;
 
 /**
  * !!Tested!!

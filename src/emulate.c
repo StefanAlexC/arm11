@@ -1,6 +1,6 @@
-#include "emulate.h";
+#include "emulate.h"
 
-void initialize(struct ARM11 *arm11) {
+void initialize(ARM11 *arm11) {
     int i;
     for (i = 0; i < MEMORY_SIZE; i++) {
         arm11->memory[i] = DEFAULT_VALUE;
@@ -10,7 +10,7 @@ void initialize(struct ARM11 *arm11) {
     }
 }
 
-uint32_t littleToBig(int i, struct ARM11 *arm11) {
+uint32_t littleToBig(int i, ARM11 *arm11) {
     uint32_t value = 0;
     int j;
     for (j = BYTE_NUMBER; j > 0; j--) {
@@ -20,7 +20,7 @@ uint32_t littleToBig(int i, struct ARM11 *arm11) {
     return value;
 }
 
-uint32_t getMemoryValue(int i, struct ARM11 *arm11) {
+uint32_t getMemoryValue(int i, ARM11 *arm11) {
     uint32_t value = 0;
     int j;
     for (j = 0; j < BYTE_NUMBER; j++) {
@@ -30,7 +30,7 @@ uint32_t getMemoryValue(int i, struct ARM11 *arm11) {
     return value;
 }
 
-void print(struct ARM11 *arm11) {
+void print(ARM11 *arm11) {
     int i;
     printf("%s\n", "Registers:");
     for (i = 0; i < GP_REGISTERS; i++) {
@@ -48,9 +48,11 @@ void print(struct ARM11 *arm11) {
     }
 }
 
-uint32_t fetch(struct ARM11 *arm11) {
+uint32_t fetch(ARM11 *arm11) {
     //TODO: Might need to add error if not multiple of 4
-    return littleToBig(arm11->PC, arm11);
+    uint32_t fetchedData = littleToBig(arm11->PC, arm11);
+    arm11->PC += 4;
+    return fetchedData;
 }
 
 void printByte_inBinary(uint8_t byte) {
@@ -66,7 +68,7 @@ void printByte_inBinary(uint8_t byte) {
     printf("\n");
 }
 
-void readFile(char *fileName, struct ARM11 *arm11) {
+void readFile(char *fileName, ARM11 *arm11) {
     FILE *file = fopen(fileName, "r");
     char byte;
     int memoryLocation = 0;
@@ -81,11 +83,13 @@ void readFile(char *fileName, struct ARM11 *arm11) {
 
 //TODO: Place holder for real decode
 char decode(uint32_t fetched) {
+    if (fetched == 0)
+        return 'a';
     return 'b';
 }
 
 //TODO: check if it goes out of memory
-void fillPipeline(char *decoded, uint32_t *fetched, struct ARM11 *arm11) {
+void fillPipeline(char *decoded, uint32_t *fetched, ARM11 *arm11) {
 
     *fetched = fetch(arm11);
     *decoded = decode(*fetched);
@@ -93,25 +97,29 @@ void fillPipeline(char *decoded, uint32_t *fetched, struct ARM11 *arm11) {
 }
 
 int main(int argc, char **argv) {
-    struct ARM11 arm11;
+    ARM11 arm11;
     initialize(&arm11);
-    readFile(argv[1], &arm11);
+    readFile(FILE_NAME, &arm11);
 
     uint32_t fetched;
     //TODO: Change type to struct from David
     char decoded;
-    short int flag = 0;
+    enum FLAG flagExecute = NORMAL;
 
+    /**
+     * This simulates the execution loop and pipeline of the ARM11
+     */
     fillPipeline(&decoded, &fetched, &arm11);
     do {
-        flag = execute(decoded, &arm11);
-
-        if (flag == 1) {
-
+        flagExecute = execute(decoded, &arm11);
+        if (flagExecute == BRANCH) {
+            //TODO change program counter
+            fillPipeline(&decoded, &fetched, &arm11);
+        } else if (flagExecute == NORMAL) {
+            decoded = decode(fetched);
+            fetched = fetch(&arm11);
         }
-        decoded = decode(fetched);
-        fetched = fetch(&arm11);
-    } while (flag == -1);
+    } while (flagExecute != STOP);
 
     print(&arm11);
     return EXIT_SUCCESS;
