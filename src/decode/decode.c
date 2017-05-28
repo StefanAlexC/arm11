@@ -61,7 +61,9 @@ void testInstr(instr instruction) {
 }
 
 InstrType getType(instr instruction) {
-    if (isDataProcessingInstruction(instruction)) {
+    if (instruction == 0) {
+        return H;
+    } else if (isDataProcessingInstruction(instruction)) {
         return DP;
     } else if (isMultiplyInstruction(instruction)) {
         return M;
@@ -70,7 +72,7 @@ InstrType getType(instr instruction) {
     } else if (isBranchInstruction(instruction)) {
         return B;
     } else {
-        return H;
+        //TODO: MIGHT NEED TO ADD ERROR
     }
 }
 
