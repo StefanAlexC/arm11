@@ -5,9 +5,13 @@
 #include "../emulate.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "execute.c"
+
 
 
 uint32_t* registerFind(uint32_t r) {
+  struct ARM11 *arm11;
+
   uint32_t* baseRegister = &(ARM11.registers);
   while(baseRegister != r) {
     ++baseRegister;
