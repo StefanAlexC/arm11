@@ -1,5 +1,4 @@
 #include "execute.h"
-#include "../ARM11.h"
 
 FLAG execute(void *decoded, ARM11 *arm11) {
     DecodedInstruction *decodedInstruction = (DecodedInstruction *) decoded;
@@ -13,7 +12,8 @@ FLAG execute(void *decoded, ARM11 *arm11) {
             case DP:
                 //TODO: Add function call
             case M:
-                //TODO: Add function call
+                multiply((MultiplyInstruction *) decodedInstruction);
+                return NORMAL;
             case SDT:
                 //TODO: Add function call
                 return NORMAL;

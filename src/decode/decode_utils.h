@@ -6,7 +6,7 @@
 #define ARM11_37_UTILS_H
 
 #include <stdint.h>
-#include "../masks.h"
+#include "masks.h"
 
 typedef uint32_t instr;
 
