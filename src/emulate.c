@@ -50,7 +50,9 @@ void print(ARM11 *arm11) {
 
 uint32_t fetch(ARM11 *arm11) {
     //TODO: Might need to add error if not multiple of 4
-    return littleToBig(arm11->PC, arm11);
+    uint32_t fetchedData = littleToBig(arm11->PC, arm11);
+    arm11->PC += 4;
+    return fetchedData;
 }
 
 void printByte_inBinary(uint8_t byte) {
@@ -97,20 +99,23 @@ void fillPipeline(char *decoded, uint32_t *fetched, ARM11 *arm11) {
 int main(int argc, char **argv) {
     ARM11 arm11;
     initialize(&arm11);
-    readFile(argv[1], &arm11);
+    readFile(FILE_NAME, &arm11);
 
     uint32_t fetched;
     //TODO: Change type to struct from David
     char decoded;
     enum FLAG flagExecute = NORMAL;
 
+    /**
+     * This simulates the execution loop and pipeline of the ARM11
+     */
     fillPipeline(&decoded, &fetched, &arm11);
     do {
         flagExecute = execute(decoded, &arm11);
         if (flagExecute == BRANCH) {
             //TODO change program counter
             fillPipeline(&decoded, &fetched, &arm11);
-        } else {
+        } else if (flagExecute == NORMAL) {
             decoded = decode(fetched);
             fetched = fetch(&arm11);
         }
