@@ -11,8 +11,9 @@ FLAG execute(void *decoded, ARM11 *arm11) {
                 return BRANCH;
             case DP:
                 //TODO: Add function call
+                return NORMAL;
             case M:
-                multiply((MultiplyInstruction *) decodedInstruction);
+                //multiply((MultiplyInstruction *) decodedInstruction);
                 return NORMAL;
             case SDT:
                 //TODO: Add function call
