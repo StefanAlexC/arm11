@@ -1,8 +1,9 @@
 #include "execute.h"
 
-FLAG execute(char decoded, struct ARM11* arm11) {
+FLAG execute(void *decoded, struct ARM11* arm11) {
+    DecodedInstruction *decodedInstruction = (DecodedInstruction *) decoded;
     enum FLAG temp = NORMAL;
-    if (decoded == 'a') {
+    if (decodedInstruction->type == H) {
         temp = STOP;
         return temp;
     }
@@ -29,7 +30,7 @@ uint32_t extractBit(uint32_t n, int start, int end) {
     return n;
 }
 
-bool isConditionSatisfied(uint32_t condition) {
+/*bool Conditi(uint32_t condition) {
 
     uint32_t register_CMP = ARM11.registers[14];
     //uint32_t* register_CMP = (uint32_t *)((struct ARM11 *arm11)->
@@ -60,18 +61,18 @@ bool isConditionSatisfied(uint32_t condition) {
 
     //return (!(register_CMP >> 27)&condition != 0);
 
-}
+}*/
 
-**
+/**
 * Executes instruction based on instruction type
 * @param instruction : instruction to be executed
 * @param type : an int describing the type of instruction
 * (either DP, MUL, DT or BRANCH);
 */
 
-void execute(uint32_t instruction, uint32_t type) {
+/*void execute(uint32_t instruction, uint32_t type) {
 
-    /**
+    *//**
      * parameters: an array of ints describing parameters of instruction type
      * Layout for:
      * DP: [Cond (bit 27-31), I (bit 25), OpCode (bit 21-24), S (bit 20), Rn (bit
@@ -81,7 +82,7 @@ void execute(uint32_t instruction, uint32_t type) {
      * DT: [Cond (bit 27-31), P (bit 24), U (bit 23), Rn (bit 16-19), Rd (bit
      * 12-15), Offset (bit 0-11)];
      * BRANCH: [Cond (bit 27-31), Offset (bit 0-23)];
-     */
+     *//*
 
     switch (type) {
 
@@ -125,4 +126,4 @@ void execute(uint32_t instruction, uint32_t type) {
             break;
         }
     }
-}
+}*/

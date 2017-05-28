@@ -75,9 +75,6 @@ void printBits(uint32_t x) {
   printf("\n");
 }
 
-/
-
-
 int main(void) {
   printBits(genMask(4, 11));
   printBits(0xff0);

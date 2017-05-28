@@ -6,6 +6,7 @@
 #include <stdint.h>
 #include "execute/execute.h"
 
+
 #define MEMORY_SIZE 65536
 #define REGISTER_SIZE 15
 #define GP_REGISTERS 12
@@ -30,7 +31,7 @@ typedef struct ARM11 {
     * registers[14] represents the Flags Register(CPSR)
     */
     uint32_t registers[REGISTER_SIZE];
-};
+} ARM11;
 
 /**
  * !!Tested!!
@@ -89,6 +90,6 @@ void printByte_inBinary(uint8_t byte);
 void readFile(char *fileName, struct ARM11 *arm11);
 
 //TODO: Add description
-void fillPipeline(char *decoded, uint32_t *fetched, struct ARM11 *arm11);
+void fillPipeline(void **decoded, uint32_t *fetched, struct ARM11 *arm11);
 
 #endif //ARM11_37_EMULATE_H

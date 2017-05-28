@@ -1,4 +1,5 @@
 #include "emulate.h"
+#include "decode/decode.h"
 
 void initialize(ARM11 *arm11) {
     int i;
@@ -81,15 +82,8 @@ void readFile(char *fileName, ARM11 *arm11) {
     fclose(file);
 }
 
-//TODO: Place holder for real decode
-char decode(uint32_t fetched) {
-    if (fetched == 0)
-        return 'a';
-    return 'b';
-}
-
 //TODO: check if it goes out of memory
-void fillPipeline(char *decoded, uint32_t *fetched, ARM11 *arm11) {
+void fillPipeline(void **decoded, uint32_t *fetched, ARM11 *arm11) {
 
     *fetched = fetch(arm11);
     *decoded = decode(*fetched);
@@ -102,9 +96,8 @@ int main(int argc, char **argv) {
     readFile(FILE_NAME, &arm11);
 
     uint32_t fetched;
-    //TODO: Change type to struct from David
-    char decoded;
-    enum FLAG flagExecute = NORMAL;
+    void* decoded;
+    enum FLAG flagExecute;
 
     /**
      * This simulates the execution loop and pipeline of the ARM11
