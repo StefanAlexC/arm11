@@ -5,62 +5,80 @@
 #include "../emulate.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include "execute.c"
+#include "execute.h"
+#include "execute_mul.h"
+#include "../decode/decode_utils.h"
 
 
-
-uint32_t* registerFind(uint32_t r) {
-  struct ARM11 *arm11;
-
-  uint32_t* baseRegister = &(ARM11.registers);
-  while(baseRegister != r) {
-    ++baseRegister;
-  }
-  return baseRegister;
+uint32_t registerFind(uint32_t r) {
+  struct ARM11 arm11;
+  uint32_t Register = arm11.registers[r];
+  uint32_t *registerAddress = &Register;
 }
 
-void multiply(uint32_t parameters[]) {
-  uint32_t* rd = registerFind(parameters[3]);
-  uint32_t* rn = registerFind(parameters[4]);
-  uint32_t* rs = registerFind(parameters[5]);
-  uint32_t* rm = registerFind(parameters[6]);
-  uint32_t* CPSR = &(ARM11.registers[13]);
+void multiply(MultiplyInstruction* multiplyInstruction) {
 
-  uint32_t rdContents = *rd;
+  struct ARM11 arm11;
+  DecodedInstruction *decodedInstruction =  multiplyInstruction->baseInstr;
+
+  /**
+   * Find address of each corresponding register from ARM11 structure
+   */
+
+  uint32_t* rn = registerFind(*(decodedInstruction->Rn));
+  uint32_t* rs = registerFind(*(multiplyInstruction->Rs));
+  uint32_t* rm = registerFind(*(multiplyInstruction->Rm));
+
+  /**
+   * Extract contents of each register
+   */
+
+
   uint32_t rnContents = *rn;
   uint32_t rsContents = *rs;
   uint32_t rmContents = *rm;
-  uint32_t CPSRContents = *CPSR;
+  uint32_t CPSRContents = &(arm11.registers[14]);
 
-  uint32_t condition = parameters[0];
-  uint32_t A = parameters[1];
-  uint32_t S = parameters[2];
+  uint32_t condition = *(decodedInstruction->condition);
+  uint32_t A = *(multiplyInstruction->accumulate);
+  uint32_t S = *(multiplyInstruction->set);
 
   uint32_t result = 0;
 
+  /**
+   * Check if condition parameter satisfies condition;
+   * Do nothing if condition fails;
+   */
 
   if(isConditionSatisfied(condition)) {
+    //Result depends on state of accumulator parameter
     if(A != 0) {
       result = extractBit(rnContents*rsContents+rmContents, 0, 31);
     } else {
       result = extractBit(rnContents*rsContents, 0, 31);
     }
     if(S != 0) {
-
-      //CPSRContents =  ;
-      if(result == 0) {
+      //Set bit N of CPSR to 1 if bit 31 of result is 1
+      if(extractBit(result, 31, 31) != 0 ) {
+        CPSRContents = CPSRContents|(1<<31);
+      //Set bit Z of CPSR is result is zero
+      } else if(result == 0) {
         CPSRContents = CPSRContents|(1<<30);
+      //Set bit N of CPSR to 0 if bit 31 of result is 0
+      } else {
+        CPSRContents = CPSRContents|(~(1<<31));
       }
     }
+
+    /**
+     * Store result in registers field of ARM11 structure with index rd
+     * Update contents of CPSR register
+     */
+
+    arm11.registers[*(decodedInstruction->Rd)] = result;
+    arm11->registers[14] = CPSRContents;
   }
 
-}
-
-void dataTransfer(uint32_t parameters[]) {
-
-}
-
-void branch(uint32_t parameters[]) {
 
 }
 

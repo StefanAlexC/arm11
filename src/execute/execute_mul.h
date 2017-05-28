@@ -6,8 +6,8 @@
 #define ARM11_37_EXECUTE_H
 
 #include <stdlib.h>
-#include <stdbool.h>
 #include "../emulate.c"
+#include "../decode/decode_utils.h"
 
 #endif //ARM11_37_EXECUTE_H
 
@@ -19,32 +19,27 @@
 
 typedef enum {DP, MUL, DT, BRANCH} instruction ;
 typedef enum {EQ, LE, GE, NE, LT, GT, AL} condition;
-typedef enum opcode {AND, EOR, SUB, RSB, ADD, TST, TEQ, CMP, ORR, MOV};
+typedef enum {AND, EOR, SUB, RSB, ADD, TST, TEQ, CMP, ORR, MOV} opcode;
 
-
-
-void dataProcess(uint32_t parameters[]);
 
 /**
- * Executes a multiplication instruction with given parameters
- * @param parameters : provided parameters
+ * Return address of register in ARM11 structure when given register index
+ * from Instruction structure field
+ * @param r : index of register
+ * @return : pointer to specific register within registers field
  */
 
-void multiply(uint32_t parameters[]);
+uint32_t registerFind(uint32_t r);
+
 
 /**
- * Executes a data transfer instruction with given parameters
- * @param parameters : provided parameters
+ * Executes a multiplication instruction with given MultiplyInstruction
+ * structure
+ * @param multiplyInstruction : given MultiplyInstruction structure
  */
 
-void dataTransfer(uint32_t parameters[]);
+void multiply(MultiplyInstruction* multiplyInstruction);
 
-/**
- * Executes a branching instruction with given parameters
- * @param parameters : provided parameters
- */
-
-void branch(uint32_t parameters[]);
 
 /**
  * Prints the binary representation of a number
