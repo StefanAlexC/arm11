@@ -6,9 +6,9 @@
 #include "../ARM11.h"
 
 
-uint32_t* registerFind(uint32_t r) {
-  ARM11 arm11;
-  uint32_t Register = arm11.registers[r];
+
+uint32_t* registerFind(uint32_t r, ARM11* arm11) {
+  uint32_t Register = arm11->registers[r];
   uint32_t *registerAddress = &Register;
   return registerAddress;
 }
@@ -22,9 +22,9 @@ void multiply(MultiplyInstruction* multiplyInstruction, ARM11* arm11) {
    * Find address of each corresponding register from ARM11 structure
    */
 
-  uint32_t* rn = registerFind(decodedInstruction->Rn);
-  uint32_t* rs = registerFind(multiplyInstruction->Rs);
-  uint32_t* rm = registerFind(multiplyInstruction->Rm);
+  uint32_t* rn = registerFind(decodedInstruction->Rn, arm11);
+  uint32_t* rs = registerFind(multiplyInstruction->Rs, arm11);
+  uint32_t* rm = registerFind(multiplyInstruction->Rm, arm11);
 
   /**
    * Extract contents of each register
@@ -57,13 +57,13 @@ void multiply(MultiplyInstruction* multiplyInstruction, ARM11* arm11) {
     if(S != 0) {
       //Set bit N of CPSR to 1 if bit 31 of result is 1
       if(extractBit(result, 31, 31) != 0 ) {
-        CPSRContents = CPSRContents|(1<<31);
+        CPSRContents = CPSRContents|(1<<CPSR_BIT_N_POSITION);
       //Set bit Z of CPSR is result is zero
       } else if(result == 0) {
-        CPSRContents = CPSRContents|(1<<30);
+        CPSRContents = CPSRContents|(1<<(CPSR_BIT_Z_POSITION));
       //Set bit N of CPSR to 0 if bit 31 of result is 0
       } else {
-        CPSRContents = CPSRContents|(~(1<<31));
+        CPSRContents = CPSRContents|(~(1<<CPSR_BIT_N_POSITION));
       }
     }
 
@@ -73,7 +73,7 @@ void multiply(MultiplyInstruction* multiplyInstruction, ARM11* arm11) {
      */
 
     arm11->registers[decodedInstruction->Rd] = result;
-    arm11->registers[14] = CPSRContents;
+    arm11->CSPR = CPSRContents;
   }
 
 
