@@ -3,12 +3,13 @@
 //
 
 #include <assert.h>
+#include <printf.h>
 #include "barrel_shifter.h"
 #include "../decode/masks.h"
 #include "../decode/decode_utils.h"
 
 uint32_t rightOperationCarry(uint32_t bits, uint32_t n) {
-    return getBit(bits, n - 1);
+    return n ? getBit(bits, n - 1) : 0;
 }
 
 uint32_t rotateRight(uint32_t* bits, uint32_t n) {
@@ -25,7 +26,7 @@ uint32_t rotateRight(uint32_t* bits, uint32_t n) {
 
 uint32_t shiftLeft(uint32_t* bits, uint32_t n) {
     assert(n <= INSTR_BITS);
-    uint32_t carry = getBit(*bits, INSTR_BITS - n);
+    uint32_t carry = !n ? 0 : getBit(*bits, INSTR_BITS - n);
     (*bits) <<= n;
     return carry;
 }

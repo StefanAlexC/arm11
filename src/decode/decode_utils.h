@@ -11,7 +11,7 @@
 typedef uint32_t instr;
 
 typedef enum {EQ, NE, GE, LT, GT, LE, AL, NOTUSED} Cond;
-typedef enum {AND, EOR, SUB, RSB, ADD, TST, TEQ, CMP, ORR, MOV, UNUSED} Opcode;
+typedef enum {AND = 0, EOR = 1, SUB = 2, RSB = 3, ADD = 4, TST = 8, TEQ = 9, CMP = 10, ORR = 12, MOV = 13, UNUSED = 14} Opcode;
 typedef enum {LSL, LSR, ASR, ROR} ShiftType;
 typedef enum {DP, M, SDT, B, H} InstrType;
 

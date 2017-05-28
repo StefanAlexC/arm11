@@ -100,8 +100,7 @@ Operand processOperand2(uint32_t operand, uint32_t immediateBit) {
 
     result.I = 0;
     result.Rm = mask(operand, RM_MASK);
-    uint32_t shift = mask(operand, BITS_11_4_MASK);
-    result.bit4 = getBit(shift, 4);
+    result.bit4 = getBit(operand, 4);
     result.shiftType = getShiftType(mask(operand, BITS_7_6_MASK));
     result.shiftAmount = mask(operand, BITS_11_7_MASK);
     result.Rs = mask(operand, RS_MASK);
