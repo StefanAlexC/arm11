@@ -37,7 +37,7 @@ void print(ARM11 *arm11) {
         printf("$%-2u :%8u (0x%08x) \n", i, arm11->registers[i], arm11->registers[i]);
     }
     printf("PC  :%8u (0x%08x) \n", arm11->PC, arm11->PC);
-    printf("CSPR:%8u (0x%08x) \n", arm11->CSPR, arm11->CSPR);
+    printf("CSPR:%8u (0x%08x) \n", arm11->CPSR, arm11->CPSR);
 
     printf("%s\n", "Non-zero memory:");
     for (i = 0; i < MEMORY_SIZE; i += 4) {

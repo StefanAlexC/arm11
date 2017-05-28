@@ -73,7 +73,7 @@ void multiply(MultiplyInstruction* multiplyInstruction, ARM11* arm11) {
      */
 
     arm11->registers[decodedInstruction->Rd] = result;
-    arm11->CSPR = CPSRContents;
+    arm11->CPSR = CPSRContents;
   }
 
 

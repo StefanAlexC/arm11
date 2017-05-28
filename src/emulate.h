@@ -15,7 +15,7 @@
 #define BYTE_VALUE 8
 #define BYTE_NUMBER 4
 #define PC registers[13]
-#define CSPR registers[14]
+#define CPSR registers[14]
 #define FILE_NAME argv[1]
 
 //TODO: Remove "!!Tested!!" once done
