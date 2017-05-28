@@ -62,7 +62,7 @@ bool isConditionSatisfied(uint32_t condition) {
 
 }
 
-**
+/**
 * Executes instruction based on instruction type
 * @param instruction : instruction to be executed
 * @param type : an int describing the type of instruction
