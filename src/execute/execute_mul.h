@@ -2,24 +2,13 @@
 // Created by user on 5/25/2017.
 //
 
-#ifndef ARM11_37_EXECUTE_H
-#define ARM11_37_EXECUTE_H
+#ifndef ARM11_37_EXECUTE_MUL_H
+#define ARM11_37_EXECUTE_MUL_H
 
 #include <stdlib.h>
 #include "../emulate.c"
 #include "../decode/decode_utils.h"
 
-#endif //ARM11_37_EXECUTE_H
-
-#define INSTRUCTION_SIZE = 31;
-#define POSITION_I = 25;
-
-
-
-
-typedef enum {DP, MUL, DT, BRANCH} instruction ;
-typedef enum {EQ, LE, GE, NE, LT, GT, AL} condition;
-typedef enum {AND, EOR, SUB, RSB, ADD, TST, TEQ, CMP, ORR, MOV} opcode;
 
 
 /**
@@ -29,7 +18,7 @@ typedef enum {AND, EOR, SUB, RSB, ADD, TST, TEQ, CMP, ORR, MOV} opcode;
  * @return : pointer to specific register within registers field
  */
 
-uint32_t registerFind(uint32_t r);
+uint32_t* registerFind(uint32_t r);
 
 
 /**
@@ -48,3 +37,5 @@ void multiply(MultiplyInstruction* multiplyInstruction);
  */
 
 void printBits(uint32_t x);
+
+#endif //ARM11_37_EXECUTE_H
