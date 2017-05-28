@@ -31,11 +31,11 @@ void initialize(ARM11 *arm11);
  * !!Tested!!
  * Takes a memory address and converts the next 4 bytes following the address from Little Endian to Big Endian
  * and returns the resulting 32-bit int
- * @param i The memory address
+ * @param address The memory address
  * @param arm11
  * @return The Big Endian number
  */
-uint32_t littleToBig(int i, ARM11 *arm11);
+uint32_t littleToBig(int address, ARM11 *arm11);
 
 
 /**

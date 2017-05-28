@@ -10,12 +10,12 @@ void initialize(ARM11 *arm11) {
     }
 }
 
-uint32_t littleToBig(int i, ARM11 *arm11) {
+uint32_t littleToBig(int address, ARM11 *arm11) {
     uint32_t value = 0;
     int j;
     for (j = BYTE_NUMBER; j > 0; j--) {
         value <<= BYTE_VALUE;
-        value += arm11->memory[i + j];
+        value += arm11->memory[address + j];
     }
     return value;
 }
