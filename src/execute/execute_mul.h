@@ -6,7 +6,7 @@
 #define ARM11_37_EXECUTE_MUL_H
 
 #include <stdlib.h>
-#include "../emulate.c"
+#include "../emulate.h"
 #include "../decode/decode_utils.h"
 
 
