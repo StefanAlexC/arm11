@@ -18,6 +18,7 @@
 #define CSPR registers[14]
 #define FILE_NAME argv[1]
 
+//TODO: Remove "!!Tested!!" once done
 
 /**
  * !!Tested!!
@@ -75,7 +76,12 @@ void printByte_inBinary(uint8_t byte);
  */
 void readFile(char *fileName, ARM11 *arm11);
 
-//TODO: Add description
+/**
+ * Fills the execution pipeline of the processor
+ * @param decoded Pointer to the decoded instruction
+ * @param fetched Pointer to the fetched instruction
+ * @param arm11 Pointer to the ARM11 object
+ */
 void fillPipeline(void **decoded, uint32_t *fetched, ARM11 *arm11);
 
 #endif //ARM11_37_EMULATE_H
