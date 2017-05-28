@@ -21,37 +21,7 @@ typedef enum {DP, MUL, DT, BRANCH} instruction ;
 typedef enum {EQ, LE, GE, NE, LT, GT, AL} condition;
 typedef enum opcode {AND, EOR, SUB, RSB, ADD, TST, TEQ, CMP, ORR, MOV};
 
-/**
- * Generates a mask in order to select specific bits
- * @param start : start of bit
- * @param end : end of bit
- * @return : returns a 32 bit mask
- */
 
-uint32_t genMask(int start, int end);
-
-/**
- * Extracts all bits between two specified positions
- * @param n : number to extract from
- * @param start : start position
- * @param end : end position
- * @return
- */
-
-uint32_t extractBit(uint32_t n, int start, int end);
-
-/**
- * Checks if condition bits satisfy the contents of CPSR register
- * @param condition : condition bits to check
- * @return : returns boolean if condition was satisfied
- */
-
-bool isConditionSatisfied(uint32_t condition);
-
-/**
- * Executes a specific data processing instruction with given parameters
- * @param parameters : provided parameters
- */
 
 void dataProcess(uint32_t parameters[]);
 

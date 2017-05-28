@@ -30,7 +30,7 @@ typedef struct ARM11 {
     * registers[14] represents the Flags Register(CPSR)
     */
     uint32_t registers[REGISTER_SIZE];
-} ARM11;
+};
 
 /**
  * !!Tested!!

@@ -6,36 +6,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-/**
- * We are working in little Endian
- */
-
-
-uint32_t genMask(int start, int end) {
-  uint32_t mask = 0;
-  for(int i = 31; i >= start; --i) {
-    if(i == end) {
-      for(int j = end; j >= start; --j) {
-        mask = mask|(1 << j);
-      }
-    }
-  }
-  return mask;
-}
-
-uint32_t extractBit(uint32_t n, int start, int end) {
-  uint32_t mask = genMask(start, end);
-  n = n&mask;
-  n = n >> start;
-  return n;
-}
-
-
-
-void dataProcess(uint32_t parameters[]) {
-
-}
-
 
 uint32_t* registerFind(uint32_t r) {
   uint32_t* baseRegister = &(ARM11.registers);
