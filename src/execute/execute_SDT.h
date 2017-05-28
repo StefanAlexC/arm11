@@ -1,11 +1,8 @@
-//
-// Created by Ada Cristina Stoenica on 28/05/2017.
-//
 
 #ifndef ARM11_37_EXECUTE_SDT_H
 #define ARM11_37_EXECUTE_SDT_H
 
-#include <cstdint>
+#include <stdint.h>
 #include "../ARM11.h"
 #include "barrel_shifter.h"
 #include "../emulate.h"
