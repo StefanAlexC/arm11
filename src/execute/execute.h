@@ -1,16 +1,13 @@
 #ifndef ARM11_37_EXECUTE_H
 #define ARM11_37_EXECUTE_H
 
-#include "../emulate.h"
-#include "../decode/decode.h"
 #include "../decode/decode_utils.h"
+#include "../ARM11.h"
 #include <stdbool.h>
 #include <stdint.h>
 
-typedef enum FLAG {STOP, NORMAL, BRANCH} FLAG;
-
 //TODO: Add definition
-FLAG execute(void *decoded, struct ARM11* arm11);
+FLAG execute(void *decoded, ARM11 *arm11);
 
 #endif //ARM11_37_EXECUTE_H
 

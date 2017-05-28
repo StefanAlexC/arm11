@@ -1,8 +1,8 @@
 #include "execute.h"
 
-FLAG execute(void *decoded, struct ARM11* arm11) {
+FLAG execute(void *decoded, ARM11 *arm11) {
     DecodedInstruction *decodedInstruction = (DecodedInstruction *) decoded;
-    enum FLAG temp = NORMAL;
+    FLAG temp = NORMAL;
     if (decodedInstruction->type == H) {
         temp = STOP;
         return temp;

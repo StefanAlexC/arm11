@@ -6,6 +6,7 @@
 #include <stdint.h>
 #include "execute/execute.h"
 #include "decode/decode.h"
+#include "ARM11.h"
 
 #define MEMORY_SIZE 65536
 #define REGISTER_SIZE 15
@@ -17,28 +18,13 @@
 #define CSPR registers[14]
 #define FILE_NAME argv[1]
 
-typedef struct ARM11 {
-    /**
-     * Memory contains 32 bit words.
-     * Memory locations are only byte addressable
-     * All the instruction addresses are multiples of 4
-     */
-    uint8_t memory[MEMORY_SIZE];
-
-    /**
-    * registers[0] .. registers[12] represent Register 0 - 12
-    * registers[13] represents the Program Counter(PC)
-    * registers[14] represents the Flags Register(CPSR)
-    */
-    uint32_t registers[REGISTER_SIZE];
-} ARM11;
 
 /**
  * !!Tested!!
  * Initializes the memory and the registers of the given arm11 to 0
  * @param arm11
  */
-void initialize(struct ARM11 *arm11);
+void initialize(ARM11 *arm11);
 
 /**
  * !!Tested!!
@@ -48,7 +34,7 @@ void initialize(struct ARM11 *arm11);
  * @param arm11
  * @return The Big Endian number
  */
-uint32_t littleToBig(int i, struct ARM11 *arm11);
+uint32_t littleToBig(int i, ARM11 *arm11);
 
 
 /**
@@ -58,14 +44,14 @@ uint32_t littleToBig(int i, struct ARM11 *arm11);
  * @param arm11
  * @return value of 32 bit instruction
  */
-uint32_t getMemoryValue(int i, struct ARM11 *arm11);
+uint32_t getMemoryValue(int i, ARM11 *arm11);
 
 /**
  * !!Tested!!
  * Prints the registers and the non-zero memory locations of the given arm11
  * @param arm11
  */
-void print(struct ARM11 *arm11);
+void print(ARM11 *arm11);
 
 /**
  * !!Tested!!
@@ -73,7 +59,7 @@ void print(struct ARM11 *arm11);
  * @param arm11
  * @return The fetched 32 bit instruction in Big Endian format
  */
-uint32_t fetch(struct ARM11 *arm11);
+uint32_t fetch(ARM11 *arm11);
 
 /**
  * !!Tested!!
@@ -87,9 +73,9 @@ void printByte_inBinary(uint8_t byte);
  * Reads that contents of a file and transfers them to memory
  * @param fileName The path of the file we wish to read
  */
-void readFile(char *fileName, struct ARM11 *arm11);
+void readFile(char *fileName, ARM11 *arm11);
 
 //TODO: Add description
-void fillPipeline(void **decoded, uint32_t *fetched, struct ARM11 *arm11);
+void fillPipeline(void **decoded, uint32_t *fetched, ARM11 *arm11);
 
 #endif //ARM11_37_EMULATE_H

@@ -96,7 +96,7 @@ int main(int argc, char **argv) {
 
     uint32_t fetched;
     void* decoded;
-    enum FLAG flagExecute;
+    FLAG flagExecute;
 
     /**
      * This simulates the execution loop and pipeline of the ARM11
