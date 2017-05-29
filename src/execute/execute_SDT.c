@@ -5,7 +5,7 @@
 #include "execute_SDT.h"
 
 uint32_t shiftRegister(uint32_t offset, ARM11* arm11) {
-    uint32_t* reg = &arm11->registers[extractBit(offset, 0, 3)];
+    uint32_t reg = arm11->registers[extractBit(offset, 0, 3)];
     int shift =  extractBit(offset, 5, 6);
     uint32_t shiftAmount;
     if(extractBit(offset, 3, 4) == 0) {
@@ -16,23 +16,23 @@ uint32_t shiftRegister(uint32_t offset, ARM11* arm11) {
 
     switch(shift) {
         case LSL: {
-            shiftLeft(reg, shiftAmount);
+            shiftLeft(&reg, shiftAmount);
             break;
         }
         case LSR: {
-            shiftRight(reg, shiftAmount);
+            shiftRight(&reg, shiftAmount);
             break;
         }
         case ASR: {
-            arithmeticShiftRight(reg, shiftAmount);
+            arithmeticShiftRight(&reg, shiftAmount);
             break;
         }
         case ROR: {
-            rotateRight(reg, shiftAmount);
+            rotateRight(&reg, shiftAmount);
             break;
         }
     }
-    return *reg;
+    return reg;
 }
 
 uint32_t getAddress(uint32_t up, uint32_t base, uint32_t offset) {
