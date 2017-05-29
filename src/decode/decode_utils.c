@@ -9,7 +9,7 @@
 Opcode opcode[] = {AND, EOR, SUB, RSB, ADD, UNUSED, UNUSED, UNUSED, TST, TEQ, CMP, UNUSED, ORR, MOV};
 char* opcodeString[] = {"AND", "EOR", "SUB", "RSB", "ADD", "TST", "TEQ", "CMP", "ORR", "MOV"};
 
-Cond condition[] = {EQ, NE, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, GE, LT, GT, LE, AL};
+Cond condition[] = {EQ, NE, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED,NOTUSED, NOTUSED, NOTUSED, GE, LT, GT, LE, AL};
 char* conditionString[] = {"EQ", "NE", "GE", "LT", "GT", "LE", "AL"};
 
 ShiftType shift[] = {LSL, LSR, ASR, ROR};

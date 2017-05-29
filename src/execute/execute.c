@@ -45,6 +45,53 @@ uint32_t extractBit(uint32_t n, int start, int end) {
 }
 
 bool isConditionSatisfied(Cond condition, ARM11 *arm11) {
-    return condition == getCond(CSPR_SIGNIFICANT_BITS);
+    //printf("Condition: %i == %i\n", condition, CSPR_SIGNIFICANT_BITS);
+    //return condition == getCond(CSPR_SIGNIFICANT_BITS);
+
+    uint32_t CSPRBitN = extractBit(CPSR_SIGNIFICANT_BITS,3, 3);
+    uint32_t CSPRBitZ = extractBit(CPSR_SIGNIFICANT_BITS,2, 2);
+    uint32_t CSPRBitV = extractBit(CPSR_SIGNIFICANT_BITS,0, 0);
+
+    bool ZSet = (CSPRBitZ != 0);
+    bool Zclear = (CSPRBitZ == 0);
+    bool NEqualV = (CSPRBitN == CSPRBitV);
+    bool NNotEqualV = (CSPRBitN != CSPRBitV);
+
+    switch (condition) {
+        case EQ:
+        {
+           return (ZSet);
+        }
+        case NE:
+        {
+            return (Zclear);
+        }
+        case GE:
+        {
+            return (NEqualV);
+        }
+        case LT:
+        {
+            return (NNotEqualV);
+        }
+        case GT:
+        {
+            return (Zclear&&NEqualV);
+        }
+        case LE:
+        {
+            return (ZSet||NNotEqualV);
+        }
+        case AL:
+        {
+            return (true);
+        }
+        default:
+        {
+            //TODO: Add exception is provided with invalid Condition code
+            printf("Exception: Invalid Condition Code");
+            return (false);
+        }
+    }
 }
 

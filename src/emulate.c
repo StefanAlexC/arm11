@@ -1,4 +1,6 @@
 #include "emulate.h"
+#include "decode/decode_utils.h"
+#include "ARM11.h"
 
 void initialize(ARM11 *arm11) {
     int i;
@@ -114,6 +116,8 @@ int main(int argc, char **argv) {
     } while (flagExecute != STOP);
 
     print(&arm11);
+
     return EXIT_SUCCESS;
+
 }
 

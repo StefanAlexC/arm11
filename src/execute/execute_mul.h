@@ -12,18 +12,6 @@
 #include "../decode/decode_utils.h"
 
 
-
-/**
- * Return address of register in ARM11 structure when given register index
- * from Instruction structure field
- * @param r : index of register
- * @param arm11 : ARM11 structure
- * @return : pointer to specific register within registers field
- */
-
-uint32_t* registerFind(uint32_t r, ARM11* arm11);
-
-
 /**
  * Executes a multiplication instruction with given MultiplyInstruction
  * structure

@@ -3,7 +3,7 @@
 //
 
 #include <assert.h>
-#include <printf.h>
+//#include <printf.h>
 #include "barrel_shifter.h"
 #include "../decode/masks.h"
 #include "../decode/decode_utils.h"

@@ -9,7 +9,7 @@
 #include "execute_SDT.h"
 #include "execute_dp.h"
 
-#define CSPR_SIGNIFICANT_BITS (arm11->registers[14] >> 28)
+#define CPSR_SIGNIFICANT_BITS (arm11->registers[14] >> 28)
 
 /**
  * Handle the execution of an instruction
@@ -37,8 +37,9 @@ uint32_t genMask(int start, int end);
 uint32_t extractBit(uint32_t n, int start, int end);
 
 /**
- * Tests if the currect instruction satisfies the condition of the CSPR register
- * @param condition The condition unde which the current instruction needs to be executed
+ * Tests if the current instruction satisfies the condition of the CSPR register
+ * @param condition The condition under which the current instruction needs
+ * to be executed
  * @param arm11 Pointer to the ARM11 object
  * @return TRUE if the condition is satisfied and FALSE otherwise.
  */
