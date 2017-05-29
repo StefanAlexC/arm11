@@ -14,8 +14,6 @@
 #define DEFAULT_VALUE 0
 #define BYTE_VALUE 8
 #define BYTE_NUMBER 4
-#define PC registers[13]
-#define CPSR registers[14]
 #define FILE_NAME argv[1]
 
 //TODO: Remove "!!Tested!!" once done

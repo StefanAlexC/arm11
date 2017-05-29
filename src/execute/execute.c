@@ -7,7 +7,7 @@ FLAG execute(void *decoded, ARM11 *arm11) {
     } else if (isConditionSatisfied(decodedInstruction->condition, arm11)) {
         switch (decodedInstruction->type) {
             case B:
-                //TODO: Add function call
+                branchInstruction((BranchInstruction *) decodedInstruction, arm11);
                 return BRANCH;
             case DP:
                 dataProcessing((DataProcessingInstruction *) decodedInstruction, arm11);

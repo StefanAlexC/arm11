@@ -9,6 +9,8 @@
 
 #define MEMORY_SIZE 65536
 #define REGISTER_SIZE 15
+#define PC registers[13]
+#define CPSR registers[14]
 
 typedef struct {
     /**
