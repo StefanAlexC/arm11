@@ -9,7 +9,7 @@
 #include "ARM11.h"
 
 #define MEMORY_SIZE 65536
-#define REGISTER_SIZE 15
+#define REGISTER_SIZE 17
 #define GP_REGISTERS 12
 #define DEFAULT_VALUE 0
 #define BYTE_VALUE 8
