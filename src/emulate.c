@@ -58,9 +58,9 @@ uint32_t fetch(ARM11 *arm11) {
 }
 
 void printByte_inBinary(uint8_t byte) {
-    uint8_t mask = 0;
+    uint8_t mask;
 
-    for (int i = BYTE_VALUE; i > 0; i--) {
+    for (int i = BYTE_VALUE; i >= 0; i--) {
         mask = (uint8_t) (1 << i);
         if ((mask & byte) > 0)
             printf("1");
