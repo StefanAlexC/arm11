@@ -76,7 +76,7 @@ void readFile(char *fileName, ARM11 *arm11) {
     int memoryLocation = 0;
 
     while ((byte = (char) fgetc(file)) != EOF) {
-        printByte_inBinary((uint8_t) byte);
+        //printByte_inBinary((uint8_t) byte);
         arm11->memory[memoryLocation++] = (uint8_t) byte;
     }
 
@@ -107,7 +107,6 @@ int main(int argc, char **argv) {
     do {
         flagExecute = execute(decoded, &arm11);
         if (flagExecute == BRANCH) {
-            //TODO change program counter
             fillPipeline(&decoded, &fetched, &arm11);
         } else if (flagExecute == NORMAL) {
             decoded = decode(fetched);
