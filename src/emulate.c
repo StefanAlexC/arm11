@@ -75,9 +75,13 @@ void readFile(char *fileName, ARM11 *arm11) {
     char byte;
     int memoryLocation = 0;
 
-    while ((byte = (char) fgetc(file)) != EOF) {
-        //printByte_inBinary((uint8_t) byte);
-        arm11->memory[memoryLocation++] = (uint8_t) byte;
+    if (!feof(file)) {
+        byte = (char) fgetc(file);
+        while (!feof(file)) {
+            //printByte_inBinary((uint8_t) byte);
+            arm11->memory[memoryLocation++] = (uint8_t) byte;
+            byte = (char) fgetc(file);
+        }
     }
 
     fclose(file);
