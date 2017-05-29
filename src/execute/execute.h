@@ -10,7 +10,7 @@
 #include "execute_dp.h"
 #include "branch_instruction.h"
 
-#define CPSR_SIGNIFICANT_BITS (arm11->registers[14] >> 28)
+#define CPSR_SIGNIFICANT_BITS (arm11->registers[16] >> 28)
 
 /**
  * Handle the execution of an instruction
