@@ -8,7 +8,7 @@
 #include <stdint.h>
 
 #define MEMORY_SIZE 65536
-#define REGISTER_SIZE 15
+#define REGISTER_SIZE 17
 #define PC registers[15]
 #define CPSR registers[16]
 
