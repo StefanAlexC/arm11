@@ -22,6 +22,8 @@ FLAG execute(void *decoded, ARM11 *arm11) {
                 //TODO: Add error once learned
                 return STOP;
         }
+    } else {
+        return NORMAL;
     }
 }
 
