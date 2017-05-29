@@ -39,9 +39,9 @@ void multiply(MultiplyInstruction* multiplyInstruction, ARM11* arm11) {
   if (isConditionSatisfied(condition, arm11)) {
     //Result depends on state of accumulator parameter
     if (A != 0) {
-      result = extractBit(rnContents*rsContents+rmContents, 0, 31);
+      result = extractBit(rmContents*rsContents+rnContents, 0, 31);
     } else {
-      result = extractBit(rnContents*rsContents, 0, 31);
+      result = extractBit(rmContents*rsContents, 0, 31);
     }
     if (S != 0) {
       //Set bit N of CPSR to 1 if bit 31 of result is 1
