@@ -9,7 +9,7 @@
 #include "ARM11.h"
 
 #define MEMORY_SIZE 65536
-#define REGISTER_SIZE 15
+#define REGISTER_SIZE 17
 #define GP_REGISTERS 12
 #define DEFAULT_VALUE 0
 #define BYTE_VALUE 8
@@ -26,6 +26,13 @@
 void initialize(ARM11 *arm11);
 
 /**
+ * Checks if an adress is valid
+ * @param address
+ * @return bool indicating if the given address is valid
+ */
+bool validMemoryAccess(int address);
+
+/**
  * !!Tested!!
  * Takes a memory address and converts the next 4 bytes following the address from Little Endian to Big Endian
  * and returns the resulting 32-bit int
@@ -39,11 +46,11 @@ uint32_t littleToBig(int address, ARM11 *arm11);
 /**
  * !!Tested!!
  * Takes a memory address and returns the value of the next 4 bytes following the address, representing an instruction
- * @param i The memory address
+ * @param address The memory address
  * @param arm11
  * @return value of 32 bit instruction
  */
-uint32_t getMemoryValue(int i, ARM11 *arm11);
+uint32_t getMemoryValue(int address, ARM11 *arm11);
 
 /**
  * !!Tested!!

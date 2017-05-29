@@ -12,35 +12,43 @@ void initialize(ARM11 *arm11) {
     }
 }
 
-uint32_t littleToBig(int address, ARM11 *arm11) {
-    uint32_t value = 0;
-    int j;
+bool validMemoryAccess(int address) {
     if(address > 65533) {
         printf("Error: Out of bounds memory access at address 0x%08x\n", address);
-        return 0;
+        return false;
     }
-    for (j = BYTE_NUMBER - 1 ; j >= 0; j--) {
-        value <<= BYTE_VALUE;
-        value += arm11->memory[address + j];
-    }
-    return value;
 }
 
-uint32_t getMemoryValue(int i, ARM11 *arm11) {
+uint32_t littleToBig(int address, ARM11 *arm11) {
     uint32_t value = 0;
-    int j;
-    for (j = 0; j < BYTE_NUMBER; j++) {
-        value <<= BYTE_VALUE;
-        value += arm11->memory[i + j];
+    if(validMemoryAccess(address)) {
+        int j;
+        for (j = BYTE_NUMBER - 1; j >= 0; j--) {
+            value <<= BYTE_VALUE;
+            value += arm11->memory[address + j];
+        }
+        return value;
     }
-    return value;
+    return 0;
+}
+
+uint32_t getMemoryValue(int address, ARM11 *arm11) {
+    uint32_t value = 0;
+    if(validMemoryAccess(address)) {
+        int j;
+        for (j = 0; j < BYTE_NUMBER; j++) {
+            value <<= BYTE_VALUE;
+            value += arm11->memory[address + j];
+        }
+        return value;
+    }
 }
 
 void print(ARM11 *arm11) {
     int i;
     printf("%s\n", "Registers:");
     for (i = 0; i < GP_REGISTERS; i++) {
-        printf("$%-2i : %10u (0x%08x) \n", i, arm11->registers[i], arm11->registers[i]);
+        printf("$%-2i : %10i (0x%08x) \n", i, arm11->registers[i], arm11->registers[i]);
     }
     printf("PC  : %10i (0x%08x) \n", arm11->PC, arm11->PC);
     printf("CSPR: %10i (0x%08x) \n", arm11->CPSR, arm11->CPSR);
