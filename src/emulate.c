@@ -40,10 +40,10 @@ void print(ARM11 *arm11) {
     int i;
     printf("%s\n", "Registers:");
     for (i = 0; i < GP_REGISTERS; i++) {
-        printf("$%-2u : %10u (0x%08x) \n", i, arm11->registers[i], arm11->registers[i]);
+        printf("$%-2i : %10u (0x%08x) \n", i, arm11->registers[i], arm11->registers[i]);
     }
-    printf("PC  : %10u (0x%08x) \n", arm11->PC, arm11->PC);
-    printf("CSPR: %10u (0x%08x) \n", arm11->CPSR, arm11->CPSR);
+    printf("PC  : %10i (0x%08x) \n", arm11->PC, arm11->PC);
+    printf("CSPR: %10i (0x%08x) \n", arm11->CPSR, arm11->CPSR);
 
     printf("%s\n", "Non-zero memory:");
     for (i = 0; i < MEMORY_SIZE; i += 4) {
