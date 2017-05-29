@@ -12,7 +12,7 @@
 #define REGISTER_SIZE 15
 #define GP_REGISTERS 12
 #define DEFAULT_VALUE 0
-#define BYTE_VALUE 7
+#define BYTE_VALUE 8
 #define BYTE_NUMBER 4
 #define FILE_NAME argv[1]
 

@@ -15,7 +15,7 @@ void initialize(ARM11 *arm11) {
 uint32_t littleToBig(int address, ARM11 *arm11) {
     uint32_t value = 0;
     int j;
-    for (j = BYTE_NUMBER; j > 0; j--) {
+    for (j = BYTE_NUMBER - 1 ; j >= 0; j--) {
         value <<= BYTE_VALUE;
         value += arm11->memory[address + j];
     }
@@ -60,7 +60,7 @@ uint32_t fetch(ARM11 *arm11) {
 void printByte_inBinary(uint8_t byte) {
     uint8_t mask;
 
-    for (int i = BYTE_VALUE; i >= 0; i--) {
+    for (int i = BYTE_VALUE - 1 ; i >= 0; i--) {
         mask = (uint8_t) (1 << i);
         if ((mask & byte) > 0)
             printf("1");
