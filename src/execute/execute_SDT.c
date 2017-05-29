@@ -16,19 +16,23 @@ uint32_t shiftRegister(uint32_t offset, ARM11* arm11) {
 
     switch(shift) {
         case LSL: {
-            return shiftLeft(reg, shiftAmount);
+            shiftLeft(reg, shiftAmount);
+            break;
         }
         case LSR: {
-            return shiftRight(reg, shiftAmount);
+            shiftRight(reg, shiftAmount);
+            break;
         }
         case ASR: {
-            return arithmeticShiftRight(reg, shiftAmount);
+            arithmeticShiftRight(reg, shiftAmount);
+            break;
         }
         case ROR: {
-            return rotateRight(reg, shiftAmount);
+            rotateRight(reg, shiftAmount);
+            break;
         }
-        default: return 0;
     }
+    return *reg;
 }
 
 uint32_t getAddress(uint32_t up, uint32_t base, uint32_t offset) {
@@ -76,6 +80,11 @@ void dataTransfer(SingleDataTransferInstruction instruction, ARM11* arm11) {
     }
 
     if(instruction.prePost == 0) {
-        *baseReg += offset;
+        //TODO: Check
+        if (instruction.up == 1) {
+            *baseReg += offset;
+        } else {
+            *baseReg -= offset;
+        }
     }
 }
