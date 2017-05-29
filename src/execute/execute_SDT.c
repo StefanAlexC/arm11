@@ -45,11 +45,13 @@ void fromMemory(uint32_t mem, uint32_t* reg, ARM11* arm11) {
 }
 
 //TODO: check endaianess
-void toMemory(uint32_t mem, uint32_t value, ARM11* arm11) {
-    int j;
-    for (j = 0; j < BYTE_NUMBER; j--) {
-        arm11->memory[mem + j] = (uint8_t) value;
-        value >>= BYTE_VALUE;
+void toMemory(uint32_t address, uint32_t value, ARM11* arm11) {
+    if(validMemoryAccess(address)) {
+        int j;
+        for (j = 0; j < BYTE_NUMBER; j--) {
+            arm11->memory[address + j] = (uint8_t) value;
+            value >>= BYTE_VALUE;
+        }
     }
 }
 

@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 echo -e “ADD01”
 ./emulate add01
 echo -e "\n---------------------------------------------------\n"

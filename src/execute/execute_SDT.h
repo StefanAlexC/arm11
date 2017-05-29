@@ -40,11 +40,11 @@ void fromMemory(uint32_t mem, uint32_t* reg, ARM11* arm11);
 
 /**
  * Performs a data transfer from a register to memory
- * @param mem
+ * @param address
  * @param value
  * @param arm11
  */
-void toMemory(uint32_t mem, uint32_t value, ARM11* arm11);
+void toMemory(uint32_t address, uint32_t value, ARM11* arm11);
 
 /**
  * Performs the Single Data Transfer instruction on the arm11
