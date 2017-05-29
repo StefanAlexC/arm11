@@ -15,6 +15,10 @@ void initialize(ARM11 *arm11) {
 uint32_t littleToBig(int address, ARM11 *arm11) {
     uint32_t value = 0;
     int j;
+    if(address > 65533) {
+        printf("Error: Out of bounds memory access at address 0x%08x\n", address);
+        return 0;
+    }
     for (j = BYTE_NUMBER - 1 ; j >= 0; j--) {
         value <<= BYTE_VALUE;
         value += arm11->memory[address + j];
