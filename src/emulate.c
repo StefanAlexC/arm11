@@ -48,7 +48,7 @@ uint32_t getMemoryValue(int address, ARM11 *arm11) {
 void print(ARM11 *arm11) {
     int i;
     printf("%s\n", "Registers:");
-    for (i = 0; i < GP_REGISTERS; i++) {
+    for (i = 0; i <= GP_REGISTERS; i++) {
         printf("$%-2i : %10i (0x%08x) \n", i, arm11->registers[i], arm11->registers[i]);
     }
     printf("PC  : %10i (0x%08x) \n", arm11->PC, arm11->PC);
