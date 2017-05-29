@@ -17,6 +17,7 @@ bool validMemoryAccess(int address) {
         printf("Error: Out of bounds memory access at address 0x%08x\n", address);
         return false;
     }
+    return true;
 }
 
 uint32_t littleToBig(int address, ARM11 *arm11) {
