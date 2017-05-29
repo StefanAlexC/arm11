@@ -11,7 +11,7 @@ static const uint32_t N_BIT = 31;
 static const uint32_t Z_BIT = 30;
 static const uint32_t C_BIT = 29;
 static const uint32_t V_BIT = 28;
-static const uint32_t CPSR_INDEX = 14;
+static const uint32_t CPSR_INDEX = 16;
 
 typedef struct {
     uint32_t result;
