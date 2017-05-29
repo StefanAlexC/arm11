@@ -1,255 +1,255 @@
 echo -e “ADD01”
-./emulate add01
+cat add01.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “ADD02”
-./emulate add02
+cat add02.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “ADD03”
-./emulate add03
+cat add03.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “ADD04”
-./emulate add04
+cat add04.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “AND01”
-./emulate and01
+cat and01.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “AND02”
-./emulate and02
+cat and02.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “B01”
-./emulate b01
+cat b01.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “BEQ01”
-./emulate beq01
+cat beq01.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “BEQ02”
-./emulate beq02
+cat beq02.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “BNE01”
-./emulate bne01
+cat bne01.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “BNE02”
-./emulate bne02
+cat bne02.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “EOR01”
-./emulate eor01
+cat eor01.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “EOR02”
-./emulate eor02
+cat eor02.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “FACTORIAL”
-./emulate factorial
+cat factorial.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “GPIO_0”
-./emulate gpio_0
+cat gpio_0.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “GPIO_1”
-./emulate gpio_1
+cat gpio_1.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “GPIO_2”
-./emulate gpio_2
+cat gpio_2.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “LDR01”
-./emulate ldr01
+cat ldr01.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “LDR02”
-./emulate ldr02
+cat ldr02.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “LDR03”
-./emulate ldr03
+cat ldr03.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “LDR04”
-./emulate ldr04
+cat ldr04.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “LDR05”
-./emulate ldr05
+cat ldr05.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “LDR06”
-./emulate ldr06
+cat ldr06.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “LDR07”
-./emulate ldr07
+cat ldr07.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “LDR08”
-./emulate ldr08
+cat ldr08.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “LDR09”
-./emulate ldr09
+cat ldr09.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “LDR14”
-./emulate ldr14
+cat ldr14.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “LDR15”
-./emulate ldr15
+cat ldr15.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “LDR16”
-./emulate ldr16
+cat ldr16.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “LOOP01”
-./emulate loop01
+cat loop01.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “LOOP02”
-./emulate loop02
+cat loop02.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “LOOP03”
-./emulate loop03
+cat loop03.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “LSL01”
-./emulate lsl01
+cat lsl01.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “LSL02”
-./emulate lsl02
+cat lsl02.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “MLA01”
-./emulate mla01
+cat mla01.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “MOV01”
-./emulate mov01
+cat mov01.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “MOV02”
-./emulate mov02
+cat mov02.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “MOV03”
-./emulate mov03
+cat mov03.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “MOV04”
-./emulate mov04
+cat mov04.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “MOV05”
-./emulate mov05
+cat mov05.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “MOV06”
-./emulate mov06
+cat mov06.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “MOV07”
-./emulate mov07
+cat mov07.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “MUL01”
-./emulate mul01
+cat mul01.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “OPT_ADD05”
-./emulate opt_add05
+cat opt_add05.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “OPT_LDR10”
-./emulate opt_ldr10
+cat opt_ldr10.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “OPT_LDR11”
-./emulate opt_ldr11
+cat opt_ldr11.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “OPT_LDR12”
-./emulate opt_ldr12
+cat opt_ldr12.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “OPT_LDR13”
-./emulate opt_ldr13
+cat opt_ldr13.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “OR01”
-./emulate or01
+cat or01.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “OR02”
-./emulate or02
+cat or02.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “RSB01”
-./emulate rsb01
+cat rsb01.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “RSB02”
-./emulate rsb02
+cat rsb02.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “RSB03”
-./emulate rsb03
+cat rsb03.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “STR01”
-./emulate str01
+cat str01.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “STR02”
-./emulate str02
+cat str02.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “STR03”
-./emulate str03
+cat str03.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “STR04”
-./emulate str04
+cat str04.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “SUB01”
-./emulate sub01
+cat sub01.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “SUB02”
-./emulate sub02
+cat sub02.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “SUB03”
-./emulate sub03
+cat sub03.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “TST01”
-./emulate tst01
+cat tst01.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “TST02”
-./emulate tst02
+cat tst02.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “TST03”
-./emulate tst03
+cat tst03.out
 echo -e "\n---------------------------------------------------\n"
 
 echo -e “TST04”
-./emulate tst04
+cat tst04.out
 echo -e "\n---------------------------------------------------\n"
