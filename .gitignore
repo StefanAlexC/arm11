@@ -32,6 +32,3 @@ assemble
 *.vrb
 *.nav
 *.toc
-
-#reset
-*.c
