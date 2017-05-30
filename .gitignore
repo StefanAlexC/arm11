@@ -34,4 +34,4 @@ assemble
 *.toc
 
 #reset
-#*.c
+*.c
