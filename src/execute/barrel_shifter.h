@@ -6,6 +6,8 @@
 #define ARM11_37_BARREL_SHIFTER_H
 
 #include <stdint.h>
+#include "../decode/masks.h"
+#include "../decode/decode_utils.h"
 
 /**
  *

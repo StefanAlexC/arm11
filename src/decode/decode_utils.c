@@ -3,8 +3,6 @@
 //
 
 #include "decode_utils.h"
-#include <stdio.h>
-#include <assert.h>
 
 Opcode opcode[] = {AND, EOR, SUB, RSB, ADD, UNUSED, UNUSED, UNUSED, TST, TEQ, CMP, UNUSED, ORR, MOV};
 char* opcodeString[] = {"AND", "EOR", "SUB", "RSB", "ADD", "TST", "TEQ", "CMP", "ORR", "MOV"};

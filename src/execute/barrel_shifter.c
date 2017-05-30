@@ -2,11 +2,7 @@
 // Created by DAVID BUTEREZ on 26/05/17.
 //
 
-#include <assert.h>
-//#include <printf.h>
 #include "barrel_shifter.h"
-#include "../decode/masks.h"
-#include "../decode/decode_utils.h"
 
 uint32_t rightOperationCarry(uint32_t bits, uint32_t n) {
     return n ? getBit(bits, n - 1) : 0;

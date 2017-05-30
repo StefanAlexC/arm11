@@ -2,11 +2,7 @@
 // Created by DAVID BUTEREZ on 25/05/17.
 //
 
-#include <stdio.h>
-#include <stdbool.h>
-#include <stdlib.h>
 #include "decode.h"
-#include "decode_utils.h"
 
 static const uint32_t BRANCH_BITS = 0b10;
 static const uint32_t SDT_BITS = 0b01;

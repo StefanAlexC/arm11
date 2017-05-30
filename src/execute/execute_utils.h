@@ -6,6 +6,7 @@
 #define ARM11_37_EXECUTE_UTILS_H
 
 #include <stdint.h>
+#include "../decode/decode_utils.h"
 
 static const uint32_t N_BIT = 31;
 static const uint32_t Z_BIT = 30;

@@ -2,14 +2,10 @@
 // Created by DAVID BUTEREZ on 26/05/17.
 //
 
-#include <assert.h>
 #include "decode/decode_utils.h"
 #include "decode/decode.h"
 #include "execute/barrel_shifter.h"
-#include "stdio.h"
 #include "execute/execute_dp.h"
-#include "ARM11.h"
-#include "emulate.h"
 
 void initializeForTesting(ARM11 *arm11, uint32_t rn, uint32_t rnVal, uint32_t rm, uint32_t rmVal, uint32_t rs, uint32_t rsVal) {
     int i;

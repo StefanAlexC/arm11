@@ -2,7 +2,6 @@
 // Created by DAVID BUTEREZ on 28/05/17.
 //
 
-#include "../emulate.h"
 #include "execute_dp.h"
 
 uint32_t offsetRegister(uint32_t registerIndex) {

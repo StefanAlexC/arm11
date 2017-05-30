@@ -1,6 +1,4 @@
 #include "emulate.h"
-#include "decode/decode_utils.h"
-#include "ARM11.h"
 
 void initialize(ARM11 *arm11) {
     int i;

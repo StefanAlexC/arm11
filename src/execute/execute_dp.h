@@ -5,6 +5,7 @@
 #ifndef ARM11_37_EXECUTE_DP_H
 #define ARM11_37_EXECUTE_DP_H
 
+#include "../emulate.h"
 #include "../ARM11.h"
 #include "execute_utils.h"
 

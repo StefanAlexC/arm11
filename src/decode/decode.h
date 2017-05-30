@@ -2,6 +2,8 @@
 // Created by DAVID BUTEREZ on 25/05/17.
 //
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "decode_utils.h"
 #include "stdbool.h"
 

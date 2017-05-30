@@ -7,6 +7,8 @@
 
 #include <stdint.h>
 #include "masks.h"
+#include <stdio.h>
+#include <assert.h>
 
 typedef uint32_t instr;
 
