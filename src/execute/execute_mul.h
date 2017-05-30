@@ -8,7 +8,6 @@
 #define CPSR_BIT_Z_POSITION 30
 
 #include <stdlib.h>
-#include "../emulate.h"
 #include "../decode/decode_utils.h"
 
 

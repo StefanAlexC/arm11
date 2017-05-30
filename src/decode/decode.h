@@ -2,13 +2,13 @@
 // Created by DAVID BUTEREZ on 25/05/17.
 //
 
-#include <stdio.h>
-#include <stdlib.h>
-#include "decode_utils.h"
-#include "stdbool.h"
-
 #ifndef ARM11_37_DECODE_H
 #define ARM11_37_DECODE_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include "decode_utils.h"
 
 /**
  *
