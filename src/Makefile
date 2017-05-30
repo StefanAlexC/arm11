@@ -9,9 +9,9 @@ all: assemble emulate
 
 assemble: assemble.o
 
-emulate: emulate.o
+emulate: emulate.o execute/$(wildcard *.o) decode/$(wildcard *.o)
 
 clean:
 	rm -f $(wildcard *.o)
-	rm -f assemble
+	rm -f assemble:q
 	rm -f emulate
