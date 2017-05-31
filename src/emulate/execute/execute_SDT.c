@@ -1,7 +1,3 @@
-//
-// Created by Ada Cristina Stoenica on 28/05/2017.
-//
-
 #include "execute_SDT.h"
 
 uint32_t shiftRegister(uint32_t offset, ARM11* arm11) {
