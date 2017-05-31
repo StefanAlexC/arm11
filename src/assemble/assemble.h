@@ -6,16 +6,25 @@
 #define MAX_NUMBER_COMMANDS 50
 #define MAX_ARGUMENT_NUMBER 15
 #define MAX_ARGUMENT_SIZE 15
+#define CHAR_TYPE 0
+#define MAP_TYPE 1
 #define FILE_NAME argv[1]
 #define END_OF_MATRIX 0
+#define END_OF_MAP -1
 #define SPLITTING_CHARACTERS " ,\n"
+
+typedef struct {
+    char* key;
+    int value;
+} Map;
 
 /**
  * Safely allocates a String of specified size.
  * @param size The length of the String.
+ * @param Defines the return type, if mode is True then the returned array is int32_t otherwise it is a char array.
  * @return A pointer to the created String.
  */
-char *allocateString(int size);
+void* allocateArray(int size, bool mode);
 
 /**
  * Safely allocate a String Matrix .
@@ -45,5 +54,26 @@ char** readFile(char *fileName);
  * @return The number of arguments.
  */
 int numberArgumentsStringArray(char** array);
+
+/**
+ * Countrs the number of arguments in a Int32_t Array
+ * @param array The Int32_t Array, whose arguments we need to count
+ * @return The number of arguments
+ */
+int numberArgumentsInt32Array(int **array);
+
+/**
+ * Checks if the commands is a label.
+ * @param command The commands which we want to check.
+ * @return Whether or not the given command is a label.
+ */
+bool isLabel(char *command);
+
+/**
+ * Does a first pass over all commands to create a mapping from labels to memory locations.
+ * @param commands The Array of Strings containing all commands.
+ * @return An array of the desired mappings.
+ */
+Map* firstPass(char **commands);
 
 #endif //ARM11_37_ASSEMBLE_H_H

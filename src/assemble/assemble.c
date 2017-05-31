@@ -1,17 +1,23 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 #include "assemble.h"
 
-char *allocateString(int size) {
-    char *line = malloc((size + 1) * sizeof(char));
+void* allocateArray(int size, bool mode) {
+    void *array;
+    if (mode) {
+        array = malloc((size + 1) * sizeof(Map));
+    } else {
+        array = malloc((size + 1) * sizeof(char));
+    }
 
-    if (line == NULL) {
-        perror("MALLOC-MATRIX_LINE");
+    if (array == NULL) {
+        perror("MALLOC-ARRAY");
         exit(EXIT_FAILURE);
     }
 
-    return line;
+    return array;
 }
 
 char **allocateStringMatrix(int lines, int columns) {
@@ -23,13 +29,13 @@ char **allocateStringMatrix(int lines, int columns) {
     }
 
     for (int i = 0; i < lines; i++) {
-        matrix[i] = allocateString(columns);
+        matrix[i] = (char *)allocateArray(columns, CHAR_TYPE);
     }
 
     return matrix;
 }
 
-char** parse(char *string) {
+char **parse(char *string) {
     char *token = strtok(string, SPLITTING_CHARACTERS);
     char **parsedString = allocateStringMatrix(MAX_ARGUMENT_NUMBER, MAX_ARGUMENT_SIZE);
     int arguments = 0;
@@ -41,14 +47,14 @@ char** parse(char *string) {
     }
     parsedString[arguments] = END_OF_MATRIX;
 
-    for (int i = arguments + 1 ; i < MAX_ARGUMENT_NUMBER ; i++) {
+    for (int i = arguments + 1; i < MAX_ARGUMENT_NUMBER; i++) {
         free(parsedString[arguments]);
     }
 
     return realloc(parsedString, (arguments + 1) * sizeof(char *));
 }
 
-char** readFile(char *fileName) {
+char **readFile(char *fileName) {
     FILE *file = fopen(fileName, "r");
     char **commandLines = allocateStringMatrix(MAX_COMMAND_SIZE, MAX_COMMAND_SIZE);
     int lines = 0;
@@ -69,20 +75,50 @@ char** readFile(char *fileName) {
     return commandLines;
 }
 
-int numberArgumentsStringArray(char** array) {
+int numberArgumentsStringArray(char **array) {
     int length;
 
-    for (length = 0 ; array[length] != END_OF_MATRIX ; length++);
+    for (length = 0; array[length] != END_OF_MATRIX; length++);
 
     return length;
 }
 
-int main(int argc, char **argv) {
-    char **commands = readFile(FILE_NAME);
+int numberArgumentsInt32Array(int **array) {
+    int length;
+
+    for (length = 0; array[length] != END_OF_MATRIX; length++);
+
+    return length;
+}
+
+bool isLabel(char *command) {
+    return strstr(command, ":") != NULL;
+}
+
+//TODO: Might need to modify address
+Map* firstPass(char **commands) {
+    Map *labels = allocateArray(MAX_NUMBER_COMMANDS, MAP_TYPE);
+    int numberLabels = 0;
 
     for (int i = 0 ; commands[i] != END_OF_MATRIX ; i++) {
+        if (isLabel(commands[i])) {
+            labels[numberLabels].key = commands[i];
+            labels[numberLabels++].value = i + 1;
+        }
+    }
+    labels[numberLabels].value = END_OF_MAP;
+
+    return realloc(labels, (numberLabels + 1) * sizeof(Map));
+}
+
+
+int main(int argc, char **argv) {
+    char **commands = readFile(FILE_NAME);
+    Map *labels = firstPass(commands);
+
+    for (int i = 0 ; commands[i] != END_OF_MATRIX; i++) {
         char **line = parse(commands[i]);
-        //printf("%d\n", numberArgumentsStringArray(line));
+        printf("%d\n", numberArgumentsStringArray(line));
     }
 
     return EXIT_SUCCESS;
