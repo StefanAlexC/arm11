@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include "assemble.h"
+#include "encode.h"
 
 void* allocateArray(int size, bool mode) {
     void *array;
@@ -116,9 +117,11 @@ int main(int argc, char **argv) {
     char **commands = readFile(FILE_NAME);
     Map *labels = firstPass(commands);
 
+    char **line;
     for (int i = 0 ; commands[i] != END_OF_MATRIX; i++) {
-        char **line = parse(commands[i]);
-        printf("%d\n", numberArgumentsStringArray(line));
+        line = parse(commands[i]);
+        //printf("%d\n", numberArgumentsStringArray(line));
+        printf("%d\n",encode(numberArgumentsStringArray(line), line, labels));
     }
 
     return EXIT_SUCCESS;
