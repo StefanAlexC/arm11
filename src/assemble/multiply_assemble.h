@@ -37,4 +37,5 @@ char* intToBinaryString(uint32_t number);
  */
 
 char* assembleMultiply(uint32_t args, char* parameters);
+
 #endif //ARM11_37_MULTIPLY_ASSEMBLE_H
