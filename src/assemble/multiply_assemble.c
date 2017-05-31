@@ -5,21 +5,30 @@
 #include "multiply_assemble.h"
 
 uint32_t getRegisterIndex(char* registerString) {
-  return (uint32_t)(*(registerString++));
-  //comment
+  char registerIndex = *((++registerString));
+  return (uint32_t)(registerIndex - '0') ;
 }
 
 char* intToBinaryString(uint32_t number) {
-  uint32_t numLength = snprintf(NULL, 0, "%i", number);
-  char* numberString = malloc(numLength+1);
+  char* numberString = malloc(4* sizeof(char));
   int i;
-  uint32_t mask = 1 << 31;
-  for(i=0; i<32; ++i) {
+  uint32_t mask = 1 << 3;
+  if((number & mask) == 0){
+    strcpy(numberString, "0");
+  }
+  else {
+    strcpy(numberString, "1");
+  }
+  number = number << 1;
+
+  for(i=1; i<4; ++i) {
     if((number & mask) == 0){
       strcat(numberString, "0");
+
     }
     else {
       strcat(numberString, "1");
+
     }
     number = number << 1;
   }
@@ -28,10 +37,12 @@ char* intToBinaryString(uint32_t number) {
 
 
 char* assembleMultiply(uint32_t args, char* parameters) {
+
   char conditionCode[] = "1110";
-  uint32_t rd = getRegisterIndex(parameters);
-  uint32_t rm = getRegisterIndex(parameters+3*(sizeof(char)));
-  uint32_t rs = getRegisterIndex(parameters+6*(sizeof(char)));
+  uint32_t rd = getRegisterIndex(parameters+4*(sizeof(char)));
+  uint32_t rm = getRegisterIndex(parameters+8*(sizeof(char)));
+  uint32_t rs = getRegisterIndex(parameters+12*(sizeof(char)));
+
 
   char* binaryRd = intToBinaryString(rd);
   char* binaryRm = intToBinaryString(rm);
@@ -46,11 +57,11 @@ char* assembleMultiply(uint32_t args, char* parameters) {
     A = "0";
   } else {
     A = "1";
-    rn = getRegisterIndex(parameters+9*(sizeof(char)));
+    rn = getRegisterIndex(parameters+16*(sizeof(char)));
     binaryRn = intToBinaryString(rn);
   }
 
-  char instruction[32];
+  char* instruction = malloc(32* sizeof(char));
   strcpy(instruction, conditionCode);
   strcat(instruction, "000000");
   strcat(instruction, A);
@@ -63,8 +74,11 @@ char* assembleMultiply(uint32_t args, char* parameters) {
 
   free(binaryRd);
   free(binaryRm);
-  free(binaryRn);
   free(binaryRs);
+
+  if (args == 4) {
+    free(binaryRn);
+  }
 
   return instruction;
 
