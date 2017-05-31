@@ -4,6 +4,8 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <memory.h>
+#include <stdio.h>
+
 
 #define AL_COND 14
 #define BITS_27_26 1
@@ -125,6 +127,6 @@ int getOffsetForRegister(char *reg, uint32_t *up);
  * a bool indicating if an immediate must be placed at the end of
  * the program and an immediate expression.
  */
-SDTinstr int main(int argc, char **argv, int* endAddress, int thisAddress);
+SDTinstr encodeSDT(int argc, char **argv, int *endAddress, int thisAddress);
 
 #endif //ARM11_37_ASSEMBLE_SDT_H
