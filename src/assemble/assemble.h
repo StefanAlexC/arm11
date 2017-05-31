@@ -2,6 +2,8 @@
 #ifndef ARM11_37_ASSEMBLE_H_H
 #define ARM11_37_ASSEMBLE_H_H
 
+#include "utils.h"
+
 #define MAX_COMMAND_SIZE 50
 #define MAX_NUMBER_COMMANDS 50
 #define MAX_ARGUMENT_NUMBER 15
@@ -13,10 +15,7 @@
 #define END_OF_MAP -1
 #define SPLITTING_CHARACTERS " ,\n"
 
-typedef struct {
-    char* key;
-    int value;
-} Map;
+
 
 /**
  * Safely allocates a String of specified size.

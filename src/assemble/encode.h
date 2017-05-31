@@ -5,6 +5,8 @@
 #ifndef ARM11_37_ENCODE_H_H
 #define ARM11_37_ENCODE_H_H
 
+#include "assemble.h"
+
 #define DATA_PROCESSING_INSTRUCTIONS "and eor sub rsb add orr mov tst teq cmp"
 #define MULTIPLY_INSTRUCTIONS "mul mla"
 #define SINGLE_DATA_TRANSFER_INSTRUCTIONS "ldr str"
@@ -18,6 +20,6 @@
  * @param argv The array of strings containing all the arguments
  * @return The encoded instruction.
  */
-int32_t encode(int argc, char**argv);
+int32_t encode(int argc, char**argv, Map* labels);
 
 #endif //ARM11_37_ENCODE_H_H
