@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include "encode_SDT.h"
 
 uint32_t getMovCode(int rd, int value) {
@@ -48,7 +49,17 @@ uint32_t constructCode(uint32_t i, uint32_t p, uint32_t u, uint32_t l, int rn, i
 }
 
 int intFromString (char value[]) {
-    return atoi(strtok(value, SEPS));
+    int i = 0, res = 0;
+    while(!isdigit(value[i])) {
+        i++;
+    }
+    while (isdigit(value[i])) {
+        res *= 10;
+        res += value[i] - '0';
+        i++;
+    }
+
+    return res;
 }
 
 int intFromStringHex (char value[]) {
@@ -64,11 +75,11 @@ char firstElement (char value[]) {
 }
 
 int getShift (char shiftType[]) {
-    if(shiftType == "lsl") {
+    if(strcmp(shiftType,"lsl") == 0){
         return LSL;
-    } else if(shiftType == "lsr") {
+    } else if(strcmp(shiftType,"lsr") == 0) {
         return LSR;
-    } else if(shiftType == "asr") {
+    } else if(strcmp(shiftType,"asr") == 0) {
         return ASR;
     }else {
         return ROR;
@@ -106,14 +117,25 @@ int getOffsetForRegister(char *reg, uint32_t *up) {
     return intFromString(reg);
 }
 
-SDTinstr int main(int argc, char **argv, int* endAddress, int thisAddress) {
+//TODO: used for testing
+void printBits(uint32_t instruction) {
+    uint32_t i, mask;
+    mask = 1;
+    mask <<= 31;
+    for(i = 0; i < 32; i++) {
+        printf("%u ", (instruction & mask) > 0);
+        instruction <<= 1;
+    }
+}
+
+SDTinstr encodeSDT(int argc, char **argv, int *endAddress, int thisAddress) {
 
     SDTinstr instruction;
     bool isMov = false;
     uint32_t i = 1, p = 1, u = 1, l = 0, instrCode = 0;
     int rn = 0, rd, offset = 0;
 
-    if(argv[0] == "ldr") {
+    if(strcmp(argv[0],"ldr") == 0) {
         l = 1;
     }
 
@@ -153,5 +175,18 @@ SDTinstr int main(int argc, char **argv, int* endAddress, int thisAddress) {
     }
 
     instruction.instruction = instrCode;
+
+    //TODO: test
+    printBits(instrCode);
+
     return instruction;
+}
+
+int main(int argc, char **argv) {
+    argc = 3;
+    argv[0] = "ldr";
+    argv[1] = "r2";
+    argv[2] = "[r1]";
+
+    encodeSDT(argc, argv, &argc, 8);
 }
