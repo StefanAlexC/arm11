@@ -12,7 +12,6 @@
 #define MAP_TYPE 1
 #define FILE_NAME argv[1]
 #define END_OF_MATRIX 0
-#define END_OF_MAP -1
 #define SPLITTING_CHARACTERS " ,\n"
 
 

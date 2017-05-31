@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include "assemble.h"
 #include "encode.h"
+#include "utils.h"
 
 void* allocateArray(int size, bool mode) {
     void *array;
@@ -65,7 +66,7 @@ char **readFile(char *fileName) {
         //printf("%s", commandLines[lines - 1]);
     }
 
-    commandLines[--lines] = END_OF_MATRIX;
+    commandLines[lines] = END_OF_MATRIX;
 
     for (int i = lines + 1; i < MAX_NUMBER_COMMANDS; i++) {
         free(commandLines[i]);
@@ -100,11 +101,14 @@ bool isLabel(char *command) {
 Map* firstPass(char **commands) {
     Map *labels = allocateArray(MAX_NUMBER_COMMANDS, MAP_TYPE);
     int numberLabels = 0;
+    int numberNonLabels = 0;
 
     for (int i = 0 ; commands[i] != END_OF_MATRIX ; i++) {
         if (isLabel(commands[i])) {
             labels[numberLabels].key = commands[i];
-            labels[numberLabels++].value = i + 1;
+            labels[numberLabels++].value = numberNonLabels + 1;
+        } else {
+            numberNonLabels++;
         }
     }
     labels[numberLabels].value = END_OF_MAP;
@@ -118,10 +122,14 @@ int main(int argc, char **argv) {
     Map *labels = firstPass(commands);
 
     char **line;
-    for (int i = 0 ; commands[i] != END_OF_MATRIX; i++) {
+/*    for (int i = 0 ; commands[i] != END_OF_MATRIX; i++) {
         line = parse(commands[i]);
         //printf("%d\n", numberArgumentsStringArray(line));
         printf("%d\n",encode(numberArgumentsStringArray(line), line, labels));
+    }*/
+
+    for (int i = 0 ; labels[i].value != END_OF_MAP ; i++) {
+        printf("%s -> %d\n", labels[i].key, labels[i].value);
     }
 
     return EXIT_SUCCESS;
