@@ -1,5 +1,5 @@
 #include <ctype.h>
-#include "encode_SDT.h"
+#include "assembleSDT.h"
 
 uint32_t getMovCode(uint32_t rd, uint32_t value) {
     uint32_t instrCode;

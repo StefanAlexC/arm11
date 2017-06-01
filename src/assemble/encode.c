@@ -3,7 +3,7 @@
 #include <string.h>
 #include "encode.h"
 #include "assembleBranch.h"
-#include "encode_SDT.h"
+#include "assembleSDT.h"
 
 bool isInstructionType(char *operation, char *type) {
     return strstr(type, operation) != NULL;;
