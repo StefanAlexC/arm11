@@ -143,8 +143,6 @@ SDTinstr encodeSDT(int argc, char **argv, int *endAddress, int thisAddress) {
             if(value < MAX_MOV_OPERAND) {
                 isMov = true;
                 instrCode = getMovCode(rd, value);
-                instruction.hasExpr = true;
-                instruction.expression = value;
             } else {
                 rn = PC;
                 offset = (uint32_t)(*endAddress - thisAddress - PIPELINE_OFFSET);
