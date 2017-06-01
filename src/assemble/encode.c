@@ -34,7 +34,7 @@ void encode(int argc, char **argv, Map *labels, int32_t currentOperationNumber, 
 
     } else if (isInstructionType(INSTRUCTION, SINGLE_DATA_TRANSFER_INSTRUCTIONS)) {
 
-        SDTinstr instruction = encodeSDT(argc, argv, numberOperations, (BYTE_VALUE * currentOperationNumber));
+        SDTinstr instruction = encodeSDT(argc, argv, numberOperations, (BYTE_NUMBER * currentOperationNumber));
         result = instruction.instruction;
         if (instruction.hasExpr) {
             remenants[++NUMBER_REMENANTS] = bigToLittle(instruction.expression);
@@ -55,5 +55,6 @@ void encode(int argc, char **argv, Map *labels, int32_t currentOperationNumber, 
     }
 
     printBits(bigToLittle(result));
+    //printAsChar(bigToLittle(result));
 }
 
