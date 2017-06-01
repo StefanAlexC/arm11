@@ -1,4 +1,5 @@
 #include "execute_SDT.h"
+#include "../../arm11_utils.h"
 
 uint32_t shiftRegister(uint32_t offset, ARM11* arm11) {
     uint32_t reg = arm11->registers[extractBit(offset, 0, 3)];
