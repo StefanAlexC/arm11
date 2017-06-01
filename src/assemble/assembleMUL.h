@@ -11,7 +11,6 @@
 #include <string.h>
 
 #define BITS_TO_REPRESENT_REGISTER 4
-#define CHARACTER_OFFSET_BETWEEN_REGISTER_DIGITS 4
 #define INSTRUCTION_LENGTH 32
 
 /**
@@ -21,7 +20,7 @@
  * @return : index of register
  */
 
-uint32_t getRegisterIndex(char* registerString);
+uint32_t getRegisterIndex(char** registerString);
 
 /**
  * Returns pointer to string of n-bit representation of number

@@ -5,9 +5,9 @@
 #include "assembleMUL.h"
 
 
-uint32_t getRegisterIndex(char* registerString) {
-  char registerIndex = *((++registerString));
-  return (uint32_t)(registerIndex - '0') ;
+uint32_t getRegisterIndex(char** registerString) {
+  char* registerIndex = ++*(registerString);
+  return (uint32_t)(strtol(registerIndex, NULL, 10)) ;
 }
 
 char* intToBinaryString(uint32_t number, uint32_t nOfBits) {
@@ -58,9 +58,9 @@ uint32_t assembleMultiply(int argc, char **parameters) {
   /**
    * Fetch index of register
    */
-  uint32_t rd = getRegisterIndex(parameters+1*CHARACTER_OFFSET_BETWEEN_REGISTER_DIGITS*(sizeof(char)));
-  uint32_t rm = getRegisterIndex(parameters+2*CHARACTER_OFFSET_BETWEEN_REGISTER_DIGITS*(sizeof(char)));
-  uint32_t rs = getRegisterIndex(parameters+3*CHARACTER_OFFSET_BETWEEN_REGISTER_DIGITS*(sizeof(char)));
+  uint32_t rd = getRegisterIndex(parameters+1*(sizeof(char)));
+  uint32_t rm = getRegisterIndex(parameters+2*(sizeof(char)));
+  uint32_t rs = getRegisterIndex(parameters+3*(sizeof(char)));
 
   /**
    * Convert register indices to strings
@@ -79,9 +79,9 @@ uint32_t assembleMultiply(int argc, char **parameters) {
   /**
    * Otherwise A is set to 1 and Rn is assigned its corresponding index
    */
-  if(argc == 4) {
+  if(argc == 5) {
     A = "1";
-    rn = getRegisterIndex(parameters+4*CHARACTER_OFFSET_BETWEEN_REGISTER_DIGITS*(sizeof(char)));
+    rn = getRegisterIndex(parameters+4*(sizeof(char)));
     binaryRn = intToBinaryString(rn, BITS_TO_REPRESENT_REGISTER);
   }
 
@@ -119,7 +119,7 @@ uint32_t assembleMultiply(int argc, char **parameters) {
   free(binaryRd);
   free(binaryRm);
   free(binaryRs);
-  if (argc == 4) {
+  if (argc == 5) {
     free(binaryRn);
   }
 
