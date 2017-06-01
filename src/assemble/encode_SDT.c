@@ -1,7 +1,7 @@
 #include <ctype.h>
 #include "encode_SDT.h"
 
-uint32_t getMovCode(int rd, int value) {
+uint32_t getMovCode(uint32_t rd, uint32_t value) {
     uint32_t instrCode;
 
     instrCode = AL_COND;
@@ -22,7 +22,7 @@ uint32_t getMovCode(int rd, int value) {
     return instrCode;
 }
 
-uint32_t constructCode(uint32_t i, uint32_t p, uint32_t u, uint32_t l, int rn, int rd, int offset) {
+uint32_t constructCode(uint32_t i, uint32_t p, uint32_t u, uint32_t l, uint32_t rn, uint32_t rd, uint32_t offset) {
     uint32_t instrCode;
 
     instrCode = AL_COND;
@@ -48,8 +48,8 @@ uint32_t constructCode(uint32_t i, uint32_t p, uint32_t u, uint32_t l, int rn, i
     return instrCode;
 }
 
-int intFromString (char value[]) {
-    int i = 0, res = 0;
+uint32_t intFromString (char value[]) {
+    uint32_t int i = 0, res = 0;
     while(!isdigit(value[i])) {
         i++;
     }
@@ -62,8 +62,8 @@ int intFromString (char value[]) {
     return res;
 }
 
-int intFromStringHex (char value[]) {
-    return (int)strtol(strtok(value, SEPS), NULL, 0);
+uint32_t intFromStringHex (char value[]) {
+    return (uint32_t)strtol(strtok(value, SEPS), NULL, 0);
 }
 
 char lastElement (char value[]) {
@@ -74,7 +74,7 @@ char firstElement (char value[]) {
     return value[0];
 }
 
-int getShift (char shiftType[]) {
+uint32_t getShift (char shiftType[]) {
     if(strcmp(shiftType,"lsl") == 0){
         return LSL;
     } else if(strcmp(shiftType,"lsr") == 0) {
@@ -92,10 +92,10 @@ void setUpBit (uint32_t* up, char reg[]) {
     }
 }
 
-int getOffsetForShiftedRegister (char reg[], char shiftType[], char shiftAmount[], uint32_t* up) {
+uint32_t getOffsetForShiftedRegister (char reg[], char shiftType[], char shiftAmount[], uint32_t* up) {
     setUpBit(up, reg);
 
-    int offset = 0;
+    uint32_t offset = 0;
     offset += intFromString(shiftAmount);
     if(firstElement(shiftAmount) == 'r') {
         offset <<= 1;
@@ -111,7 +111,7 @@ int getOffsetForShiftedRegister (char reg[], char shiftType[], char shiftAmount[
     return offset;
 }
 
-int getOffsetForRegister(char *reg, uint32_t *up) {
+uint32_t getOffsetForRegister(char *reg, uint32_t *up) {
     setUpBit(up, reg);
 
     return intFromString(reg);
@@ -122,7 +122,7 @@ SDTinstr encodeSDT(int argc, char **argv, int *endAddress, int thisAddress) {
     SDTinstr instruction;
     bool isMov = false;
     uint32_t i = 0, p = 1, u = 1, l = 0, instrCode = 0;
-    int rn = 0, rd, offset = 0;
+    uint32_t rn = 0, rd, offset = 0;
 
     if(strcmp(argv[0],"ldr") == 0) {
         l = 1;
@@ -137,13 +137,13 @@ SDTinstr encodeSDT(int argc, char **argv, int *endAddress, int thisAddress) {
 
     if(argc == 3) {
         if(firstElement(argv[2]) == '=') {
-            int value = intFromStringHex(argv[2]);
+            uint32_t value = intFromStringHex(argv[2]);
             if(value < MAX_MOV_OPERAND) {
                 instrCode = getMovCode(rd, value);
                 isMov = true;
             } else {
                 rn = PC;
-                offset = *endAddress - thisAddress - PIPELINE_OFFSET;
+                offset = (uint32_t)(*endAddress - thisAddress - PIPELINE_OFFSET);
                 instruction.hasExpr = true;
                 instruction.expression = value;
                 *endAddress += WORD_SIZE;
