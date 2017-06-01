@@ -54,7 +54,7 @@ void encode(int argc, char **argv, Map *labels, int32_t currentOperationNumber, 
 
     }
 
-    printBits(bigToLittle(result));
-    //printAsChar(bigToLittle(result));
+    //printBits(bigToLittle(result));
+    printAsChar(bigToLittle(result));
 }
 

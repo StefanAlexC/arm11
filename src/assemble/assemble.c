@@ -5,6 +5,8 @@
 #include "assemble.h"
 #include "encode.h"
 
+static FILE* outputFile;
+
 
 
 char **parse(char *string) {
@@ -77,6 +79,8 @@ int main(int argc, char **argv) {
     char **line;
     uint32_t remenants[MAX_NUMBER_COMMANDS];
 
+    //outputFile = freopen("/Users/Alex/Programming/C/arm11_37/src/test.out", "w", stdout);
+
     for (int i = 0 ; commands[i] != NULL ; i++) {
         line = parse(commands[i]);
         if (!isLabel(INSTRUCTION_STRING)) {
@@ -86,8 +90,11 @@ int main(int argc, char **argv) {
     }
 
     for (uint32_t i = 1 ; i <= remenants[0] ; i++) {
-        printBits(remenants[i]);
+        //printBits(remenants[i]);
+        printAsChar(remenants[i]);
     }
+
+    //fclose(outputFile);
 
     return EXIT_SUCCESS;
 }

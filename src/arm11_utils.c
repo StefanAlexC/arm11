@@ -1,6 +1,8 @@
 #include "arm11_utils.h"
 #include <stdlib.h>
 
+//TODO: remove only for testing
+
 uint32_t genMask(int start, int end) {
     uint32_t mask = 0;
     for (int i = 31; i >= start; --i) {
@@ -82,13 +84,13 @@ int numberArgumentsInt32Array(int **array) {
 }
 
 void printAsChar(uint32_t number) {
-    char temp = (char) extractBit(number, THIRD_BYTE_END + 1, FOURTH_BYTE_END);
+    char temp = (char) extractBit(number, SECOND_BYTE_END + 1, FIRST_BYTE_END);
     printf("%c", temp);
-    temp = (char) extractBit(number, SECOND_BYTE_END + 1, THIRD_BYTE_END);
+    temp = (char) extractBit(number, THIRD_BYTE_END + 1, SECOND_BYTE_END);
     printf("%c", temp);
-    temp = (char) extractBit(number, FIRST_BYTE_END + 1, SECOND_BYTE_END);
+    temp = (char) extractBit(number, FOURTH_BYTE_END + 1, THIRD_BYTE_END);
     printf("%c", temp);
-    temp = (char) extractBit(number, 0 , FIRST_BYTE_END);
+    temp = (char) extractBit(number, 0 , FOURTH_BYTE_END);
     printf("%c", temp);
 }
 
