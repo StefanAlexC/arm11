@@ -117,7 +117,7 @@ int getOffsetForRegister(char *reg, uint32_t *up) {
     return intFromString(reg);
 }
 
-//TODO: used for testing
+//TODO: remove (used only for testing)
 void printBits(uint32_t instruction) {
     uint32_t i, mask;
     mask = 1;
@@ -132,7 +132,7 @@ SDTinstr encodeSDT(int argc, char **argv, int *endAddress, int thisAddress) {
 
     SDTinstr instruction;
     bool isMov = false;
-    uint32_t i = 1, p = 1, u = 1, l = 0, instrCode = 0;
+    uint32_t i = 0, p = 1, u = 1, l = 0, instrCode = 0;
     int rn = 0, rd, offset = 0;
 
     if(strcmp(argv[0],"ldr") == 0) {
@@ -164,9 +164,11 @@ SDTinstr encodeSDT(int argc, char **argv, int *endAddress, int thisAddress) {
         if(firstElement(argv[3]) != 'r') {
             offset = intFromString(argv[3]);
         } else {
+            i = 1;
             offset = getOffsetForRegister(argv[3], &u);
         }
     } else {
+        i = 1;
         offset = getOffsetForShiftedRegister(argv[3], argv[4], argv[5], &u);
     }
 
@@ -176,17 +178,20 @@ SDTinstr encodeSDT(int argc, char **argv, int *endAddress, int thisAddress) {
 
     instruction.instruction = instrCode;
 
-    //TODO: test
+    //TODO: remove
     printBits(instrCode);
 
     return instruction;
 }
 
 int main(int argc, char **argv) {
-    argc = 3;
+    argc = 6;
     argv[0] = "ldr";
-    argv[1] = "r2";
-    argv[2] = "[r1]";
+    argv[1] = "r1";
+    argv[2] = "[r2";
+    argv[3] = "r3";
+    argv[4] = "lsl";
+    argv[5] = "#2";
 
     encodeSDT(argc, argv, &argc, 8);
 }
