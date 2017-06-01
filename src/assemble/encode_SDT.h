@@ -33,7 +33,7 @@
 typedef struct {
     uint32_t instruction;
     bool hasExpr;
-    int expression;
+    uint32_t expression;
 } SDTinstr;
 
 /**
@@ -42,7 +42,7 @@ typedef struct {
  * @param The value to be stored
  * @return The intruction bit code
  */
-uint32_t getMovCode(int rd, int value);
+uint32_t getMovCode(uint32_t rd, uint32_t value);
 
 /**
  * Gets the instruction code for an SDT instruction
@@ -55,21 +55,21 @@ uint32_t getMovCode(int rd, int value);
  * @param The offset
  * @return The constructed instruction bit-code
  */
-uint32_t constructCode(uint32_t i, uint32_t p, uint32_t u, uint32_t l, int rn, int rd, int offset);
+uint32_t constructCode(uint32_t i, uint32_t p, uint32_t u, uint32_t l, uint32_t rn, uint32_t rd, uint32_t offset);
 
 /**
  * Gets an integer from a string
  * @param The string
  * @return The integer
  */
-int intFromString (char value[]);
+uint32_t intFromString (char value[]);
 
 /**
  * Gets an integer from its hexadecimal representation in a string
  * @param The string
  * @return The integer
  */
-int intFromStringHex (char value[]);
+uint32_t intFromStringHex (char value[]);
 
 /**
  * Gets the last element of a string
@@ -90,7 +90,7 @@ char firstElement (char value[]);
  * @param The string representation of the shift type
  * @return The integer
  */
-int getShift (char shiftType[]);
+uint32_t getShift (char shiftType[]);
 
 /**
  * Check if the contents of the register must be added or subtracted and sets the UP flag accordingly
@@ -107,7 +107,7 @@ void setUpBit (uint32_t* up, char reg[]);
  * @param The UP flag which will be set accordingly
  * @return
  */
-int getOffsetForShiftedRegister (char reg[], char shiftType[], char shiftAmount[], uint32_t* up);
+uint32_t getOffsetForShiftedRegister (char reg[], char shiftType[], char shiftAmount[], uint32_t* up);
 
 /**
  * Calculates the offset with a simple register
@@ -115,7 +115,7 @@ int getOffsetForShiftedRegister (char reg[], char shiftType[], char shiftAmount[
  * @param The UP flag which will be set accordingly
  * @return
  */
-int getOffsetForRegister(char *reg, uint32_t *up);
+uint32_t getOffsetForRegister(char *reg, uint32_t *up);
 
 /**
  *
