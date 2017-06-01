@@ -154,7 +154,10 @@ SDTinstr encodeSDT(int argc, char **argv, int *endAddress, int thisAddress) {
         }
     } else if(argc == 4) {
         if(firstElement(argv[3]) != 'r') {
-            offset = intFromString(argv[3]);
+            offset = intFromStringHex(argv[3]);
+            if(argv[3][1] == '-') {
+                u = 0;
+            }
         } else {
             i = 1;
             offset = getOffsetForRegister(argv[3], &u);
