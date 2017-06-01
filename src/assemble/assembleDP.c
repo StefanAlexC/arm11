@@ -267,6 +267,11 @@ instr getDataProcessingMachineCode(ExtractedInstruction extr) {
     static const uint8_t OPCODE_SIZE = 4;
 
     instr instruction = 0;
+
+    if (extr.opcode == ANDEQ) {
+        return instruction;
+    }
+
     setBitsAtPosition(&instruction, COND, extr.condition);
     setBitsAtPosition(&instruction, I, (uint32_t) extr.operand.isConstant);
 
@@ -461,4 +466,7 @@ instr getDataProcessingMachineCode(ExtractedInstruction extr) {
 //
 //    printf("\n");
 
+//    char* instrEl41[] = {"andeq", "r0", "r0", "r0"};
+//    printBits(getDataProcessingMachineCode(extractInstruction(instrEl41, 4)));
+//
 //}

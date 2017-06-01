@@ -12,7 +12,7 @@
 struct {
     const char* mnemonic;
     Opcode opcode;
-} opcodeDictionary[] = {{"and", AND}, {"eor", EOR}, {"sub", SUB}, {"rsb", RSB}, {"add", ADD}, {"tst", TST}, {"teq", TEQ}, {"cmp", CMP}, {"orr", ORR}, {"mov", MOV}};
+} opcodeDictionary[] = {{"and", AND}, {"eor", EOR}, {"sub", SUB}, {"rsb", RSB}, {"add", ADD}, {"tst", TST}, {"teq", TEQ}, {"cmp", CMP}, {"orr", ORR}, {"mov", MOV}, {"andeq", ANDEQ}};
 
 struct {
     const char* mnemonic;
