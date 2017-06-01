@@ -8,7 +8,7 @@ bool isInstructionType (char *operation, char *type) {
     return strstr(type, operation) != NULL;;
 }
 
-int32_t encode(int argc, char**argv, Map* labels, int32_t currentOperationNumber) {
+uint32_t encode(int argc, char**argv, Map* labels, int32_t currentOperationNumber) {
 
     if (isInstructionType(INSTRUCTION, DATA_PROCESSING_INSTRUCTIONS)) {
         return 1;

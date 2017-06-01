@@ -65,16 +65,6 @@ typedef struct {
     uint32_t offset;
 } BranchInstruction;
 
-
-/**
- *
- * @param bits
- * Prints the bits of a 32-bit integer
- * Most significant bit to the left
- */
-void printBits(uint32_t bits);
-
-
 /**
  *
  * @param bits

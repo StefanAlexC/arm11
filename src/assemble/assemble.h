@@ -11,9 +11,10 @@
 #define CHAR_TYPE 0
 #define MAP_TYPE 1
 #define FILE_NAME argv[1]
-#define END_OF_MATRIX 0
 #define SPLITTING_CHARACTERS " ,\n"
 #define INSTRUCTION_STRING line[0]
+#define BYTE_VALUE 8
+#define BYTE_NUMBER 4
 
 
 

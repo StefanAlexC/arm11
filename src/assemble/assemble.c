@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include "assemble.h"
 #include "encode.h"
-#include "utils.h"
+#include "../arm11_utils.h"
 
 void *allocateArray(int size, bool mode) {
     void *array;
@@ -47,7 +47,7 @@ char **parse(char *string) {
         //printf("%s\n",parsedString[arguments - 1]);
         token = strtok(NULL, SPLITTING_CHARACTERS);
     }
-    parsedString[arguments] = END_OF_MATRIX;
+    parsedString[arguments] = NULL;
 
     for (int i = arguments + 1; i < MAX_ARGUMENT_NUMBER; i++) {
         free(parsedString[arguments]);
@@ -66,7 +66,7 @@ char **readFile(char *fileName) {
         //printf("%s", commandLines[lines - 1]);
     }
 
-    commandLines[lines] = END_OF_MATRIX;
+    commandLines[--lines] = NULL;
 
     for (int i = lines + 1; i < MAX_NUMBER_COMMANDS; i++) {
         free(commandLines[i]);
@@ -80,7 +80,7 @@ char **readFile(char *fileName) {
 int numberArgumentsStringArray(char **array) {
     int length;
 
-    for (length = 0; array[length] != END_OF_MATRIX; length++);
+    for (length = 0; array[length] != NULL ; length++);
 
     return length;
 }
@@ -88,7 +88,7 @@ int numberArgumentsStringArray(char **array) {
 int numberArgumentsInt32Array(int **array) {
     int length;
 
-    for (length = 0; array[length] != END_OF_MATRIX; length++);
+    for (length = 0; array[length] != NULL ; length++);
 
     return length;
 }
@@ -97,13 +97,12 @@ bool isLabel(char *command) {
     return strstr(command, ":") != NULL;
 }
 
-//TODO: Might need to modify address
 Map *firstPass(char **commands) {
     Map *labels = allocateArray(MAX_NUMBER_COMMANDS, MAP_TYPE);
     int numberLabels = 0;
     int numberNonLabels = 0;
 
-    for (int i = 0; commands[i] != END_OF_MATRIX; i++) {
+    for (int i = 0; commands[i] != NULL ; i++) {
         if (isLabel(commands[i])) {
             labels[numberLabels].key = commands[i];
             labels[numberLabels++].value = numberNonLabels;
@@ -116,18 +115,27 @@ Map *firstPass(char **commands) {
     return realloc(labels, (numberLabels + 1) * sizeof(Map));
 }
 
+uint32_t bigToLittle(uint32_t number) {
+    uint32_t value = 0;
+    for (int i = 0; i < BYTE_NUMBER; i++) {
+        value <<= BYTE_VALUE;
+        value += extractBit(number, i * BYTE_VALUE, (i + 1) * BYTE_VALUE - 1);
+    }
+    return value;
+}
 
 int main(int argc, char **argv) {
     char **commands = readFile(FILE_NAME);
     Map *labels = firstPass(commands);
     int32_t currentOperationNumber = 0;
-
     char **line;
-    for (int i = 0; commands[i] != END_OF_MATRIX; i++) {
+    uint32_t result;
+
+    for (int i = 0 ; commands[i] != NULL ; i++) {
         line = parse(commands[i]);
-        //printf("%d\n", numberArgumentsStringArray(line));
         if (!isLabel(INSTRUCTION_STRING)) {
-            printf("%d\n", encode(numberArgumentsStringArray(line), line, labels, currentOperationNumber));
+            result = encode(numberArgumentsStringArray(line), line, labels, currentOperationNumber);
+            printBits(bigToLittle(result));
             currentOperationNumber++;
         }
     }

@@ -117,17 +117,6 @@ int getOffsetForRegister(char *reg, uint32_t *up) {
     return intFromString(reg);
 }
 
-//TODO: remove (used only for testing)
-void printBits(uint32_t instruction) {
-    uint32_t i, mask;
-    mask = 1;
-    mask <<= 31;
-    for(i = 0; i < 32; i++) {
-        printf("%u ", (instruction & mask) > 0);
-        instruction <<= 1;
-    }
-}
-
 SDTinstr encodeSDT(int argc, char **argv, int *endAddress, int thisAddress) {
 
     SDTinstr instruction;
@@ -177,9 +166,6 @@ SDTinstr encodeSDT(int argc, char **argv, int *endAddress, int thisAddress) {
     }
 
     instruction.instruction = instrCode;
-
-    //TODO: remove
-    printBits(instrCode);
 
     return instruction;
 }
