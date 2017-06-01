@@ -12,7 +12,8 @@
 struct {
     const char* mnemonic;
     Opcode opcode;
-} opcodeDictionary[] = {{"and", AND}, {"eor", EOR}, {"sub", SUB}, {"rsb", RSB}, {"add", ADD}, {"tst", TST}, {"teq", TEQ}, {"cmp", CMP}, {"orr", ORR}, {"mov", MOV}, {"andeq", ANDEQ}};
+} opcodeDictionary[] = {{"and", AND}, {"eor", EOR}, {"sub", SUB}, {"rsb", RSB}, {"add", ADD}, {"tst", TST},
+                        {"teq", TEQ}, {"cmp", CMP}, {"orr", ORR}, {"mov", MOV}, {"andeq", ANDEQ}, {"lsl", LSLI}};
 
 struct {
     const char* mnemonic;
@@ -204,6 +205,6 @@ void getOperandMachineCode(instr *instruction, ExtractedOperand eop);
  * @param extr
  * @return
  */
-instr getDataProcessingMachineCode(ExtractedInstruction extr);
+instr assembleDataProcessing(int numberOfComponents, char **instrComponents);
 
 #endif //ARM11_37_ASSEMBLEDP_H
