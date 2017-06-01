@@ -13,6 +13,11 @@
 #define MAX_ARGUMENT_NUMBER 15
 #define MAX_ARGUMENT_SIZE 15
 
+#define FIRST_BYTE_END 31
+#define SECOND_BYTE_END 23
+#define THIRD_BYTE_END 15
+#define FOURTH_BYTE_END 7
+
 typedef struct {
     char* key;
     int value;
@@ -78,5 +83,11 @@ int numberArgumentsStringArray(char** array);
  * @return The number of arguments
  */
 int numberArgumentsInt32Array(int **array);
+
+/**
+ * Prints the 32 bit number as four chars
+ * @param number The number we wish to print
+ */
+void printAsChar(uint32_t number);
 
 #endif //ARM11_37_ARM11_UTILS_H

@@ -81,3 +81,14 @@ int numberArgumentsInt32Array(int **array) {
     return length;
 }
 
+void printAsChar(uint32_t number) {
+    char temp = (char) extractBit(number, THIRD_BYTE_END + 1, FOURTH_BYTE_END);
+    printf("%c", temp);
+    temp = (char) extractBit(number, SECOND_BYTE_END + 1, THIRD_BYTE_END);
+    printf("%c", temp);
+    temp = (char) extractBit(number, FIRST_BYTE_END + 1, SECOND_BYTE_END);
+    printf("%c", temp);
+    temp = (char) extractBit(number, 0 , FIRST_BYTE_END);
+    printf("%c", temp);
+}
+
