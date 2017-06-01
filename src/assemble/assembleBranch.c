@@ -34,7 +34,7 @@ uint32_t getLabelAddress(char *searchedLabel, Map* labels) {
 }
 
 uint32_t twosComplement24bit(int32_t number) {
-    if (number > 0) {
+    if (number >= 0) {
         return (uint32_t) number;
     } else {
         return (uint32_t) (~(-(number + 1) | PADDING) | SIGN_BIT);

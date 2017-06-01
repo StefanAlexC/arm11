@@ -24,9 +24,9 @@ void encode(int argc, char **argv, Map *labels, int32_t currentOperationNumber, 
             uint32_t remenants[]) {
     uint32_t result = 0;
 
-    if (isInstructionType(INSTRUCTION, DATA_PROCESSING_INSTRUCTIONS)) {
+    if (isInstructionType(INSTRUCTION, BRANCH_INSTRUCTIONS)) {
 
-        result = bigToLittle(assembleDataProcessing(argc, argv));
+        result = encodeBranch(argv, labels, currentOperationNumber);
 
     } else if (isInstructionType(INSTRUCTION, MULTIPLY_INSTRUCTIONS)) {
 
@@ -40,9 +40,9 @@ void encode(int argc, char **argv, Map *labels, int32_t currentOperationNumber, 
             remenants[++NUMBER_REMENANTS] = bigToLittle(instruction.expression);
         }
 
-    } else if (isInstructionType(INSTRUCTION, BRANCH_INSTRUCTIONS)) {
+    } else if (isInstructionType(INSTRUCTION, DATA_PROCESSING_INSTRUCTIONS)) {
 
-        result = encodeBranch(argv, labels, currentOperationNumber);
+        result = bigToLittle(assembleDataProcessing(argc, argv));
 
     } else if (isInstructionType(INSTRUCTION, SPECIAL_INSTRUCTIONS)) {
 
