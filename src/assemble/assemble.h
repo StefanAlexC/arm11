@@ -4,7 +4,8 @@
 
 #include "../arm11_utils.h"
 
-#define FILE_NAME argv[1]
+#define INPUT_FILE_NAME argv[1]
+#define OUTPUT_FILE_NAME argv[2]
 #define SPLITTING_CHARACTERS " ,\n"
 #define INSTRUCTION_STRING line[0]
 #define BYTE_VALUE 8

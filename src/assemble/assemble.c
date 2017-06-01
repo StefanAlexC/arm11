@@ -72,14 +72,14 @@ Map *firstPass(char **commands, int* numberNonLabels) {
 }
 
 int main(int argc, char **argv) {
-    char **commands = readFile(FILE_NAME);
+    char **commands = readFile(INPUT_FILE_NAME);
     int numberOperations = 0;
     Map *labels = firstPass(commands, &numberOperations);
     int32_t currentOperationNumber = 0;
     char **line;
     uint32_t remenants[MAX_NUMBER_COMMANDS];
 
-    //outputFile = freopen("/Users/Alex/Programming/C/arm11_37/src/test.out", "w", stdout);
+    outputFile = freopen(OUTPUT_FILE_NAME, "w", stdout);
 
     for (int i = 0 ; commands[i] != NULL ; i++) {
         line = parse(commands[i]);
@@ -94,7 +94,7 @@ int main(int argc, char **argv) {
         printAsChar(remenants[i]);
     }
 
-    //fclose(outputFile);
+    fclose(outputFile);
 
     return EXIT_SUCCESS;
 }
