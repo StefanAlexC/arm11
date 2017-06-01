@@ -20,6 +20,6 @@
  * @param argv The array of strings containing all the arguments
  * @return The encoded instruction.
  */
-int32_t encode(int argc, char**argv, Map* labels);
+int32_t encode(int argc, char**argv, Map* labels, int32_t currentOperationNumber);
 
 #endif //ARM11_37_ENCODE_H_H

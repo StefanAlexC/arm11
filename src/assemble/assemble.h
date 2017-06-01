@@ -13,6 +13,7 @@
 #define FILE_NAME argv[1]
 #define END_OF_MATRIX 0
 #define SPLITTING_CHARACTERS " ,\n"
+#define INSTRUCTION_STRING line[0]
 
 
 

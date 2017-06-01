@@ -25,28 +25,28 @@ uint8_t computeCond(char* operation) {
     }
 }
 
-int32_t getLabelAddress(char *searchedLabel, Map* labels) {
+uint32_t getLabelAddress(char *searchedLabel, Map* labels) {
     for (int i = 0 ; labels[i].value != END_OF_MAP ; i++) {
-        if (strstr(searchedLabel, labels[i].key) != NULL) {
-            return (uint32_t)labels[i].value;
+        if (strstr(labels[i].key, searchedLabel) != NULL) {
+            return (uint32_t) labels[i].value;
         }
     }
 }
 
-int32_t twosComplement24bit(int32_t number) {
+uint32_t twosComplement24bit(int32_t number) {
     if (number > 0) {
-        return number;
+        return (uint32_t) number;
     } else {
-        return (int32_t) (~((number + 1) | PADDING) | SIGN_BIT);
+        return (uint32_t) (~(-(number + 1) | PADDING) | SIGN_BIT);
     }
 }
 
-int32_t calculateOffset(int32_t target, int32_t source) {
+uint32_t calculateOffset(int32_t target, int32_t source) {
     return twosComplement24bit(((target - source) * MEMORY_MULTIPLIER - PIPELINE_OFFSET) >> 2);
 }
 
-int32_t encodeBranch(int argc, char**argv, Map* labels, int32_t currentOperationNumber) {
-    int32_t result = computeCond(argv[0]);
+uint32_t encodeBranch(char**argv, Map* labels, int32_t currentOperationNumber) {
+    uint32_t result = computeCond(argv[0]);
     result <<= CONDITION_OFFSET;
     result |= BRANCH_OPCODE;
     result <<= OFFSET_OFFSET;

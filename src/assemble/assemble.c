@@ -6,7 +6,7 @@
 #include "encode.h"
 #include "utils.h"
 
-void* allocateArray(int size, bool mode) {
+void *allocateArray(int size, bool mode) {
     void *array;
     if (mode) {
         array = malloc((size + 1) * sizeof(Map));
@@ -31,7 +31,7 @@ char **allocateStringMatrix(int lines, int columns) {
     }
 
     for (int i = 0; i < lines; i++) {
-        matrix[i] = (char *)allocateArray(columns, CHAR_TYPE);
+        matrix[i] = (char *) allocateArray(columns, CHAR_TYPE);
     }
 
     return matrix;
@@ -98,15 +98,15 @@ bool isLabel(char *command) {
 }
 
 //TODO: Might need to modify address
-Map* firstPass(char **commands) {
+Map *firstPass(char **commands) {
     Map *labels = allocateArray(MAX_NUMBER_COMMANDS, MAP_TYPE);
     int numberLabels = 0;
     int numberNonLabels = 0;
 
-    for (int i = 0 ; commands[i] != END_OF_MATRIX ; i++) {
+    for (int i = 0; commands[i] != END_OF_MATRIX; i++) {
         if (isLabel(commands[i])) {
             labels[numberLabels].key = commands[i];
-            labels[numberLabels++].value = numberNonLabels + 1;
+            labels[numberLabels++].value = numberNonLabels;
         } else {
             numberNonLabels++;
         }
@@ -120,16 +120,16 @@ Map* firstPass(char **commands) {
 int main(int argc, char **argv) {
     char **commands = readFile(FILE_NAME);
     Map *labels = firstPass(commands);
+    int32_t currentOperationNumber = 0;
 
     char **line;
-/*    for (int i = 0 ; commands[i] != END_OF_MATRIX; i++) {
+    for (int i = 0; commands[i] != END_OF_MATRIX; i++) {
         line = parse(commands[i]);
         //printf("%d\n", numberArgumentsStringArray(line));
-        printf("%d\n",encode(numberArgumentsStringArray(line), line, labels));
-    }*/
-
-    for (int i = 0 ; labels[i].value != END_OF_MAP ; i++) {
-        printf("%s -> %d\n", labels[i].key, labels[i].value);
+        if (!isLabel(INSTRUCTION_STRING)) {
+            printf("%d\n", encode(numberArgumentsStringArray(line), line, labels, currentOperationNumber));
+            currentOperationNumber++;
+        }
     }
 
     return EXIT_SUCCESS;
