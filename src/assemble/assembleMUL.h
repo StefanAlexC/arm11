@@ -10,6 +10,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define BITS_TO_REPRESENT_REGISTER 4
+#define CHARACTER_OFFSET_BETWEEN_REGISTER_DIGITS 4
+#define INSTRUCTION_LENGTH 32
+
 /**
  * Returns numerical index of a register (0-15) given a pointer to its string
  * representation
@@ -20,12 +24,13 @@
 uint32_t getRegisterIndex(char* registerString);
 
 /**
- * Returns pointer to string of binary representation of number
+ * Returns pointer to string of n-bit representation of number
  * @param number : number to be converted
- * @return : string of binary bits
+ * @param nOfBits : length of binary digits
+ * @return : string of n binary bits
  */
 
-char* intToBinaryString(uint32_t number);
+char* intToBinaryString(uint32_t number, uint32_t nOfBits);
 
 /**
  * Returns pointer to string representation of 32 bit binary instruction
@@ -36,6 +41,6 @@ char* intToBinaryString(uint32_t number);
  * @return : pointer to string containing binary representation of instruction
  */
 
-char* assembleMultiply(uint32_t args, char* parameters);
+uint32_t assembleMultiply(int argc, char* parameters);
 
 #endif //ARM11_37_MULTIPLY_ASSEMBLE_H
