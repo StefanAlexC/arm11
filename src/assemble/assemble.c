@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <ctype.h>
 #include "assemble.h"
 #include "encode.h"
 
@@ -28,6 +29,14 @@ char **parse(char *string) {
     return realloc(parsedString, (arguments + 1) * sizeof(char *));
 }
 
+bool isEmpty(char *string) {
+    for (int i = 0 ; string[i] ; i++) {
+        if (isalpha(string[i]))
+            return false;
+    }
+    return true;
+}
+
 char **readFile(char *fileName) {
     FILE *file = fopen(fileName, "r");
     char **commandLines = allocateStringMatrix(MAX_COMMAND_SIZE, MAX_COMMAND_SIZE);
@@ -35,10 +44,13 @@ char **readFile(char *fileName) {
 
     while (!feof(file)) {
         fgets(commandLines[lines++], MAX_COMMAND_SIZE, file);
+        if (isEmpty(commandLines[lines - 1])) {
+            lines--;
+        }
         //printf("%s", commandLines[lines - 1]);
     }
 
-    commandLines[--lines] = NULL;
+    commandLines[lines] = NULL;
 
     for (int i = lines + 1; i < MAX_NUMBER_COMMANDS; i++) {
         free(commandLines[i]);
@@ -78,6 +90,7 @@ int main(int argc, char **argv) {
     int32_t currentOperationNumber = 0;
     char **line;
     uint32_t remenants[MAX_NUMBER_COMMANDS];
+    remenants[0] = 0;
 
     outputFile = freopen(OUTPUT_FILE_NAME, "w", stdout);
 

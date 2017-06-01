@@ -168,7 +168,7 @@ Shift processShift(char **operandString, int numberOfElements) {
     shift.type = getShiftTypeValue(shiftTypeStr);
     if (isConstant(shiftAmountString)) {
         shift.isRegister = false;
-        shift.shiftValue = (uint32_t) atoi(shiftAmountString + 1);
+        shift.shiftValue = (uint32_t) extractConstant(shiftAmountString);
         return shift;
     }
 
@@ -226,7 +226,7 @@ char **getLSLProperFormat(char **instrComponents) {
     newInstrComponents[1] = instrComponents[0];
     newInstrComponents[2] = instrComponents[2];
 
-    printStrArrContents(newInstrComponents, 3);
+//    printStrArrContents(newInstrComponents, 3);
 
     return newInstrComponents;
 }
@@ -235,6 +235,7 @@ uint32_t processOpcode(uint32_t opcode) {
     if (opcode == LSLI) {
         return MOV;
     }
+    return opcode;
 }
 
 ExtractedInstruction extractInstruction(char **instrComponents, int numberOfComponents) {
@@ -339,18 +340,18 @@ instr assembleDataProcessing(int numberOfComponents, char **instrComponents) {
     return instruction;
 }
 
-/*int main(void) {
-////    printConstantOperand(processConstant(0xFF0000FF));
-////    printBits(constantSignificantBits(0x0003FC00));
-//    printConstantOperand(processConstant(4));
-
-//    printf("%i", getShiftTypeValue("ror"));
+//int main(void) {
+//////    printConstantOperand(processConstant(0xFF0000FF));
+//////    printBits(constantSignificantBits(0x0003FC00));
+////    printConstantOperand(processConstant(4));
 //
-    char* instrEl1[] = {"mov", "r1", "#4"};
-    char* instrEl2[] = {"mov", "r2", "#2"};
-    char* instrEl3[] = {"add", "r3", "r1", "r2"};
-    char* instrEl4[] = {"add", "r4", "r3", "#4"};
-    char* instrEl5[] = {"sub", "r5", "r4", "r3", "lsr", "r2"};
+////    printf("%i", getShiftTypeValue("ror"));
+////
+//    char* instrEl1[] = {"mov", "r1", "#4"};
+//    char* instrEl2[] = {"mov", "r2", "#2"};
+//    char* instrEl3[] = {"add", "r3", "r1", "r2"};
+//    char* instrEl4[] = {"add", "r4", "r3", "#4"};
+//    char* instrEl5[] = {"sub", "r5", "r4", "r3", "lsr", "r2"};
 //    extractInstruction(instrEl, 6);
 
 //    uint32_t i = 0;
@@ -360,13 +361,13 @@ instr assembleDataProcessing(int numberOfComponents, char **instrComponents) {
 //    printBits(i);
 
 ///////////////////////    opt_add05    /////////////////////
-    printBits(assembleDataProcessing(3, instrEl1));
-    printBits(assembleDataProcessing(3, instrEl2));
-    printBits(assembleDataProcessing(4, instrEl3));
-    printBits(assembleDataProcessing(4, instrEl4));
-    printBits(assembleDataProcessing(6, instrEl5));
-
-    printf("\n");
+//    printBits(assembleDataProcessing(3, instrEl1));
+//    printBits(assembleDataProcessing(3, instrEl2));
+//    printBits(assembleDataProcessing(4, instrEl3));
+//    printBits(assembleDataProcessing(4, instrEl4));
+//    printBits(assembleDataProcessing(6, instrEl5));
+//
+//    printf("\n");
 //
 ///////////////////////    or02    /////////////////////
 //    char* instrEl6[] = {"mov", "r1", "#0x0F"};
@@ -520,6 +521,9 @@ instr assembleDataProcessing(int numberOfComponents, char **instrComponents) {
 
 
 
-//    char* instrEl42[] = {"lsl", "r2", "#5"};
-//    printBits(assembleDataProcessing(instrEl42, 3));
-}*/
+//    char* instrEl42[] = {"lsl", "r1", "#1"};
+//    printBits(assembleDataProcessing(3, instrEl42));
+//
+//    char* instrEl43[] = {"lsl", "r1", "#0x1f"};
+//    printBits(assembleDataProcessing(3, instrEl43));
+//}
