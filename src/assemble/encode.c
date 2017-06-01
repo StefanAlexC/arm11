@@ -26,7 +26,7 @@ void encode(int argc, char **argv, Map *labels, int32_t currentOperationNumber, 
 
     if (isInstructionType(INSTRUCTION, DATA_PROCESSING_INSTRUCTIONS)) {
 
-        result = assembleDataProcessing(argc, argv);
+        result = bigToLittle(assembleDataProcessing(argc, argv));
 
     } else if (isInstructionType(INSTRUCTION, MULTIPLY_INSTRUCTIONS)) {
 
