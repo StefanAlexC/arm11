@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <memory.h>
 #include <stdio.h>
+#include "../arm11_utils.h"
 
 
 #define AL_COND 14
@@ -29,12 +30,6 @@
 #define LSR 1
 #define ASR 2
 #define ROR 3
-
-typedef struct {
-    uint32_t instruction;
-    bool hasExpr;
-    uint32_t expression;
-} SDTinstr;
 
 /**
  * Gets the instruction code for when a ldr must be interpreted as a mov

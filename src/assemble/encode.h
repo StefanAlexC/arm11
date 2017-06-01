@@ -6,6 +6,7 @@
 #define ARM11_37_ENCODE_H_H
 
 #include "assemble.h"
+#include "../arm11_utils.h"
 
 #define DATA_PROCESSING_INSTRUCTIONS "and eor sub rsb add orr mov tst teq cmp"
 #define MULTIPLY_INSTRUCTIONS "mul mla"
@@ -13,6 +14,7 @@
 #define BRANCH_INSTRUCTIONS "beq bne bge blt bgt ble b"
 #define SPECIAL_INSTRUCTIONS "lsl andeq"
 #define INSTRUCTION argv[0]
+#define NUMBER_REMENANTS remenants[0]
 
 /**
  * Calculates whether or not the given operation matches the type of instruction.

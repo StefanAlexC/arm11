@@ -63,6 +63,7 @@ Map *firstPass(char **commands, int* numberNonLabels) {
             *numberNonLabels += 1;
         }
     }
+    *numberNonLabels *= BYTE_VALUE;
     labels[numberLabels].value = END_OF_MAP;
 
     return realloc(labels, (numberLabels + 1) * sizeof(Map));

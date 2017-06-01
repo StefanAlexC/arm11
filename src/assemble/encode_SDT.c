@@ -49,7 +49,7 @@ uint32_t constructCode(uint32_t i, uint32_t p, uint32_t u, uint32_t l, uint32_t 
 }
 
 uint32_t intFromString (char value[]) {
-    uint32_t int i = 0, res = 0;
+    uint32_t i = 0, res = 0;
     while(!isdigit(value[i])) {
         i++;
     }
@@ -168,16 +168,4 @@ SDTinstr encodeSDT(int argc, char **argv, int *endAddress, int thisAddress) {
     instruction.instruction = instrCode;
 
     return instruction;
-}
-
-int main(int argc, char **argv) {
-    argc = 6;
-    argv[0] = "ldr";
-    argv[1] = "r1";
-    argv[2] = "[r2";
-    argv[3] = "r3";
-    argv[4] = "lsl";
-    argv[5] = "#2";
-
-    encodeSDT(argc, argv, &argc, 8);
 }

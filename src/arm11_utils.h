@@ -18,6 +18,12 @@ typedef struct {
     int value;
 } Map;
 
+typedef struct {
+    uint32_t instruction;
+    bool hasExpr;
+    uint32_t expression;
+} SDTinstr;
+
 /**
  * Generates a mask in order to select specific bits
  * @param start : start of bit

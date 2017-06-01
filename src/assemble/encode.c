@@ -3,8 +3,9 @@
 #include <string.h>
 #include "encode.h"
 #include "assembleBranch.h"
+#include "encode_SDT.h"
 
-bool isInstructionType (char *operation, char *type) {
+bool isInstructionType(char *operation, char *type) {
     return strstr(type, operation) != NULL;;
 }
 
@@ -17,7 +18,8 @@ uint32_t bigToLittle(uint32_t number) {
     return value;
 }
 
-void encode(int argc, char**argv, Map* labels, int32_t currentOperationNumber, int* numberOperations, uint32_t remenants[]) {
+void encode(int argc, char **argv, Map *labels, int32_t currentOperationNumber, int *numberOperations,
+            uint32_t remenants[]) {
     uint32_t result = 0;
 
     if (isInstructionType(INSTRUCTION, DATA_PROCESSING_INSTRUCTIONS)) {
@@ -25,7 +27,11 @@ void encode(int argc, char**argv, Map* labels, int32_t currentOperationNumber, i
     } else if (isInstructionType(INSTRUCTION, MULTIPLY_INSTRUCTIONS)) {
         //TODO: ADD INSTRUCTION
     } else if (isInstructionType(INSTRUCTION, SINGLE_DATA_TRANSFER_INSTRUCTIONS)) {
-        //TODO: ADD INSTRUCTION
+        SDTinstr instruction = encodeSDT(argc, argv, numberOperations, (BYTE_VALUE * currentOperationNumber));
+        result = instruction.instruction;
+        if (instruction.hasExpr) {
+            remenants[++NUMBER_REMENANTS] = instruction.expression;
+        }
         //TODO: convert remenant into little
     } else if (isInstructionType(INSTRUCTION, BRANCH_INSTRUCTIONS)) {
         result = encodeBranch(argv, labels, currentOperationNumber);
@@ -34,7 +40,7 @@ void encode(int argc, char**argv, Map* labels, int32_t currentOperationNumber, i
     } else {
         //TODO: ERROR
     }
-    
+
     printBits(bigToLittle(result));
 }
 
