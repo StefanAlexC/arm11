@@ -90,6 +90,7 @@ int main(int argc, char **argv) {
     int32_t currentOperationNumber = 0;
     char **line;
     uint32_t remenants[MAX_NUMBER_COMMANDS];
+    remenants[0] = 0;
 
     outputFile = freopen(OUTPUT_FILE_NAME, "w", stdout);
 
