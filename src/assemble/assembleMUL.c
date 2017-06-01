@@ -48,7 +48,7 @@ char* intToBinaryString(uint32_t number, uint32_t nOfBits) {
 }
 
 
-uint32_t assembleMultiply(int argc, char* parameters) {
+uint32_t assembleMultiply(int argc, char **parameters) {
 
   /**
    * Default condition is AL

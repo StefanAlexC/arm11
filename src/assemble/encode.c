@@ -4,6 +4,7 @@
 #include "encode.h"
 #include "assembleBranch.h"
 #include "assembleSDT.h"
+#include "assembleMUL.h"
 
 bool isInstructionType(char *operation, char *type) {
     return strstr(type, operation) != NULL;;
@@ -25,7 +26,7 @@ void encode(int argc, char **argv, Map *labels, int32_t currentOperationNumber, 
     if (isInstructionType(INSTRUCTION, DATA_PROCESSING_INSTRUCTIONS)) {
         //TODO: ADD INSTRUCTION
     } else if (isInstructionType(INSTRUCTION, MULTIPLY_INSTRUCTIONS)) {
-        //TODO: ADD INSTRUCTION
+        result = assembleMultiply(argc, argv);
     } else if (isInstructionType(INSTRUCTION, SINGLE_DATA_TRANSFER_INSTRUCTIONS)) {
         SDTinstr instruction = encodeSDT(argc, argv, numberOperations, (BYTE_VALUE * currentOperationNumber));
         result = instruction.instruction;

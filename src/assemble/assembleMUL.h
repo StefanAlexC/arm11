@@ -41,6 +41,6 @@ char* intToBinaryString(uint32_t number, uint32_t nOfBits);
  * @return : pointer to string containing binary representation of instruction
  */
 
-uint32_t assembleMultiply(int argc, char* parameters);
+uint32_t assembleMultiply(int argc, char **parameters);
 
 #endif //ARM11_37_MULTIPLY_ASSEMBLE_H

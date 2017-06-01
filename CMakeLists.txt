@@ -13,7 +13,9 @@ set(SOURCE_FILES_ASSEMBLE
         src/assemble/assembleSDT.c
         src/assemble/assembleSDT.h
         src/arm11_utils.h
-        src/arm11_utils.c)
+        src/arm11_utils.c
+        src/assemble/assembleMUL.c
+        src/assemble/assembleMUL.h)
 
 
 set(SOURCE_FILES_EMULATE
