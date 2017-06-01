@@ -13,17 +13,6 @@ char* conditionString[] = {"EQ", "NE", "GE", "LT", "GT", "LE", "AL"};
 ShiftType shift[] = {LSL, LSR, ASR, ROR};
 char* shiftString[] = {"LSL", "LSR", "ASR", "ROR"};
 
-void printBits(uint32_t bits) {
-    uint32_t mask = (uint32_t) (1 << (INSTR_BITS - 1));
-
-    for (int i = 0; i < INSTR_BITS; i++) {
-        printf("%i", (bits & mask) != 0);
-        bits <<= 1;
-    }
-
-    printf("\n");
-}
-
 uint32_t setBit(uint32_t bits, int n, int b) {
     assert(b == 0 || b == 1);
     return bits ^ ((-b ^ bits) & (1 << n));

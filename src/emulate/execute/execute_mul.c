@@ -3,6 +3,7 @@
 //
 
 #include "../emulate.h"
+#include "../../arm11_utils.h"
 
 void multiply(MultiplyInstruction* multiplyInstruction, ARM11* arm11) {
 

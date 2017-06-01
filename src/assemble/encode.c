@@ -8,22 +8,33 @@ bool isInstructionType (char *operation, char *type) {
     return strstr(type, operation) != NULL;;
 }
 
-uint32_t encode(int argc, char**argv, Map* labels, int32_t currentOperationNumber) {
+uint32_t bigToLittle(uint32_t number) {
+    uint32_t value = 0;
+    for (int i = 0; i < BYTE_NUMBER; i++) {
+        value <<= BYTE_VALUE;
+        value += extractBit(number, i * BYTE_VALUE, (i + 1) * BYTE_VALUE - 1);
+    }
+    return value;
+}
+
+void encode(int argc, char**argv, Map* labels, int32_t currentOperationNumber, int* numberOperations, uint32_t remenants[]) {
+    uint32_t result = 0;
 
     if (isInstructionType(INSTRUCTION, DATA_PROCESSING_INSTRUCTIONS)) {
-        return 1;
+        //TODO: ADD INSTRUCTION
     } else if (isInstructionType(INSTRUCTION, MULTIPLY_INSTRUCTIONS)) {
-        return 2;
+        //TODO: ADD INSTRUCTION
     } else if (isInstructionType(INSTRUCTION, SINGLE_DATA_TRANSFER_INSTRUCTIONS)) {
-        return 3;
+        //TODO: ADD INSTRUCTION
+        //TODO: convert remenant into little
     } else if (isInstructionType(INSTRUCTION, BRANCH_INSTRUCTIONS)) {
-        return encodeBranch(argv, labels, currentOperationNumber);
+        result = encodeBranch(argv, labels, currentOperationNumber);
     } else if (isInstructionType(INSTRUCTION, SPECIAL_INSTRUCTIONS)) {
-        return 4;
+        //TODO: ADD INSTRUCTION
     } else {
         //TODO: ERROR
-        return -1;
     }
-
+    
+    printBits(bigToLittle(result));
 }
 

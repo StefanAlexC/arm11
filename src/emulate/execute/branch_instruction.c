@@ -1,4 +1,5 @@
 #include "branch_instruction.h"
+#include "../../arm11_utils.h"
 
 uint32_t padNegativeNumber(uint32_t number) {
     return (uint32_t)(number | PADDING);

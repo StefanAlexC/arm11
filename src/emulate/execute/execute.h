@@ -21,23 +21,6 @@
 FLAG execute(void *decoded, ARM11 *arm11);
 
 /**
- * Generates a mask in order to select specific bits
- * @param start : start of bit
- * @param end : end of bit
- * @return : returns a 32 bit mask
- */
-uint32_t genMask(int start, int end);
-
-/**
- * Extracts all bits between two specified positions
- * @param n : number to extract from
- * @param start : start position
- * @param end : end position
- * @return
- */
-uint32_t extractBit(uint32_t n, int start, int end);
-
-/**
  * Tests if the current instruction satisfies the condition of the CSPR register
  * @param condition The condition under which the current instruction needs
  * to be executed

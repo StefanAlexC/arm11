@@ -2,7 +2,7 @@
 #define ARM11_37_ASSEMBLEBRANCH_H
 
 #include <stdint.h>
-#include "utils.h"
+#include "../arm11_utils.h"
 
 #define BEQ "beq"
 #define BNE "bne"
