@@ -226,7 +226,7 @@ char **getLSLProperFormat(char **instrComponents) {
     newInstrComponents[1] = instrComponents[0];
     newInstrComponents[2] = instrComponents[2];
 
-    printStrArrContents(newInstrComponents, 3);
+//    printStrArrContents(newInstrComponents, 3);
 
     return newInstrComponents;
 }
