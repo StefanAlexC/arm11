@@ -5,6 +5,7 @@
 #include "assembleBranch.h"
 #include "assembleSDT.h"
 #include "assembleMUL.h"
+#include "assembleDP.h"
 
 bool isInstructionType(char *operation, char *type) {
     return strstr(type, operation) != NULL;;
@@ -25,7 +26,7 @@ void encode(int argc, char **argv, Map *labels, int32_t currentOperationNumber, 
 
     if (isInstructionType(INSTRUCTION, DATA_PROCESSING_INSTRUCTIONS)) {
 
-        //TODO: ADD INSTRUCTION
+        result = assembleDataProcessing(argc, argv);
 
     } else if (isInstructionType(INSTRUCTION, MULTIPLY_INSTRUCTIONS)) {
 

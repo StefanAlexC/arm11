@@ -1,5 +1,6 @@
 #include <ctype.h>
 #include "assembleSDT.h"
+#include "../emulate/decode/decode_utils.h"
 
 uint32_t getMovCode(uint32_t rd, uint32_t value) {
     uint32_t instrCode;

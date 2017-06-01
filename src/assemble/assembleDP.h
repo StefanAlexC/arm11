@@ -1,24 +1,9 @@
-//
-// Created by DAVID BUTEREZ on 30/05/17.
-//
-
 #ifndef ARM11_37_ASSEMBLEDP_H
 #define ARM11_37_ASSEMBLEDP_H
 #define CONSTANT_EXPRESSION_SIGN '#'
 
 #include <string.h>
 #include "../emulate/decode/decode_utils.h"
-
-struct {
-    const char* mnemonic;
-    Opcode opcode;
-} opcodeDictionary[] = {{"and", AND}, {"eor", EOR}, {"sub", SUB}, {"rsb", RSB}, {"add", ADD}, {"tst", TST},
-                        {"teq", TEQ}, {"cmp", CMP}, {"orr", ORR}, {"mov", MOV}, {"andeq", ANDEQ}, {"lsl", LSLI}};
-
-struct {
-    const char* mnemonic;
-    uint32_t shiftType;
-} shiftDictionary[] = {{"lsl", LSL}, {"lsr", LSR}, {"asr", ASR}, {"ror", ROR}};
 
 typedef struct {
     bool isRegister;

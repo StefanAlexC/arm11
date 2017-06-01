@@ -7,6 +7,17 @@
 #include "../emulate/execute/barrel_shifter.h"
 #include "../arm11_utils.h"
 
+struct {
+    const char* mnemonic;
+    Opcode opcode;
+} opcodeDictionary[] = {{"and", AND}, {"eor", EOR}, {"sub", SUB}, {"rsb", RSB}, {"add", ADD}, {"tst", TST},
+                        {"teq", TEQ}, {"cmp", CMP}, {"orr", ORR}, {"mov", MOV}, {"andeq", ANDEQ}, {"lsl", LSLI}};
+
+struct {
+    const char* mnemonic;
+    uint32_t shiftType;
+} shiftDictionary[] = {{"lsl", LSL}, {"lsr", LSR}, {"asr", ASR}, {"ror", ROR}};
+
 uint32_t getOpcodeValue(char *mnemonic) {
     for (int i = 0; i < sizeof(opcodeDictionary) / sizeof(opcodeDictionary[0]); i++)
         if (!strcmp(mnemonic, opcodeDictionary[i].mnemonic))
