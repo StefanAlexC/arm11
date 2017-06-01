@@ -1,7 +1,3 @@
-//
-// Created by DAVID BUTEREZ on 30/05/17.
-//
-
 #define MAX_IMMEDIATE 255
 #define REGISTER_LETTER_OFFSET 1
 
@@ -11,15 +7,15 @@
 #include "../emulate/execute/barrel_shifter.h"
 #include "../arm11_utils.h"
 
-uint32_t getOpcodeValue(char* mnemonic) {
-    for (int i = 0;  i < sizeof(opcodeDictionary) / sizeof(opcodeDictionary[0]);  i++)
+uint32_t getOpcodeValue(char *mnemonic) {
+    for (int i = 0; i < sizeof(opcodeDictionary) / sizeof(opcodeDictionary[0]); i++)
         if (!strcmp(mnemonic, opcodeDictionary[i].mnemonic))
             return opcodeDictionary[i].opcode;
     return 0;
 }
 
-uint32_t getShiftTypeValue(char* mnemonic) {
-    for (int i = 0;  i < sizeof(shiftDictionary) / sizeof(shiftDictionary[0]);  i++)
+uint32_t getShiftTypeValue(char *mnemonic) {
+    for (int i = 0; i < sizeof(shiftDictionary) / sizeof(shiftDictionary[0]); i++)
         if (!strcmp(mnemonic, shiftDictionary[i].mnemonic))
             return shiftDictionary[i].shiftType;
     return 0;
@@ -49,18 +45,18 @@ uint32_t isConstant(char *operandString) {
     return (uint32_t) (strchr(operandString, CONSTANT_EXPRESSION_SIGN) != NULL);
 }
 
-uint32_t extractConstant(char* operandString) {
+uint32_t extractConstant(char *operandString) {
     static const int hexOffset = 3;
     static const int decOffset = 1;
     if (strstr(operandString, "0x") != NULL) {
-        char* end;
+        char *end;
         return (uint32_t) (strtoul(operandString + hexOffset, &end, 16));
     } else {
         return (uint32_t) (atoi(operandString + decOffset));
     }
 }
 
-void initImm(Immediate* imm) {
+void initImm(Immediate *imm) {
     imm->immediateValue = 0;
     imm->rotateAmount = 0;
     imm->exists = false;
@@ -120,11 +116,11 @@ void printConstantOperand(Immediate imm) {
     printf("Shift amount: %u\n", imm.rotateAmount);
 }
 
-uint32_t extractRegisterIndex(char* registerName) {
+uint32_t extractRegisterIndex(char *registerName) {
     return (uint32_t) atoi(registerName + REGISTER_LETTER_OFFSET);
 }
 
-uint32_t extractRn(char** operandString, uint32_t opcode) {
+uint32_t extractRn(char **operandString, uint32_t opcode) {
     if (setsFlags(opcode)) {
         return extractRegisterIndex(operandString[1]);
     } else if (!isMoveInstruction(opcode)) {
@@ -134,22 +130,22 @@ uint32_t extractRn(char** operandString, uint32_t opcode) {
     }
 }
 
-uint32_t extractRd(char** operandString, uint32_t opcode) {
+uint32_t extractRd(char **operandString, uint32_t opcode) {
     if (computesResult(opcode) || isMoveInstruction(opcode)) {
         return extractRegisterIndex(operandString[1]);
     }
     return 0;
 }
 
-void initShift(Shift* shift) {
+void initShift(Shift *shift) {
     shift->type = 0;
     shift->isRegister = false;
     shift->shiftValue = 0;
 }
 
 Shift processShift(char **operandString, int numberOfElements) {
-    char* shiftTypeStr = operandString[1];
-    char* shiftAmountString = operandString[2];
+    char *shiftTypeStr = operandString[1];
+    char *shiftAmountString = operandString[2];
 
     Shift shift;
     initShift(&shift);
@@ -170,8 +166,8 @@ Shift processShift(char **operandString, int numberOfElements) {
     return shift;
 }
 
-ExtractedOperand processOperand(char** operandString, int numberOfElements) {
-    char* value = operandString[0];
+ExtractedOperand processOperand(char **operandString, int numberOfElements) {
+    char *value = operandString[0];
 
     ExtractedOperand operand;
 
@@ -188,7 +184,7 @@ ExtractedOperand processOperand(char** operandString, int numberOfElements) {
     return operand;
 }
 
-void printStrArrContents(char** instrComponents, int numberOfComponents) {
+void printStrArrContents(char **instrComponents, int numberOfComponents) {
     for (int i = 0; i < numberOfComponents; i++) {
         printf("%s  ", instrComponents[i]);
     }
@@ -196,11 +192,11 @@ void printStrArrContents(char** instrComponents, int numberOfComponents) {
 }
 
 
-char** getLSLProperFormat(char** instrComponents) {
+char **getLSLProperFormat(char **instrComponents) {
     static const uint32_t LSL_NUMBER_OF_COMPONENTS = 3;
     static const uint32_t SIZE_OF_COMPONENT = 20;
 
-    char** newInstrComponents = (char **) malloc(sizeof(char *) * LSL_NUMBER_OF_COMPONENTS);
+    char **newInstrComponents = (char **) malloc(sizeof(char *) * LSL_NUMBER_OF_COMPONENTS);
 
     if (!newInstrComponents) {
         perror("Cannot allocate memory!");
@@ -230,11 +226,11 @@ uint32_t processOpcode(uint32_t opcode) {
     }
 }
 
-ExtractedInstruction extractInstruction(char** instrComponents, int numberOfComponents) {
+ExtractedInstruction extractInstruction(char **instrComponents, int numberOfComponents) {
     static const uint32_t computeOffset = 3;
     static const uint32_t restOffset = 2;
 
-    char** originalInstrComp = instrComponents;
+    char **originalInstrComp = instrComponents;
     ExtractedInstruction extr;
 
     extr.condition = AL;
@@ -258,7 +254,7 @@ ExtractedInstruction extractInstruction(char** instrComponents, int numberOfComp
     return extr;
 }
 
-void setBitsAtPosition(instr* instruction, uint32_t right, uint32_t value) {
+void setBitsAtPosition(instr *instruction, uint32_t right, uint32_t value) {
     value <<= right;
     *instruction |= value;
 }
@@ -332,7 +328,7 @@ instr assembleDataProcessing(int numberOfComponents, char **instrComponents) {
     return instruction;
 }
 
-int main(void) {
+/*int main(void) {
 ////    printConstantOperand(processConstant(0xFF0000FF));
 ////    printBits(constantSignificantBits(0x0003FC00));
 //    printConstantOperand(processConstant(4));
@@ -515,4 +511,4 @@ int main(void) {
 
 //    char* instrEl42[] = {"lsl", "r2", "#5"};
 //    printBits(assembleDataProcessing(instrEl42, 3));
-}
+}*/

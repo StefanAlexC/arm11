@@ -15,7 +15,15 @@ set(SOURCE_FILES_ASSEMBLE
         src/arm11_utils.h
         src/arm11_utils.c
         src/assemble/assembleMUL.c
-        src/assemble/assembleMUL.h)
+        src/assemble/assembleMUL.h
+        src/assemble/assembleDP.c
+        src/assemble/assembleDP.h
+        src/emulate/decode/decode_utils.h
+        src/emulate/execute/barrel_shifter.h
+        src/emulate/execute/barrel_shifter.c
+        src/emulate/decode/masks.h
+        src/emulate/decode/decode_utils.h
+        src/emulate/decode/decode_utils.c)
 
 
 set(SOURCE_FILES_EMULATE
