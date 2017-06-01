@@ -5,6 +5,7 @@
 #include "assembleBranch.h"
 #include "assembleSDT.h"
 #include "assembleMUL.h"
+#include "assembleDP.h"
 
 bool isInstructionType(char *operation, char *type) {
     return strstr(type, operation) != NULL;;
@@ -24,22 +25,33 @@ void encode(int argc, char **argv, Map *labels, int32_t currentOperationNumber, 
     uint32_t result = 0;
 
     if (isInstructionType(INSTRUCTION, DATA_PROCESSING_INSTRUCTIONS)) {
-        //TODO: ADD INSTRUCTION
+
+        result = assembleDataProcessing(argc, argv);
+
     } else if (isInstructionType(INSTRUCTION, MULTIPLY_INSTRUCTIONS)) {
+
         result = assembleMultiply(argc, argv);
+
     } else if (isInstructionType(INSTRUCTION, SINGLE_DATA_TRANSFER_INSTRUCTIONS)) {
+
         SDTinstr instruction = encodeSDT(argc, argv, numberOperations, (BYTE_VALUE * currentOperationNumber));
         result = instruction.instruction;
         if (instruction.hasExpr) {
-            remenants[++NUMBER_REMENANTS] = instruction.expression;
+            remenants[++NUMBER_REMENANTS] = bigToLittle(instruction.expression);
         }
-        //TODO: convert remenant into little
+
     } else if (isInstructionType(INSTRUCTION, BRANCH_INSTRUCTIONS)) {
+
         result = encodeBranch(argv, labels, currentOperationNumber);
+
     } else if (isInstructionType(INSTRUCTION, SPECIAL_INSTRUCTIONS)) {
+
         //TODO: ADD INSTRUCTION
+
     } else {
+
         //TODO: ERROR
+
     }
 
     printBits(bigToLittle(result));

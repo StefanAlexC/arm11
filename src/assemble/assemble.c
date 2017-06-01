@@ -63,7 +63,7 @@ Map *firstPass(char **commands, int* numberNonLabels) {
             *numberNonLabels += 1;
         }
     }
-    *numberNonLabels *= BYTE_VALUE;
+    *numberNonLabels *= BYTE_NUMBER;
     labels[numberLabels].value = END_OF_MAP;
 
     return realloc(labels, (numberLabels + 1) * sizeof(Map));
@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
         }
     }
 
-    for (uint32_t i = 1 ; i < remenants[0] ; i++) {
+    for (uint32_t i = 1 ; i <= remenants[0] ; i++) {
         printBits(remenants[i]);
     }
 

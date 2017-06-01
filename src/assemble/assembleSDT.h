@@ -26,10 +26,6 @@
 #define WORD_SIZE 4
 #define SEPS "[#r=-]"
 #define PC 15
-#define LSL 0
-#define LSR 1
-#define ASR 2
-#define ROR 3
 
 /**
  * Gets the instruction code for when a ldr must be interpreted as a mov
