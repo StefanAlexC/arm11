@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
         }
     }
 
-    for (uint32_t i = 1 ; i < remenants[0] ; i++) {
+    for (uint32_t i = 1 ; i <= remenants[0] ; i++) {
         printBits(remenants[i]);
     }
 

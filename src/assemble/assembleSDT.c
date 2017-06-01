@@ -1,6 +1,7 @@
 #include <ctype.h>
 #include "assembleSDT.h"
 #include "../emulate/decode/decode_utils.h"
+#include "../arm11_utils.h"
 
 uint32_t getMovCode(uint32_t rd, uint32_t value) {
     uint32_t instrCode;
@@ -121,6 +122,7 @@ uint32_t getOffsetForRegister(char *reg, uint32_t *up) {
 SDTinstr encodeSDT(int argc, char **argv, int *endAddress, int thisAddress) {
 
     SDTinstr instruction;
+    instruction.hasExpr = false;
     bool isMov = false;
     uint32_t i = 0, p = 1, u = 1, l = 0, instrCode = 0;
     uint32_t rn = 0, rd, offset = 0;
@@ -129,7 +131,7 @@ SDTinstr encodeSDT(int argc, char **argv, int *endAddress, int thisAddress) {
         l = 1;
     }
 
-    if( argc >=3 && lastElement(argv[3]) != ']') {
+    if(argc > 3 && lastElement(argv[2]) == ']') {
         p = 0;
     }
 
@@ -140,8 +142,8 @@ SDTinstr encodeSDT(int argc, char **argv, int *endAddress, int thisAddress) {
         if(firstElement(argv[2]) == '=') {
             uint32_t value = intFromStringHex(argv[2]);
             if(value < MAX_MOV_OPERAND) {
-                instrCode = getMovCode(rd, value);
                 isMov = true;
+                instrCode = getMovCode(rd, value);
             } else {
                 rn = PC;
                 offset = (uint32_t)(*endAddress - thisAddress - PIPELINE_OFFSET);
