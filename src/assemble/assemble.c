@@ -21,7 +21,7 @@ char **parse(char *string, int *numberOfElems) {
         //printf("%s\n",parsedString[arguments - 1]);
         token = strtok(NULL, SPLITTING_CHARACTERS);
     }
-    parsedString[arguments] = NULL;
+//    parsedString[arguments] = '\0';
 
     for (int i = arguments + 1; i < MAX_ARGUMENT_NUMBER; i++) {
         free(parsedString[i]);
@@ -53,7 +53,7 @@ char **readFile(char *fileName) {
         //printf("%s", commandLines[lines - 1]);
     }
 
-    commandLines[lines] = NULL;
+//    commandLines[lines] = NULL;
 
     for (int i = lines + 1; i < MAX_NUMBER_COMMANDS; i++) {
         free(commandLines[i]);
@@ -119,6 +119,9 @@ int main(int argc, char **argv) {
         freeStringMatrix(line, elems);
     }
 
+    free(labels);
+    freeStringMatrix(commands, currentOperationNumber);
+
     for (uint32_t i = 1 ; i <= remenants[0] ; i++) {
         //printBits(remenants[i]);
         printAsChar(remenants[i]);
@@ -126,8 +129,7 @@ int main(int argc, char **argv) {
 
     fclose(outputFile);
 
-    free(labels);
-    freeStringMatrix(commands, currentOperationNumber);
+
 
 
     return EXIT_SUCCESS;
