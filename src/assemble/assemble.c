@@ -100,6 +100,7 @@ int main(int argc, char **argv) {
             encode(numberArgumentsStringArray(line), line, labels, currentOperationNumber, &numberOperations, remenants);
             currentOperationNumber++;
         }
+        free(line);
     }
 
     for (uint32_t i = 1 ; i <= remenants[0] ; i++) {
@@ -108,6 +109,10 @@ int main(int argc, char **argv) {
     }
 
     fclose(outputFile);
+
+    free(labels);
+    free(commands);
+
 
     return EXIT_SUCCESS;
 }
