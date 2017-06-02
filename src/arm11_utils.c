@@ -1,6 +1,5 @@
 #include "arm11_utils.h"
 #include <stdlib.h>
-#include <ntsid.h>
 
 //TODO: remove only for testing
 
