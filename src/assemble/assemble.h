@@ -16,7 +16,7 @@
  * @param string The string the need to be parsed.
  * @return A pointer to the created Arrays of Strings
  */
-char** parse(char *string);
+char** parse(char *string, int *numberOfElems);
 
 /**
  * Reads line by line all the contents of a file.

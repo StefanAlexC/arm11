@@ -1,5 +1,6 @@
 #include "arm11_utils.h"
 #include <stdlib.h>
+#include <ntsid.h>
 
 //TODO: remove only for testing
 
@@ -61,7 +62,7 @@ char** allocateStringMatrix(int lines, int columns) {
     }
 
     for (int i = 0; i < lines; i++) {
-        matrix[i] = (char *) allocateArray(columns, CHAR_TYPE);
+        matrix[i] = allocateArray(columns, CHAR_TYPE);
     }
 
     return matrix;

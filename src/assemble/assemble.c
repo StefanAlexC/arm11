@@ -10,21 +10,24 @@ static FILE* outputFile;
 
 
 
-char **parse(char *string) {
+char **parse(char *string, int *numberOfElems) {
     char *token = strtok(string, SPLITTING_CHARACTERS);
     char **parsedString = allocateStringMatrix(MAX_ARGUMENT_NUMBER, MAX_ARGUMENT_SIZE);
     int arguments = 0;
 
     while (token != NULL) {
-        parsedString[arguments++] = token;
+//        parsedString[arguments++] = token;
+        strcpy(parsedString[arguments++], token);
         //printf("%s\n",parsedString[arguments - 1]);
         token = strtok(NULL, SPLITTING_CHARACTERS);
     }
     parsedString[arguments] = NULL;
 
     for (int i = arguments + 1; i < MAX_ARGUMENT_NUMBER; i++) {
-        free(parsedString[arguments]);
+        free(parsedString[i]);
     }
+
+    *numberOfElems = arguments + 1;
 
     return realloc(parsedString, (arguments + 1) * sizeof(char *));
 }
@@ -83,6 +86,17 @@ Map *firstPass(char **commands, int* numberNonLabels) {
     return realloc(labels, (numberLabels + 1) * sizeof(Map));
 }
 
+void freeStringMatrix(char** strMatrix, int rows) {
+    if (!strMatrix) {
+        return;
+    }
+
+    for (int i = 0; i < rows; i++) {
+        free(strMatrix[i]);
+    }
+    free(strMatrix);
+}
+
 int main(int argc, char **argv) {
     char **commands = readFile(INPUT_FILE_NAME);
     int numberOperations = 0;
@@ -94,13 +108,15 @@ int main(int argc, char **argv) {
 
     outputFile = freopen(OUTPUT_FILE_NAME, "w", stdout);
 
+    int elems = 0;
+
     for (int i = 0 ; commands[i] != NULL ; i++) {
-        line = parse(commands[i]);
+        line = parse(commands[i], &elems);
         if (!isLabel(INSTRUCTION_STRING)) {
             encode(numberArgumentsStringArray(line), line, labels, currentOperationNumber, &numberOperations, remenants);
             currentOperationNumber++;
         }
-        free(line);
+        freeStringMatrix(line, elems);
     }
 
     for (uint32_t i = 1 ; i <= remenants[0] ; i++) {
@@ -111,7 +127,7 @@ int main(int argc, char **argv) {
     fclose(outputFile);
 
     free(labels);
-    free(commands);
+    freeStringMatrix(commands, currentOperationNumber);
 
 
     return EXIT_SUCCESS;
