@@ -30,7 +30,7 @@ void encode(int argc, char **argv, Map *labels, int32_t currentOperationNumber, 
 
     } else if (isInstructionType(INSTRUCTION, MULTIPLY_INSTRUCTIONS)) {
 
-        result = assembleMultiply(argc, argv);
+        result = assembleMultiply(argv);
 
     } else if (isInstructionType(INSTRUCTION, SINGLE_DATA_TRANSFER_INSTRUCTIONS)) {
 
@@ -44,17 +44,13 @@ void encode(int argc, char **argv, Map *labels, int32_t currentOperationNumber, 
 
         result = bigToLittle(assembleDataProcessing(argc, argv));
 
-    } else if (isInstructionType(INSTRUCTION, SPECIAL_INSTRUCTIONS)) {
-
-        //TODO: ADD INSTRUCTION
-
     } else {
 
         //TODO: ERROR
 
     }
 
-    printBits(bigToLittle(result));
-    //printAsChar(bigToLittle(result));
+    //printBits(bigToLittle(result));
+    printAsChar(bigToLittle(result));
 }
 

@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include "assembleDP.h"
 #include "../emulate/execute/barrel_shifter.h"
-#include "../arm11_utils.h"
 
 struct {
     const char* mnemonic;
@@ -168,7 +167,7 @@ Shift processShift(char **operandString, int numberOfElements) {
     shift.type = getShiftTypeValue(shiftTypeStr);
     if (isConstant(shiftAmountString)) {
         shift.isRegister = false;
-        shift.shiftValue = (uint32_t) atoi(shiftAmountString + 1);
+        shift.shiftValue = (uint32_t) extractConstant(shiftAmountString);
         return shift;
     }
 
@@ -195,46 +194,11 @@ ExtractedOperand processOperand(char **operandString, int numberOfElements) {
     return operand;
 }
 
-void printStrArrContents(char **instrComponents, int numberOfComponents) {
-    for (int i = 0; i < numberOfComponents; i++) {
-        printf("%s  ", instrComponents[i]);
-    }
-    printf("\n");
-}
-
-
-char **getLSLProperFormat(char **instrComponents) {
-    static const uint32_t LSL_NUMBER_OF_COMPONENTS = 3;
-    static const uint32_t SIZE_OF_COMPONENT = 20;
-
-    char **newInstrComponents = (char **) malloc(sizeof(char *) * LSL_NUMBER_OF_COMPONENTS);
-
-    if (!newInstrComponents) {
-        perror("Cannot allocate memory!");
-        exit(EXIT_FAILURE);
-    }
-
-    newInstrComponents[0] = (char *) malloc(sizeof(char) * LSL_NUMBER_OF_COMPONENTS * SIZE_OF_COMPONENT);
-
-    if (!newInstrComponents[0]) {
-        free(newInstrComponents);
-        perror("Cannot allocate memory!");
-        exit(EXIT_FAILURE);
-    }
-
-    newInstrComponents[0] = instrComponents[1];
-    newInstrComponents[1] = instrComponents[0];
-    newInstrComponents[2] = instrComponents[2];
-
-    printStrArrContents(newInstrComponents, 3);
-
-    return newInstrComponents;
-}
-
 uint32_t processOpcode(uint32_t opcode) {
     if (opcode == LSLI) {
         return MOV;
     }
+    return opcode;
 }
 
 ExtractedInstruction extractInstruction(char **instrComponents, int numberOfComponents) {
@@ -248,16 +212,20 @@ ExtractedInstruction extractInstruction(char **instrComponents, int numberOfComp
     extr.opcode = getOpcodeValue(instrComponents[0]);
 
     if (setsFlags(extr.opcode) || isMoveInstruction(extr.opcode) || isLSLInstruction(extr.opcode)) {
-        uint32_t offset = restOffset;
         if (isLSLInstruction(extr.opcode)) {
             extr.opcode = processOpcode(extr.opcode);
-            instrComponents = getLSLProperFormat(instrComponents);
-            offset = 0;
+            char *newInstrComponents[20];
+            newInstrComponents[0] = instrComponents[1];
+            newInstrComponents[1] = instrComponents[0];
+            newInstrComponents[2] = instrComponents[2];
+            extr.operand = processOperand(newInstrComponents, numberOfComponents);
+        } else {
+            extr.operand = processOperand(instrComponents + restOffset, numberOfComponents - restOffset);
         }
-        extr.operand = processOperand(instrComponents + offset, numberOfComponents - offset);
     } else {
         extr.operand = processOperand(instrComponents + computeOffset, numberOfComponents - computeOffset);
     }
+
 
     extr.rn = extractRn(originalInstrComp, extr.opcode);
     extr.rd = extractRd(originalInstrComp, extr.opcode);
@@ -278,8 +246,6 @@ void getOperandMachineCode(instr *instruction, ExtractedOperand eop) {
     static const uint32_t BIT7 = 31;
     static const uint32_t SHIFT = 29;
     static const uint32_t RS = 16;
-
-    static const uint8_t INTEGER_SHIFT_SIZE = 5;
 
     if (eop.isConstant) {
         setBitsAtPosition(instruction, ROTATE, eop.immediate.rotateAmount);
@@ -339,18 +305,18 @@ instr assembleDataProcessing(int numberOfComponents, char **instrComponents) {
     return instruction;
 }
 
-/*int main(void) {
-////    printConstantOperand(processConstant(0xFF0000FF));
-////    printBits(constantSignificantBits(0x0003FC00));
-//    printConstantOperand(processConstant(4));
-
-//    printf("%i", getShiftTypeValue("ror"));
+//int main(void) {
+//////    printConstantOperand(processConstant(0xFF0000FF));
+//////    printBits(constantSignificantBits(0x0003FC00));
+////    printConstantOperand(processConstant(4));
 //
-    char* instrEl1[] = {"mov", "r1", "#4"};
-    char* instrEl2[] = {"mov", "r2", "#2"};
-    char* instrEl3[] = {"add", "r3", "r1", "r2"};
-    char* instrEl4[] = {"add", "r4", "r3", "#4"};
-    char* instrEl5[] = {"sub", "r5", "r4", "r3", "lsr", "r2"};
+////    printf("%i", getShiftTypeValue("ror"));
+////
+//    char* instrEl1[] = {"mov", "r1", "#4"};
+//    char* instrEl2[] = {"mov", "r2", "#2"};
+//    char* instrEl3[] = {"add", "r3", "r1", "r2"};
+//    char* instrEl4[] = {"add", "r4", "r3", "#4"};
+//    char* instrEl5[] = {"sub", "r5", "r4", "r3", "lsr", "r2"};
 //    extractInstruction(instrEl, 6);
 
 //    uint32_t i = 0;
@@ -360,13 +326,13 @@ instr assembleDataProcessing(int numberOfComponents, char **instrComponents) {
 //    printBits(i);
 
 ///////////////////////    opt_add05    /////////////////////
-    printBits(assembleDataProcessing(3, instrEl1));
-    printBits(assembleDataProcessing(3, instrEl2));
-    printBits(assembleDataProcessing(4, instrEl3));
-    printBits(assembleDataProcessing(4, instrEl4));
-    printBits(assembleDataProcessing(6, instrEl5));
-
-    printf("\n");
+//    printBits(assembleDataProcessing(3, instrEl1));
+//    printBits(assembleDataProcessing(3, instrEl2));
+//    printBits(assembleDataProcessing(4, instrEl3));
+//    printBits(assembleDataProcessing(4, instrEl4));
+//    printBits(assembleDataProcessing(6, instrEl5));
+//
+//    printf("\n");
 //
 ///////////////////////    or02    /////////////////////
 //    char* instrEl6[] = {"mov", "r1", "#0x0F"};
@@ -520,6 +486,9 @@ instr assembleDataProcessing(int numberOfComponents, char **instrComponents) {
 
 
 
-//    char* instrEl42[] = {"lsl", "r2", "#5"};
-//    printBits(assembleDataProcessing(instrEl42, 3));
-}*/
+//    char* instrEl42[] = {"lsl", "r1", "#1"};
+//    printBits(assembleDataProcessing(3, instrEl42));
+//
+//    char* instrEl43[] = {"lsl", "r1", "#0x1f"};
+//    printBits(assembleDataProcessing(3, instrEl43));
+//}

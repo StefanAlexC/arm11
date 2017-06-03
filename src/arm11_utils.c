@@ -1,6 +1,8 @@
 #include "arm11_utils.h"
 #include <stdlib.h>
 
+//TODO: remove only for testing
+
 uint32_t genMask(int start, int end) {
     uint32_t mask = 0;
     for (int i = 31; i >= start; --i) {
@@ -37,9 +39,9 @@ void printBits(uint32_t instruction) {
 void* allocateArray(int size, bool mode) {
     void *array;
     if (mode) {
-        array = malloc((size + 1) * sizeof(Map));
+        array = calloc((uint)(size + 1), sizeof(Map));
     } else {
-        array = malloc((size + 1) * sizeof(char));
+        array = calloc((uint)(size + 1), sizeof(char));
     }
 
     if (array == NULL) {
@@ -51,7 +53,7 @@ void* allocateArray(int size, bool mode) {
 }
 
 char** allocateStringMatrix(int lines, int columns) {
-    char **matrix = malloc(lines * sizeof(char *));
+    char **matrix = calloc((uint)lines, sizeof(char *));
 
     if (matrix == NULL) {
         perror("MALLOC-MATRIX");
@@ -59,7 +61,7 @@ char** allocateStringMatrix(int lines, int columns) {
     }
 
     for (int i = 0; i < lines; i++) {
-        matrix[i] = (char *) allocateArray(columns, CHAR_TYPE);
+        matrix[i] = allocateArray(columns, CHAR_TYPE);
     }
 
     return matrix;
@@ -82,13 +84,13 @@ int numberArgumentsInt32Array(int **array) {
 }
 
 void printAsChar(uint32_t number) {
-    char temp = (char) extractBit(number, THIRD_BYTE_END + 1, FOURTH_BYTE_END);
+    char temp = (char) extractBit(number, SECOND_BYTE_END + 1, FIRST_BYTE_END);
     printf("%c", temp);
-    temp = (char) extractBit(number, SECOND_BYTE_END + 1, THIRD_BYTE_END);
+    temp = (char) extractBit(number, THIRD_BYTE_END + 1, SECOND_BYTE_END);
     printf("%c", temp);
-    temp = (char) extractBit(number, FIRST_BYTE_END + 1, SECOND_BYTE_END);
+    temp = (char) extractBit(number, FOURTH_BYTE_END + 1, THIRD_BYTE_END);
     printf("%c", temp);
-    temp = (char) extractBit(number, 0 , FIRST_BYTE_END);
+    temp = (char) extractBit(number, 0 , FOURTH_BYTE_END);
     printf("%c", temp);
 }
 

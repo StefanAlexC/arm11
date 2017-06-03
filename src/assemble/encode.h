@@ -8,11 +8,10 @@
 #include "assemble.h"
 #include "../arm11_utils.h"
 
-#define DATA_PROCESSING_INSTRUCTIONS "and eor sub rsb add orr mov tst teq cmp"
+#define DATA_PROCESSING_INSTRUCTIONS "and eor sub rsb add orr mov tst teq cmp lsl andeq"
 #define MULTIPLY_INSTRUCTIONS "mul mla"
 #define SINGLE_DATA_TRANSFER_INSTRUCTIONS "ldr str"
 #define BRANCH_INSTRUCTIONS "beq bne bge blt bgt ble b"
-#define SPECIAL_INSTRUCTIONS "lsl andeq"
 #define INSTRUCTION argv[0]
 #define NUMBER_REMENANTS remenants[0]
 

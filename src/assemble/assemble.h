@@ -4,7 +4,8 @@
 
 #include "../arm11_utils.h"
 
-#define FILE_NAME argv[1]
+#define INPUT_FILE_NAME argv[1]
+#define OUTPUT_FILE_NAME argv[2]
 #define SPLITTING_CHARACTERS " ,\n"
 #define INSTRUCTION_STRING line[0]
 #define BYTE_VALUE 8
@@ -15,7 +16,7 @@
  * @param string The string the need to be parsed.
  * @return A pointer to the created Arrays of Strings
  */
-char** parse(char *string);
+char** parse(char *string, int *numberOfElems);
 
 /**
  * Reads line by line all the contents of a file.

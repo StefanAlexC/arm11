@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.6)
 project(arm11_37)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 11 -g)
 
 set(SOURCE_FILES_ASSEMBLE
         src/assemble/assemble.c

@@ -4,27 +4,68 @@
 
 \begin{document}
 
-\title{ARM Checkpoint... }
-\author{TODO}
+\title{ARM11 Emulate - Checkpoint }
+\author{Stefan Alexandru Cuturela, Ada Cristina Stoenica, David Buterez, Kevin Arness}
 
 \maketitle
 
 \section{Group Organisation}
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-culpa qui officia deserunt mollit anim id est laborum.
+The first step in succeeding to finish part one was being able to divide the work in such a way that
+everybody was working concurrently and not waiting for other peoples work. In that regard, we agreed that
+two people should work on the reading, writing and the virtual representation of the ARM11, one person should work
+on the decoding of the instruction, while the remaining team member worked separately on one of the instructions.
+If somebody finished their assignment before the others, he or she would start working on the remaining three instructions.
+So in terms of the four instruction categories, we ended implementing them as follow: David - Data Processing Instructions,
+Kevin -Multiplication Instructions, Cristina - Single Data Transfer Instructions, Stefan - Branch Instructions.
 
-\section{Implementation Strategies}
+\section{Putting the Plan into Action}
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-culpa qui officia deserunt mollit anim id est laborum.
+It has been a bit over one week since we started working on this project and we have made significant progress
+in the right direction. The initial breakdown of the tasks was suited to our strengths, and as such we’ve been able to come
+up with working prototypes in a relatively short amount of time. During this time we kept communicating, in order to make
+sure that the code that each person wrote could be used in conjunction with the rest. For the most part, we’ve been
+following the suggestion from the spec, with little tweaks in order to fit our solution.By Monday the 29th of May,
+We managed to complete and fully pass all the tests for part 1, quickly transition to the next challange.
+
+\section{Reading, Simulating the Pipeline and Branch Instructions}
+
+Stefan implemented the skeleton of the project, starting with the reading of the input files and converting them to the
+appropriate format, to creating the pipeline mimicking the ARM11 processor. Having previously worked on the pipeline, he
+then choose to implement the Branch Instructions, which are closely related to his previous task. The hardest challenge
+was dealing with the need to empty and refill the pipeline after each branch instructions.
+
+\section{ARM11 Memory and Single Data Transfer Instructions}
+
+Cristina was responsible for implementing core utilities of the ARM11 processor such as: fetching from memory, printing,
+error handling for invalid memory addressing and a word converter method from little to big endian form. Having previously
+worked on implementing the memory of the ARM11, she then created the functionality for the Single Data Transfer Instructions.
+They require methods for saving numbers to registers from memory or the other way around and shifting registers.
+
+\section{Decoding and Data Processing Instructions}
+
+David was tasked with the decoding of the instructions, and then the execution of the Data Processing Instructions. He implemented
+complex abstract structures that used inheritance in order to easily pass the instruction arguments to the operation processing
+component of our code. Many of the smaller helper functions and structures that were defined in this parts of the
+project we're also used in the assembler. More specifically, David reused functions to get and set bits of an integer
+value, as well as enums referring to the operation codes and shift types.
+
+\section{Multiply Instructions}
+
+Kevin worked on the implementation of the Multiply function of the ARM11 emulator. Implementing the function required
+matching the register variables to their respective indices, performing the actual multiplication of registers,
+storing the result and updating the contents of these registers. Kevin also implemented additional utility functions
+used throughout the emulator for generating various bit masks, and consequently selecting precise bits from numbers; these
+functions were also reused in the assembler and moved to a separate source file in order to safely be accessible for
+both parts of the project. Furthermore, he also implementedthe method that checks if the condition codes are satisfied
+by the contents of the CPSR register.
+
+\section{Moving Forward}
+
+Since we have already finished the emulator and assembler, we expect the third part to be easier than the first two.
+We plan to remain focused and continue working as a well-oiled machine. We have tried to maximise the amount of reused
+code, in order to minise the time spent coding; the most notable example would be the barrel shifter, that is extensively
+used in both the assembler and the emultaor.Even though we haven't completely decided what our the extension will be,
+we are currently debating between a number of quite interesting ideas.
 
 \end{document}
