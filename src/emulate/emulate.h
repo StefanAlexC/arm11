@@ -16,6 +16,15 @@
 #define BYTE_NUMBER 4
 #define FILE_NAME argv[1]
 
+#define ACC_PINS_0_9 538968064
+#define ACC_PINS_10_19 538968068
+#define ACC_PINS_20_29 538968072
+#define CLEAR_PINS 538968104
+#define SET_PINS 538968092
+
+
+
+
 //TODO: Remove "!!Tested!!" once done
 
 /**
@@ -24,6 +33,20 @@
  * @param arm11
  */
 void initialize(ARM11 *arm11);
+
+/**
+ * Determines if an address is a pin address
+ * @param address
+ * @return
+ */
+bool pinAccess(int address);
+
+/**
+ * Determines if an address is a pin address and prints an appropriate message
+ * @param address
+ * @return
+ */
+bool isPinAddress(int address);
 
 /**
  * Checks if an adress is valid

@@ -10,8 +10,40 @@ void initialize(ARM11 *arm11) {
     }
 }
 
+bool pinAccess(int address) {
+    if(address == ACC_PINS_0_9 || address == ACC_PINS_10_19 || address == ACC_PINS_20_29 || address == CLEAR_PINS || address == SET_PINS) {
+        return true;
+    }
+    return false;
+}
+
+bool isPinAddress(int address) {
+
+    if(address == ACC_PINS_0_9) {
+        printf("One GPIO pin from 0 to 9 has been accessed\n");
+        return true;
+    }
+    if(address == ACC_PINS_10_19) {
+        printf("One GPIO pin from 10 to 19 has been accessed\n");
+        return true;
+    }
+    if(address == ACC_PINS_20_29) {
+        printf("One GPIO pin from 20 to 29 has been accessed\n");
+        return true;
+    }
+    if(address == CLEAR_PINS) {
+        printf("PIN OFF\n");
+        return true;
+    }
+    if(address == SET_PINS) {
+        printf("PIN ON\n");
+        return true;
+    }
+    return false;
+}
+
 bool validMemoryAccess(int address) {
-    if(address > 65533) {
+    if(address > 65533 && !pinAccess(address)) {
         printf("Error: Out of bounds memory access at address 0x%08x\n", address);
         return false;
     }
@@ -22,6 +54,11 @@ uint32_t littleToBig(int address, ARM11 *arm11) {
     uint32_t value = 0;
     if(validMemoryAccess(address)) {
         int j;
+
+        if(isPinAddress(address)) {
+            return (uint32_t)address;
+        }
+
         for (j = BYTE_NUMBER - 1; j >= 0; j--) {
             value <<= BYTE_VALUE;
             value += arm11->memory[address + j];
@@ -34,6 +71,10 @@ uint32_t littleToBig(int address, ARM11 *arm11) {
 uint32_t getMemoryValue(int address, ARM11 *arm11) {
     uint32_t value = 0;
     if(validMemoryAccess(address)) {
+        if(isPinAddress(address)) {
+            return (uint32_t)address;
+        }
+
         int j;
         for (j = 0; j < BYTE_NUMBER; j++) {
             value <<= BYTE_VALUE;
@@ -41,6 +82,7 @@ uint32_t getMemoryValue(int address, ARM11 *arm11) {
         }
         return value;
     }
+    return 0;
 }
 
 void print(ARM11 *arm11) {
@@ -100,7 +142,6 @@ void readFile(char *fileName, ARM11 *arm11) {
 
 //TODO: check if it goes out of memory
 void fillPipeline(void **decoded, uint32_t *fetched, ARM11 *arm11) {
-
     *fetched = fetch(arm11);
     *decoded = decode(*fetched);
     *fetched = fetch(arm11);

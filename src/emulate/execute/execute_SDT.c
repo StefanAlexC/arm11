@@ -42,12 +42,14 @@ uint32_t getAddress(uint32_t up, uint32_t base, uint32_t offset) {
 
 //TODO: might need errorrs if address is not multiple of 4
 void fromMemory(uint32_t mem, uint32_t* reg, ARM11* arm11) {
-    *reg = littleToBig(mem, arm11);
+    if(validMemoryAccess(mem)) {
+        *reg = littleToBig(mem, arm11);
+    }
 }
 
 //TODO: check endaianess
 void toMemory(uint32_t address, uint32_t value, ARM11* arm11) {
-    if(validMemoryAccess(address)) {
+    if(validMemoryAccess(address) & !isPinAddress(address)) {
         int j;
         for (j = 0; j < BYTE_NUMBER; j++) {
             arm11->memory[address + j] = (uint8_t) value;
