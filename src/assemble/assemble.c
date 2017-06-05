@@ -21,6 +21,7 @@ char **parse(char *string, int *numberOfElems) {
         //printf("%s\n",parsedString[arguments - 1]);
         token = strtok(NULL, SPLITTING_CHARACTERS);
     }
+    //memory leak -use of NULL
     parsedString[arguments] = NULL;
 
     for (int i = arguments + 1; i < MAX_ARGUMENT_NUMBER; i++) {
@@ -52,7 +53,7 @@ char **readFile(char *fileName) {
         }
         //printf("%s", commandLines[lines - 1]);
     }
-
+    //memory leak - use of NULL
     commandLines[lines] = NULL;
 
     for (int i = lines + 1; i < MAX_NUMBER_COMMANDS; i++) {
