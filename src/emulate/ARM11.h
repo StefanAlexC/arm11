@@ -1,13 +1,10 @@
-//
-// Created by Stefan Alexandru Cuturela on 28/05/2017.
-//
-
 #ifndef ARM11_37_ARM11_H
 #define ARM11_37_ARM11_H
 
 #include <stdint.h>
 
 #define MEMORY_SIZE 65536
+#define VALID_MEMORY_SIZE 65533
 #define REGISTER_SIZE 17
 #define PC registers[15]
 #define CPSR registers[16]

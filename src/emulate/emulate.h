@@ -22,13 +22,7 @@
 #define CLEAR_PINS 538968104
 #define SET_PINS 538968092
 
-
-
-
-//TODO: Remove "!!Tested!!" once done
-
 /**
- * !!Tested!!
  * Initializes the memory and the registers of the given arm11 to 0
  * @param arm11
  */
@@ -89,13 +83,6 @@ void print(ARM11 *arm11);
  * @return The fetched 32 bit instruction in Big Endian format
  */
 uint32_t fetch(ARM11 *arm11);
-
-/**
- * !!Tested!!
- * Prints the binary value of a byte
- * @param The byte we wish to print
- */
-void printByte_inBinary(uint8_t byte);
 
 /**
  * !!Tested!!
