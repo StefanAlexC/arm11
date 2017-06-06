@@ -3,6 +3,8 @@ project(arm11_37)
 
 set(CMAKE_CXX_STANDARD 11 -g)
 
+set(CMAKE_C_FLAGS "-std=c11 -Wall -Werror -pedantic")
+
 set(SOURCE_FILES_ASSEMBLE
         src/assemble/assemble.c
         src/assemble/assemble.h

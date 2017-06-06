@@ -4,8 +4,8 @@
 
 #include "decode.h"
 
-static const uint32_t BRANCH_BITS = 0b10;
-static const uint32_t SDT_BITS = 0b01;
+static const uint32_t BRANCH_BITS = 2;
+static const uint32_t SDT_BITS = 1;
 
 bool isDataProcessingInstruction(instr instruction) {
     // check that bits 27-26 are 0
@@ -47,14 +47,14 @@ bool isHaltInstruction(instr instruction) {
     return instruction == 0;
 }
 
-void testInstr(instr instruction) {
-    printf("Data Processing Instr: %i ; Multiply: %i ; SDT: %i ; Branch: %i; Halt: %i",
-           isDataProcessingInstruction(instruction),
-           isMultiplyInstruction(instruction),
-           isSingleDataTransferInstruction(instruction),
-           isBranchInstruction(instruction),
-           isHaltInstruction(instruction));
-}
+//void testInstr(instr instruction) {
+//    printf("Data Processing Instr: %i ; Multiply: %i ; SDT: %i ; Branch: %i; Halt: %i",
+//           isDataProcessingInstruction(instruction),
+//           isMultiplyInstruction(instruction),
+//           isSingleDataTransferInstruction(instruction),
+//           isBranchInstruction(instruction),
+//           isHaltInstruction(instruction));
+//}
 
 InstrType getType(instr instruction) {
     if (instruction == 0) {
@@ -68,7 +68,8 @@ InstrType getType(instr instruction) {
     } else if (isBranchInstruction(instruction)) {
         return B;
     } else {
-        //TODO: MIGHT NEED TO ADD ERROR
+        perror("Unrecognised instruction!");
+        exit(EXIT_FAILURE);
     }
 }
 
