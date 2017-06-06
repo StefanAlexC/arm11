@@ -52,5 +52,6 @@ set(SOURCE_FILES_EMULATE
         src/arm11_utils.c
         src/arm11_utils.h)
 
+
 add_executable(assemble ${SOURCE_FILES_ASSEMBLE})
 add_executable(emulate ${SOURCE_FILES_EMULATE})
