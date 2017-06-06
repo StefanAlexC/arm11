@@ -20,6 +20,7 @@ char **parse(char *string, int *numberOfElems) {
         token = strtok(NULL, SPLITTING_CHARACTERS);
     }
 
+    free(parsedString[arguments]);
     parsedString[arguments] = NULL;
 
     for (int i = arguments + 1; i < MAX_ARGUMENT_NUMBER; i++) {
@@ -52,6 +53,7 @@ char **readFile(char *fileName) {
 
     }
 
+    free(commandLines[lines]);
     commandLines[lines] = NULL;
 
     for (int i = lines + 1; i < MAX_NUMBER_COMMANDS; i++) {

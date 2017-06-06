@@ -39,9 +39,9 @@ void printBits(uint32_t instruction) {
 void* allocateArray(int size, bool mode) {
     void *array;
     if (mode) {
-        array = calloc((uint)(size + 1), sizeof(Map));
+        array = calloc((uint32_t)(size + 1), sizeof(Map));
     } else {
-        array = calloc((uint)(size + 1), sizeof(char));
+        array = calloc((uint32_t)(size + 1), sizeof(char));
     }
 
     if (array == NULL) {
@@ -53,7 +53,7 @@ void* allocateArray(int size, bool mode) {
 }
 
 char** allocateStringMatrix(int lines, int columns) {
-    char **matrix = calloc((uint)lines, sizeof(char *));
+    char **matrix = calloc((uint32_t)lines, sizeof(char *));
 
     if (matrix == NULL) {
         perror("MALLOC-MATRIX");
