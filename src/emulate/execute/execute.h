@@ -8,7 +8,7 @@
 #include "execute_mul.h"
 #include "execute_sdt.h"
 #include "execute_dp.h"
-#include "branch_instruction.h"
+#include "execute_b.h"
 
 #define CPSR_SIGNIFICANT_BITS (arm11->registers[16] >> 28)
 
