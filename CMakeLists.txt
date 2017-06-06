@@ -37,8 +37,8 @@ set(SOURCE_FILES_EMULATE
         src/emulate/decode/masks.h
         src/emulate/execute/barrel_shifter.c
         src/emulate/execute/barrel_shifter.h
-        src/emulate/execute/branch_instruction.c
-        src/emulate/execute/branch_instruction.h
+        src/emulate/execute/execute_b.c
+        src/emulate/execute/execute_b.h
         src/emulate/execute/execute.c
         src/emulate/execute/execute.h
         src/emulate/execute/execute_dp.c
