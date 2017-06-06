@@ -31,6 +31,8 @@ uint32_t getLabelAddress(char *searchedLabel, Map* labels) {
             return (uint32_t) labels[i].value;
         }
     }
+    perror("Invalid Branch Label");
+    exit(EXIT_FAILURE);
 }
 
 uint32_t twosComplement24bit(int32_t number) {
