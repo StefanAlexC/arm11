@@ -68,13 +68,12 @@ bool isConditionSatisfied(Cond condition, ARM11 *arm11) {
         }
         case AL:
         {
-            return (true);
+            return true;
         }
         default:
         {
-            //TODO: Add exception is provided with invalid Condition code
-            printf("Exception: Invalid Condition Code");
-            return (false);
+            perror("Invalid Condition Code");
+            exit(EXIT_FAILURE);
         }
     }
 }
