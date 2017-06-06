@@ -45,8 +45,8 @@ set(SOURCE_FILES_EMULATE
         src/emulate/execute/execute_dp.h
         src/emulate/execute/execute_mul.c
         src/emulate/execute/execute_mul.h
-        src/emulate/execute/execute_SDT.c
-        src/emulate/execute/execute_SDT.h
+        src/emulate/execute/execute_sdt.c
+        src/emulate/execute/execute_sdt.h
         src/emulate/execute/execute_utils.c
         src/emulate/execute/execute_utils.h
         src/arm11_utils.c

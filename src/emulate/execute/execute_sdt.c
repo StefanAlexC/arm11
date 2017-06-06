@@ -1,4 +1,4 @@
-#include "execute_SDT.h"
+#include "execute_sdt.h"
 #include "../../arm11_utils.h"
 
 uint32_t shiftRegister(uint32_t offset, ARM11* arm11) {
@@ -47,7 +47,6 @@ void fromMemory(uint32_t mem, uint32_t* reg, ARM11* arm11) {
     }
 }
 
-//TODO: check endaianess
 void toMemory(uint32_t address, uint32_t value, ARM11* arm11) {
     if(validMemoryAccess(address) & !isPinAddress(address)) {
         int j;
@@ -79,7 +78,6 @@ void dataTransfer(SingleDataTransferInstruction instruction, ARM11* arm11) {
     }
 
     if(instruction.prePost == 0) {
-        //TODO: Check
         if (instruction.up == 1) {
             *baseReg += offset;
         } else {

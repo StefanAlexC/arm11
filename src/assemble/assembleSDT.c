@@ -56,7 +56,7 @@ uint32_t intFromString (char value[]) {
         i++;
     }
     while (isdigit(value[i])) {
-        res *= 10;
+        res *= BASE;
         res += value[i] - '0';
         i++;
     }

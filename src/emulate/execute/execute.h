@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include "execute_mul.h"
-#include "execute_SDT.h"
+#include "execute_sdt.h"
 #include "execute_dp.h"
 #include "execute_b.h"
 
